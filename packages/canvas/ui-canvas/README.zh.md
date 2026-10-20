@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-`show_ui` 参数流式到达时，完整的组件逐个出现；调用成功后最终组件留在回复下方。`canvas_board` 调用显示一张卡片，报告正在生成的章节，并在发布后打开看板。右侧栏的看板标签页从 Session 历史读取所有版本，新版本到达时自动更新，支持幻灯片翻页、全屏演示，并可导出单个离线 HTML 文件。
+`show_ui` 参数流式到达时，完整的组件逐个出现；调用记录后，组件留在回复中模型调用它的位置，不会被收进折叠的工作步骤。`canvas_board` 调用显示一张卡片，报告正在生成的章节，发布后打开看板，并在回复中留下看板卡片。来源列表收起为一行发布方标签。右侧栏的看板标签页从 Session 历史读取所有版本，新版本到达时自动更新，支持幻灯片翻页、全屏演示，并可导出单个离线 HTML 文件。
 
 ## 目录
 
@@ -42,7 +42,7 @@ kind: "package-reference"
 <details>
 <summary>实现细节——点击展开</summary>
 
-[`src/client/index.ts`](src/client/index.ts) 注册 `show_ui` 与 `canvas_board` 工具视图、由 `tool/call` 与 `canvas/board` 事件折叠出的隐藏 `canvas-visual` Chat 节点（用于回复末尾）、`canvas-board` 资源和工作区标签页。[`board-resource.ts`](src/client/board-resource.ts) 先分页读取一次历史，再跟随新事件。组件在 [`Blocks.tsx`](src/client/Blocks.tsx) 与 [`Chart.tsx`](src/client/Chart.tsx) 中渲染。[`HtmlFrame.tsx`](src/client/HtmlFrame.tsx) 在 `sandbox="allow-scripts"` 的 iframe 中运行 HTML 组件，阻断网络请求，并且只接受来自自身窗口的 `deepcanvas.bridge/1` 消息。
+[`src/client/index.ts`](src/client/index.ts) 注册 `show_ui` 与 `canvas_board` 工具视图、由 `tool/call` 与 `canvas/board` 事件折叠出、位于 Turn 层级的 `canvas-visual` Chat 节点（由 [`VisualNode.tsx`](src/client/VisualNode.tsx) 渲染，已完成的 Turn 不会把可视化收进工作步骤）、`canvas-board` 资源和工作区标签页。[`board-resource.ts`](src/client/board-resource.ts) 先分页读取一次历史，再跟随新事件。组件在 [`Blocks.tsx`](src/client/Blocks.tsx) 与 [`Chart.tsx`](src/client/Chart.tsx) 中渲染。[`HtmlFrame.tsx`](src/client/HtmlFrame.tsx) 在 `sandbox="allow-scripts"` 的 iframe 中运行 HTML 组件，阻断网络请求，并且只接受来自自身窗口的 `deepcanvas.bridge/1` 消息。
 
 </details>
 

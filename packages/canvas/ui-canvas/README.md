@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-While `show_ui` arguments stream, complete components appear one by one; after the call succeeds the final components stay under the reply. A `canvas_board` call shows a card that reports the section being built and opens the board when it is published. The right Sidebar board tab reads every version from Session history, updates when a new version arrives, pages slides, presents full screen, and exports one offline HTML file.
+While `show_ui` arguments stream, complete components appear one by one; once the call is logged the components stay in the reply where the model made the call, outside the folded work steps. A `canvas_board` call shows a card that reports the section being built, opens the board when it is published, and leaves a board card in the reply. Source lists collapse to a row of publisher chips. The right Sidebar board tab reads every version from Session history, updates when a new version arrives, pages slides, presents full screen, and exports one offline HTML file.
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ In a board, change the version in the toolbar, choose **Present** for full scree
 <details>
 <summary>Implementation details — click to expand</summary>
 
-[`src/client/index.ts`](src/client/index.ts) registers the `show_ui` and `canvas_board` tool views, a hidden `canvas-visual` Chat node folded from `tool/call` and `canvas/board` events for the Turn tail, the `canvas-board` resource, and the workspace tab. [`board-resource.ts`](src/client/board-resource.ts) pages history once, then follows new events. Components render in [`Blocks.tsx`](src/client/Blocks.tsx) and [`Chart.tsx`](src/client/Chart.tsx). [`HtmlFrame.tsx`](src/client/HtmlFrame.tsx) runs html blocks in `sandbox="allow-scripts"` frames with a network-blocking policy and accepts `deepcanvas.bridge/1` messages only from its own frame window.
+[`src/client/index.ts`](src/client/index.ts) registers the `show_ui` and `canvas_board` tool views, a Turn-level `canvas-visual` Chat node folded from `tool/call` and `canvas/board` events and rendered by [`VisualNode.tsx`](src/client/VisualNode.tsx), so completed Turns never fold visuals into the work steps, the `canvas-board` resource, and the workspace tab. [`board-resource.ts`](src/client/board-resource.ts) pages history once, then follows new events. Components render in [`Blocks.tsx`](src/client/Blocks.tsx) and [`Chart.tsx`](src/client/Chart.tsx). [`HtmlFrame.tsx`](src/client/HtmlFrame.tsx) runs html blocks in `sandbox="allow-scripts"` frames with a network-blocking policy and accepts `deepcanvas.bridge/1` messages only from its own frame window.
 
 </details>
 

@@ -3,10 +3,18 @@
 /** When to answer in text, inline components, or a board. */
 export const PRESENTATION_GUIDANCE = `# Presenting results
 
-Choose the form that makes the answer easiest to understand and use:
-- Plain text for simple facts, short explanations, conversation, and anything a few sentences answer well. Do not add visuals that only decorate.
-- show_ui for structured information inside the conversation: comparisons (table or cards), numbers (stats, chart, meters), sequences (timeline, steps), trade-offs (proscons), or a what-if calculator. Keep a short text lead-in and let the components carry the structure.
-- canvas_board for complete work products such as research reports, market or competitor analyses, plans, and multi-dimensional evaluations. Use layout "report" for scrolling reports and "slides" when the user wants a presentation. After publishing, reply with two or three sentences: the key conclusion and what the board contains. To revise a board, call canvas_board again with its board_id; earlier versions stay available to the user.
+The reader should understand the answer at a glance. Show, then tell: structure and numbers go into components, and text only connects them.
+
+Choose the form:
+- Plain text only for conversation, clarifying questions, and answers of one or two sentences.
+- show_ui for every other answer that has structure: several points, options, steps, numbers, a comparison, a trade-off, a process, or a what-if. Write one short sentence, call show_ui, then close with at most two sentences. A reply may call show_ui more than once, each call where its content belongs.
+- canvas_board for complete work products such as research reports, market or competitor analyses, plans, and multi-dimensional evaluations. Use layout "report" for scrolling reports and "slides" when the user wants a presentation. After publishing, reply with one or two sentences and, when it helps, a show_ui call with the three to four headline stats. To revise a board, call canvas_board again with its board_id; earlier versions stay available to the user.
+
+Compose visually:
+- Numbers become stats, chart, or meters; options and findings become cards; comparisons become a table or meters; sequences become timeline or steps; trade-offs become proscons; the conclusion becomes a callout.
+- Use markdown blocks sparingly: at most two short sentences each, never a bullet list that cards, steps, or a table could show.
+- Give every board section at least one non-text component and lead with it. Open a board with a stats section of the headline numbers. A slide carries one idea: a component plus at most three short bullets.
+- Keep each text field short: card text and notes under 40 words, titles under 10 words.
 
 Evidence rules for every component:
 - Put numbers in charts, stats, and tables only when they come from a cited source or from a calculation you state. Never invent data to fill a chart; when reliable data is missing, say so in a callout instead.

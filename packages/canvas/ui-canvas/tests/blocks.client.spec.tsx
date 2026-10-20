@@ -5,6 +5,7 @@ import { cleanup, fireEvent, render, screen, within } from '@testing-library/rea
 import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
 import type { CanvasBlock, CanvasSource } from '@deepseek-ai/dsh-canvas-spec'
 import { BlockList, PendingBlock, SourceList, pageLocale } from '../src/client/Blocks.tsx'
+import { sourceHost } from '../src/client/source-host.ts'
 import { CanvasProvider, formatNumber, moduleClass, openExternal, sourceMap, useCanvas, type CanvasEnvironment, type Translate } from '../src/client/context.tsx'
 import { zh } from '../src/client/locales.ts'
 
@@ -230,9 +231,17 @@ describe('sources and actions', () => {
     expect(screen.getByRole('button', { name: /Dig in/ }).hasAttribute('disabled')).toBe(true)
   })
 
-  it('titles a source list from its block', () => {
-    render(<CanvasProvider value={environment()}><SourceList title="Refs" items={[SOURCES[1] as CanvasSource]} /></CanvasProvider>)
+  it('titles a source list from its block and summarizes it as publisher chips', () => {
+    render(<CanvasProvider value={environment()}><SourceList title="Refs" items={[SOURCES[1] as CanvasSource, SOURCES[0] as CanvasSource]} /></CanvasProvider>)
     expect(screen.getByText('Refs')).toBeTruthy()
+    expect(screen.getByText('2', { selector: 'span' })).toBeTruthy()
+    expect(screen.getByText('2 example.com')).toBeTruthy()
+    expect(screen.getByText('1 Lab')).toBeTruthy()
+  })
+
+  it('labels a source by host, falling back to the raw URL', () => {
+    expect(sourceHost('https://www.gsmarena.com/x')).toBe('gsmarena.com')
+    expect(sourceHost('not a url')).toBe('not a url')
   })
 })
 
@@ -268,10 +277,9 @@ describe('helpers', () => {
     expect(() => render(<Probe />)).toThrow('outside CanvasProvider')
   })
 
-  it('renders streaming placeholders and invalid notices', () => {
-    render(<CanvasProvider value={environment()}><PendingBlock /><PendingBlock invalid /></CanvasProvider>)
+  it('renders streaming placeholders', () => {
+    render(<CanvasProvider value={environment()}><PendingBlock /></CanvasProvider>)
     expect(screen.getByRole('status', { name: '正在生成…' })).toBeTruthy()
-    expect(screen.getByText('此组件无法显示')).toBeTruthy()
   })
 
   it('animates blocks only when the environment allows it', () => {

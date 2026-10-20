@@ -48,9 +48,6 @@
     "watch": "tsdown --watch"
   },
   "license": "MIT",
-  "dependencies": {
-    "@deepseek-ai/dsh-canvas-spec": "workspace:*"
-  },
   "peerDependencies": {
     "@deepseek-ai/cordis": "workspace:~"
   },
@@ -58,6 +55,7 @@
     "@deepseek-ai/cordis": "workspace:~",
     "@deepseek-ai/dsh-api-remotes": "workspace:*",
     "@deepseek-ai/dsh-api-session-controller": "workspace:*",
+    "@deepseek-ai/dsh-canvas-spec": "workspace:*",
     "@deepseek-ai/dsh-client-locale": "workspace:*",
     "@deepseek-ai/dsh-client-resources": "workspace:*",
     "@deepseek-ai/dsh-client-store": "workspace:*",

@@ -32,6 +32,7 @@ export const inject = ['tools', 'sessionProjections', 'systemPrompt']
 
 /** Validation size limits; each bound applies to one description. */
 export interface Config {
+  /** Size bounds applied when validating show_ui and canvas_board arguments. */
   limits: CanvasLimits
 }
 

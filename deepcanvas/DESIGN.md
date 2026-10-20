@@ -27,8 +27,8 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 
 模型按问题选择形式：
 
-- 简单问题：直接文字回答，不调用任何可视化工具。
-- 比较、流程、数据、步骤类信息：调用 `show_ui`，在对话中内联显示组件。
+- 闲聊、澄清和一两句话能答完的问题：直接文字回答。
+- 其他有结构的回答（多个要点、方案、步骤、数字、比较、取舍）：调用 `show_ui`，组件显示在回复中调用它的位置；文字只作一句引入和简短收尾。
 - 调研、分析、规划等完整成果：调用 `canvas_board`，在右侧工作区生成任务看板（可滚动报告或幻灯片），并在对话中留一张入口卡片。
 
 ### 工具
@@ -89,4 +89,6 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 
 - `packages/util/values`：新增 `parseJsonPrefix()` 与 `PartialArguments.partialValue()`，用于在工具参数流式到达时逐个渲染组件。
 - `packages/client/tsdown.client.ts`：`INLINE_SAFE` 加入 `dsh-canvas-spec`，允许客户端包内联这一纯数据词汇库。
+- `show_ui` 组件与已发布看板卡片作为 `groupTree: 'turn'` 的 Chat 节点渲染，回合结束后不会被收进“已完成”的工作步骤；这使用上游已有的分组位置，不修改上游代码。
+- DeepCanvas 叠加层关闭 `ui-agent-preset`（模式切换与 Agent 预设设置）、`ui-settings-plugins` 及其配置页、`ui-deepseek-model-label-1017`；保留 DeepSeek 账号登录。
 - DeepCanvas 叠加层通过已有配置项关闭 `includeHarnessIdentity`，由 persona 说明产品身份，不修改上游代码。

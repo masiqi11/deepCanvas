@@ -1,8 +1,8 @@
 /**
- * Canvas plugin, browser half: renders `show_ui` calls inline in the
- * conversation, shows a building card for `canvas_board` calls, and opens
- * published boards in a right-Sidebar workspace tab that reads every version
- * from Session history.
+ * Canvas plugin, browser half: renders `show_ui` calls inline in the reply,
+ * shows a building card for `canvas_board` calls and a board card once
+ * published, and opens published boards in a right-Sidebar workspace tab that
+ * reads every version from Session history.
  */
 import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-api-remotes/client'
@@ -20,7 +20,7 @@ import { BoardTab, BoardTitle, type BoardTabInjected } from './BoardView.tsx'
 import { en, NS, zh, type CanvasKey } from './locales.ts'
 import { BoardCardView, InlineCanvasView, type CanvasViewInjected } from './ToolViews.tsx'
 import { canvasDefinition } from './canvas-definition.ts'
-import { CanvasTail, type CanvasTailInjected } from './Tail.tsx'
+import { CanvasVisualNode } from './VisualNode.tsx'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
@@ -36,7 +36,7 @@ const TAB_ID = '@deepseek-ai/dsh-client-ui-canvas'
 export const inject = ['slots', 'locale', 'remote', 'remote.session', 'sessions', 'uiConversation', 'resources', 'sidebarRight', 'sidebarRightTabs']
 
 /**
- * Register the dictionaries, both tool views, the board resource, and the workspace tab.
+ * Register the dictionaries, both tool views, the reply-flow node, the board resource, and the workspace tab.
  * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
@@ -90,24 +90,9 @@ export function apply(ctx: ClientContext): void {
     yield ctx.slots.register({ name: 'tool.call.toolview', key: 'canvas_board', locale: NS, inject: viewInject }, BoardCardView)
   })
   ctx.effect(() => ctx.uiConversation.events.register(canvasDefinition), 'ui-canvas: conversation definition')
-  ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register({
-    name: 'conversation.chat.turnTail', id: TAB_ID, locale: NS,
-    inject: (sessionId: SessionId): CanvasTailInjected => {
-      const binding = ctx.sessions.binding(sessionId)
-      if (binding === undefined) throw new Error(`ui-canvas: unknown session "${sessionId}"`)
-      const chat = ctx.uiConversation.binding(binding).target('chat')
-      return {
-        ...viewInject(sessionId),
-        keyedHooks: {
-          visuals: (turn) => {
-            const snapshot = chat.getSnapshot()
-            if (snapshot === undefined) throw new Error('ui-canvas: Chat target is unavailable')
-            return snapshot.nodes.turnDataSource(Number(turn), 'canvas-visual')
-          },
-        },
-      }
-    },
-  }, CanvasTail))
+  ctx.slots.inject('conversation.chat.node', () => ctx.slots.register({
+    name: 'conversation.chat.node', key: 'canvas-visual', locale: NS, inject: viewInject,
+  }, CanvasVisualNode))
   ctx.slots.inject('sidebar.right.pane.tab', () => ctx.slots.register({
     name: 'sidebar.right.pane.tab', key: TAB_ID, locale: NS,
     inject: (): BoardTabInjected => ({ sendPrompt, draftPrompt, markdownLabels: markdownLabels() }),

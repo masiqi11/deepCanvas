@@ -9,6 +9,7 @@ import {
 import { Chart } from './Chart.tsx'
 import { formatNumber, moduleClass, openExternal, useCanvas } from './context.tsx'
 import { HtmlFrame } from './HtmlFrame.tsx'
+import { sourceHost } from './source-host.ts'
 import css from './Canvas.module.css'
 
 /**
@@ -429,19 +430,29 @@ function Calculator({ block }: { block: CalculatorBlock }) {
 }
 
 /**
- * Numbered source list with links, dates, and supporting excerpts.
+ * Numbered source list, collapsed to one row of publisher chips; opening it
+ * shows links, dates, and supporting excerpts.
  * @param props - optional heading and the sources.
- * @returns the list element.
+ * @returns the disclosure element.
  */
 export function SourceList({ title, items }: { title?: string | undefined; items: readonly CanvasSource[] }) {
   const { t, sources } = useCanvas()
   const order = [...sources.keys()]
+  const number = (id: string): number | undefined => order.includes(id) ? order.indexOf(id) + 1 : undefined
   return (
-    <section className={css.sources}>
-      <h4>{title ?? t('sources.title')}</h4>
+    <details className={css.sources}>
+      <summary>
+        <span className={css.sourcesTitle}>{title ?? t('sources.title')}</span>
+        <span className={css.sourceCount}>{items.length}</span>
+        <span className={css.sourceChips}>
+          {items.map(source => (
+            <span key={source.id} className={css.sourceChip}>{number(source.id)} {source.publisher ?? sourceHost(source.url)}</span>
+          ))}
+        </span>
+      </summary>
       <ol>
         {items.map(source => (
-          <li key={source.id} value={order.includes(source.id) ? order.indexOf(source.id) + 1 : undefined}>
+          <li key={source.id} value={number(source.id)}>
             <a href={source.url} target="_blank" rel="noopener noreferrer" onClick={(event) => { event.preventDefault(); openExternal(source.url) }}>{source.title}</a>
             <span className={css.sourceMeta}>
               {[source.publisher, source.published === undefined ? undefined : t('sources.published', { date: source.published }),
@@ -451,7 +462,7 @@ export function SourceList({ title, items }: { title?: string | undefined; items
           </li>
         ))}
       </ol>
-    </section>
+    </details>
   )
 }
 
@@ -471,13 +482,10 @@ function Actions({ block }: { block: ActionsBlock }) {
 }
 
 /**
- * Placeholder for a block still streaming or one that failed validation.
- * @param props - whether the block is still arriving.
- * @returns a skeleton or an inline notice.
+ * Placeholder for a block still streaming.
+ * @returns a skeleton.
  */
-export function PendingBlock({ invalid = false }: { invalid?: boolean }): ReactNode {
+export function PendingBlock(): ReactNode {
   const { t } = useCanvas()
-  return invalid
-    ? <p className={css.muted}>{t('block.invalid')}</p>
-    : <div className={css.skeleton} role="status" aria-label={t('block.pending')}><span /><span /><span /></div>
+  return <div className={css.skeleton} role="status" aria-label={t('block.pending')}><span /><span /><span /></div>
 }

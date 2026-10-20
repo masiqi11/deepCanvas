@@ -6,9 +6,9 @@ export const NS = 'canvas'
 /** Every key this plugin renders. */
 export type CanvasKey =
   | 'inline.preparing' | 'inline.invalid' | 'inline.invalidHint' | 'inline.stopped' | 'inline.shown'
-  | 'block.pending' | 'block.invalid'
+  | 'block.pending'
   | 'board.card.preparing' | 'board.card.progress' | 'board.card.ready' | 'board.card.failed' | 'board.card.open'
-  | 'board.card.sections' | 'board.card.slides'
+  | 'board.card.sections' | 'board.card.slides' | 'board.card.published'
   | 'board.loading' | 'board.failed' | 'board.notFound'
   | 'board.version' | 'board.versionLatest' | 'board.export' | 'board.present' | 'board.exitPresent'
   | 'board.contents' | 'board.sources' | 'board.previous' | 'board.next' | 'board.slideCounter' | 'board.title'
@@ -31,7 +31,6 @@ export const zh: Record<CanvasKey, string> = {
   'inline.stopped': '可视化未完成',
   'inline.shown': '已展示 {count} 个组件',
   'block.pending': '正在生成…',
-  'block.invalid': '此组件无法显示',
   'board.card.preparing': '正在生成看板…',
   'board.card.progress': '正在生成：{section}',
   'board.card.ready': '版本 {version}',
@@ -39,6 +38,7 @@ export const zh: Record<CanvasKey, string> = {
   'board.card.open': '打开看板',
   'board.card.sections': '{count} 个章节',
   'board.card.slides': '{count} 页幻灯片',
+  'board.card.published': '已发布看板「{title}」版本 {version}',
   'board.loading': '正在加载看板…',
   'board.failed': '看板加载失败。',
   'board.notFound': '在当前任务中找不到这个看板。',
@@ -94,7 +94,6 @@ export const en: Record<CanvasKey, string> = {
   'inline.stopped': 'Visuals were not completed',
   'inline.shown': 'Showed {count} component(s)',
   'block.pending': 'Building…',
-  'block.invalid': 'This component cannot be shown',
   'board.card.preparing': 'Building the board…',
   'board.card.progress': 'Building: {section}',
   'board.card.ready': 'Version {version}',
@@ -102,6 +101,7 @@ export const en: Record<CanvasKey, string> = {
   'board.card.open': 'Open board',
   'board.card.sections': '{count} sections',
   'board.card.slides': '{count} slides',
+  'board.card.published': 'Published board "{title}" version {version}',
   'board.loading': 'Loading the board…',
   'board.failed': 'The board could not be loaded.',
   'board.notFound': 'This board is not in the current task.',

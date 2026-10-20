@@ -3752,6 +3752,24 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@deepseek-ai/dsh-tool-bash-persistent -->
 
+<!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-tool-canvas -->
+<a id="deepseek-aidsh-tool-canvas"></a>
+
+## `@deepseek-ai/dsh-tool-canvas`
+
+- `inject`: `tools` · `sessionProjections` · `systemPrompt`
+- `refs`: [`CanvasLimits`](../packages/canvas/canvas-spec/src/index.ts)
+- `source`: [`packages/canvas/tool-canvas/src/index.ts:34`](../packages/canvas/tool-canvas/src/index.ts)
+
+```ts config-catalog
+/** Validation size limits; each bound applies to one description. */
+export interface Config {
+  /** Size bounds applied when validating show_ui and canvas_board arguments. */
+  limits: CanvasLimits
+}
+```
+<!-- END GENERATED config-catalog:@deepseek-ai/dsh-tool-canvas -->
+
 <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-tool-fs -->
 <a id="deepseek-aidsh-tool-fs"></a>
 
@@ -4355,6 +4373,8 @@ export interface Config {
    * Absent or YAML `null` advertises the bind-address URL.
    */
   publicUrl?: string
+  /** Product name prefixing the console URL, readiness, and browser-handoff lines. */
+  consoleLabel: string
 }
 ```
 <!-- END GENERATED config-catalog:@deepseek-ai/dsh-web-app -->
@@ -4604,7 +4624,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@deepseek-ai/dsh-client-ui-agent-preset` | — | [`packages/client/ui-agent-preset/src/index.ts`](../packages/client/ui-agent-preset/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-approval` | — | [`packages/client/ui-approval/src/index.ts`](../packages/client/ui-approval/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-attachment` | — | [`packages/client/ui-attachment/src/index.ts`](../packages/client/ui-attachment/src/index.ts) |
+| `@deepseek-ai/dsh-client-ui-brand-deepcanvas` | — | [`packages/canvas/ui-brand-deepcanvas/src/index.ts`](../packages/canvas/ui-brand-deepcanvas/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-brand-official` | — | [`packages/client/ui-brand-official/src/index.ts`](../packages/client/ui-brand-official/src/index.ts) |
+| `@deepseek-ai/dsh-client-ui-canvas` | — | [`packages/canvas/ui-canvas/src/index.ts`](../packages/canvas/ui-canvas/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-chat` | — | [`packages/client/ui-chat/src/index.ts`](../packages/client/ui-chat/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-commands` | — | [`packages/client/ui-commands/src/index.ts`](../packages/client/ui-commands/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-conversation` | — | [`packages/client/ui-conversation/src/index.ts`](../packages/client/ui-conversation/src/index.ts) |
@@ -4737,6 +4759,7 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@deepseek-ai/dsh-atomic-write` | — | [`packages/util/atomic-write/src/index.ts`](../packages/util/atomic-write/src/index.ts) |
 | `@deepseek-ai/dsh-base` | — | [`packages/bundle/base/src/index.ts`](../packages/bundle/base/src/index.ts) |
 | `@deepseek-ai/dsh-brand` | — | [`packages/util/brand/src/index.ts`](../packages/util/brand/src/index.ts) |
+| `@deepseek-ai/dsh-canvas-spec` | — | [`packages/canvas/canvas-spec/src/index.ts`](../packages/canvas/canvas-spec/src/index.ts) |
 | `@deepseek-ai/dsh-chunked-list` | — | [`packages/util/chunked-list/src/index.ts`](../packages/util/chunked-list/src/index.ts) |
 | `@deepseek-ai/dsh-client-store` | — | [`packages/client/store/src/index.ts`](../packages/client/store/src/index.ts) |
 | `@deepseek-ai/dsh-client-test-runtime` | — | [`packages/test-support/client-runtime/src/index.ts`](../packages/test-support/client-runtime/src/index.ts) |
@@ -4746,6 +4769,7 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@deepseek-ai/dsh-client-web` | — | [`packages/client/web/src/index.ts`](../packages/client/web/src/index.ts) |
 | `@deepseek-ai/dsh-cmdline` | — | [`packages/boot/cmdline/src/index.ts`](../packages/boot/cmdline/src/index.ts) |
 | `@deepseek-ai/dsh-cua` | — | [`packages/experimental/cua/src/index.ts`](../packages/experimental/cua/src/index.ts) |
+| `@deepseek-ai/dsh-deepcanvas` | — | [`packages/canvas/deepcanvas-bundle/src/index.ts`](../packages/canvas/deepcanvas-bundle/src/index.ts) |
 | `@deepseek-ai/dsh-deque` | — | [`packages/util/deque/src/index.ts`](../packages/util/deque/src/index.ts) |
 | `@deepseek-ai/dsh-experimental-agent-team-profile` | — | [`packages/experimental/agent-team-profile/src/index.ts`](../packages/experimental/agent-team-profile/src/index.ts) |
 | `@deepseek-ai/dsh-experimental-badge-skill-bundle` | — | [`packages/experimental/badge-skill-bundle/src/index.ts`](../packages/experimental/badge-skill-bundle/src/index.ts) |

@@ -3275,10 +3275,6 @@ importers:
         version: 18.3.1(react@18.3.1)
 
   packages/canvas/ui-canvas:
-    dependencies:
-      '@deepseek-ai/dsh-canvas-spec':
-        specifier: workspace:*
-        version: link:../canvas-spec
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: workspace:~
@@ -3289,6 +3285,9 @@ importers:
       '@deepseek-ai/dsh-api-session-controller':
         specifier: workspace:*
         version: link:../../api/session-controller
+      '@deepseek-ai/dsh-canvas-spec':
+        specifier: workspace:*
+        version: link:../canvas-spec
       '@deepseek-ai/dsh-client-locale':
         specifier: workspace:*
         version: link:../../client/locale

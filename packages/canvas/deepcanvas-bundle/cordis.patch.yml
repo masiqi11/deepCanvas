@@ -24,6 +24,30 @@
 - id: ui-settings-plugin-inventory
   disabled: true
 
+# The product has one agent mode, so the mode switch and its settings row go.
+- id: ui-agent-preset
+  disabled: true
+
+# The built-in plugin settings section and the configuration pages it hosts.
+- id: ui-settings-plugins
+  disabled: true
+
+- id: ui-settings-shell
+  disabled: true
+
+- id: ui-settings-agent-loop
+  disabled: true
+
+- id: ui-settings-subagent
+  disabled: true
+
+- id: ui-settings-web-search
+  disabled: true
+
+# The model-release badge in the composer.
+- id: ui-deepseek-model-label-1017
+  disabled: true
+
 # The shipped presets are replaced by the single DeepCanvas preset below.
 - id: preset-standard
   disabled: true

@@ -9,9 +9,9 @@ import {
   assembleHistory, boardAddress, boardResourceProvider, collectBoardEvent, parseBoardAddress, type BoardHistory,
 } from '../src/client/board-resource.ts'
 import { BoardDocument, BoardTab, BoardTitle } from '../src/client/BoardView.tsx'
-import { boardPublication, canvasCall, canvasDefinition } from '../src/client/canvas-definition.ts'
+import { boardPublication, canvasCall, canvasDefinition, type CanvasVisual } from '../src/client/canvas-definition.ts'
 import { downloadBoard, exportDocument, pageStyles } from '../src/client/export.ts'
-import { CanvasTail } from '../src/client/Tail.tsx'
+import { CanvasVisualNode } from '../src/client/VisualNode.tsx'
 import { BoardCardView, InlineCanvasView, plainSummary } from '../src/client/ToolViews.tsx'
 import { CanvasProvider, sourceMap, type CanvasEnvironment, type Translate } from '../src/client/context.tsx'
 import { apply, inject } from '../src/client/index.ts'
@@ -309,22 +309,26 @@ describe('show_ui conversation view', () => {
     expect(screen.getByRole('status', { name: '正在生成…' })).toBeTruthy()
   })
 
-  it('shows a building row before any block arrives and the final components once dispatched', () => {
+  it('shows a building row before any block arrives and cites streamed sources', () => {
     const empty = render(<InlineCanvasView {...viewProps('preparing', streaming('{"blo'))} />)
     expect(screen.getByText('正在生成可视化…')).toBeTruthy()
     empty.unmount()
-    render(<InlineCanvasView {...viewProps('start', PartialArguments.fromText(JSON.stringify({
-      blocks: [{ type: 'markdown', text: 'done', sources: ['s1'] }, { type: 'sources', items: [{ id: 's1', title: 'Survey', url: 'https://x' }] }],
-      sources: [{ id: 's0', title: 'Top', url: 'https://top' }],
+    render(<InlineCanvasView {...viewProps('preparing', streaming(JSON.stringify({
+      sources: [{ id: 's0', title: 'Top', url: 'https://top' }, { id: 1 }],
+      blocks: [{ type: 'markdown', text: 'done', sources: ['s1'] }, { type: 'markdown' }, { type: 'sources', items: [{ id: 's1', title: 'Survey', url: 'https://x' }] }, { type: 'markdown', text: 'tail' }],
     })))} />)
     expect(screen.getByText('done')).toBeTruthy()
     expect(screen.getByTitle('来源：Survey').textContent).toBe('2')
+    expect(screen.getAllByRole('status', { name: '正在生成…' })).toHaveLength(2)
   })
 
-  it('marks invalid dispatched blocks and keeps valid ones', () => {
-    render(<InlineCanvasView {...viewProps('start', PartialArguments.fromText(JSON.stringify({ blocks: [{ type: 'markdown', text: 'ok' }, { type: 'markdown' }], sources: 'x' })))} />)
-    expect(screen.getByText('ok')).toBeTruthy()
-    expect(screen.getByText('此组件无法显示')).toBeTruthy()
+  it('compacts once the call is logged', () => {
+    render(<InlineCanvasView {...viewProps('start', PartialArguments.fromText(JSON.stringify({ blocks: [{ type: 'markdown', text: 'ok' }], sources: 'x' })))} />)
+    expect(screen.getByText('已展示 1 个组件')).toBeTruthy()
+    expect(screen.queryByText('ok')).toBeNull()
+    cleanup()
+    render(<InlineCanvasView {...viewProps('start', PartialArguments.fromText('{"blocks":"x"}'))} />)
+    expect(screen.getByText('已展示 0 个组件')).toBeTruthy()
   })
 
   it('compacts after success and explains failures or interruptions', () => {
@@ -358,7 +362,7 @@ describe('canvas_board conversation card', () => {
     expect(screen.getByText('正在生成看板…')).toBeTruthy()
   })
 
-  it('opens a board published while the card was mounted, once, and offers a manual open', () => {
+  it('opens a board published while the card was mounted, once, and compacts to a record', () => {
     const args = PartialArguments.fromText(JSON.stringify({ ...SLIDES }))
     const props = viewProps('start', args)
     const view = render(<BoardCardView {...props} />)
@@ -366,11 +370,9 @@ describe('canvas_board conversation card', () => {
     view.rerender(<BoardCardView {...{ ...published, openBoard: props.openBoard }} />)
     expect(props.openBoard).toHaveBeenCalledTimes(1)
     expect(props.openBoard).toHaveBeenCalledWith('b-1', 'call-1')
-    expect(screen.getByText('版本 3 · 2 页幻灯片')).toBeTruthy()
+    expect(screen.getByText('已发布看板「Market board」版本 3')).toBeTruthy()
     view.rerender(<BoardCardView {...{ ...published, openBoard: props.openBoard }} />)
     expect(props.openBoard).toHaveBeenCalledTimes(1)
-    fireEvent.click(screen.getByRole('button', { name: '打开看板' }))
-    expect(props.openBoard).toHaveBeenCalledTimes(2)
   })
 
   it('does not open a replayed board automatically and shows failures', () => {
@@ -378,7 +380,7 @@ describe('canvas_board conversation card', () => {
     const replay = viewProps('result', args, { text: 'Published board "x" (board_id b-2, version 1).' })
     render(<BoardCardView {...replay} />)
     expect(replay.openBoard).not.toHaveBeenCalled()
-    expect(screen.getByText('版本 1 · 2 个章节')).toBeTruthy()
+    expect(screen.getByText('已发布看板「Market board」版本 1')).toBeTruthy()
     cleanup()
     render(<BoardCardView {...viewProps('result', args, { text: 'Unknown board_id', isError: true })} />)
     expect(screen.getByText('看板发布失败，正在修正')).toBeTruthy()
@@ -392,37 +394,40 @@ describe('canvas_board conversation card', () => {
   })
 })
 
-describe('turn tail', () => {
-  type TailProps = Parameters<typeof CanvasTail>[0]
-  const tailProps = (visuals: unknown[] | undefined): TailProps =>
-    ({ turn: { turn: 1 }, useVisuals: () => visuals, t, ...viewActions() }) as TailProps
+describe('reply-flow canvas node', () => {
+  type NodeProps = Parameters<typeof CanvasVisualNode>[0]
+  const nodeProps = (data: CanvasVisual): NodeProps =>
+    ({ node: { kind: 'canvas-visual', data }, t, ...viewActions() }) as never
 
-  it('renders successful inline visuals and published board cards in call order', () => {
-    const props = tailProps([
-      { callId: 'a', name: 'show_ui', argsRaw: JSON.stringify({ blocks: [{ type: 'markdown', text: 'inline visual' }, { type: 'sources', items: [{ id: 'q', title: 'Q', url: 'https://q' }] }] }) },
-      { callId: 'b', name: 'canvas_board', argsRaw: JSON.stringify(BOARD), published: { boardId: 'b1', version: 2 } },
+  it('renders a valid inline visual and a published board card', () => {
+    const inline = render(<CanvasVisualNode {...nodeProps({ callId: 'a', name: 'show_ui', argsRaw: JSON.stringify({ blocks: [{ type: 'markdown', text: 'inline visual', sources: ['q'] }, { type: 'sources', items: [{ id: 'q', title: 'Q', url: 'https://q' }] }] }) })} />)
+    expect(screen.getByText('inline visual')).toBeTruthy()
+    expect(screen.getByTitle('来源：Q')).toBeTruthy()
+    inline.unmount()
+    const props = nodeProps({ callId: 'b', name: 'canvas_board', argsRaw: JSON.stringify(BOARD), published: { boardId: 'b1', version: 2 } })
+    const board = render(<CanvasVisualNode {...props} />)
+    expect(screen.getByText('版本 2 · 2 个章节')).toBeTruthy()
+    expect(screen.getByText('Key finding')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: '打开看板' }))
+    expect(props.openBoard).toHaveBeenCalledWith('b1', 'b')
+    board.unmount()
+    render(<CanvasVisualNode {...nodeProps({ callId: 'f', name: 'canvas_board', argsRaw: JSON.stringify({ ...SLIDES, summary: undefined }), published: { boardId: 'b2', version: 1 } })} />)
+    expect(screen.getByText('版本 1 · 2 页幻灯片')).toBeTruthy()
+  })
+
+  it('renders nothing for unpublished boards and invalid arguments', () => {
+    for (const data of [
       { callId: 'c', name: 'canvas_board', argsRaw: JSON.stringify(BOARD) },
       { callId: 'd', name: 'canvas_board', argsRaw: '{', published: { boardId: 'b1', version: 3 } },
       { callId: 'e', name: 'show_ui', argsRaw: '{"blocks":[]}' },
-      { callId: 'f', name: 'canvas_board', argsRaw: JSON.stringify({ ...SLIDES, summary: undefined }), published: { boardId: 'b2', version: 1 } },
-    ])
-    render(<CanvasTail {...props} />)
-    expect(screen.getByText('inline visual')).toBeTruthy()
-    expect(screen.getByText('版本 2 · 2 个章节')).toBeTruthy()
-    expect(screen.getByText('版本 1 · 2 页幻灯片')).toBeTruthy()
-    expect(screen.getByText('Key finding')).toBeTruthy()
-    fireEvent.click(screen.getAllByRole('button', { name: '打开看板' })[0] as HTMLElement)
-    expect(props.openBoard).toHaveBeenCalledWith('b1', 'b')
+    ] satisfies CanvasVisual[]) {
+      const view = render(<CanvasVisualNode {...nodeProps(data)} />)
+      expect(view.container.innerHTML).toBe('')
+      view.unmount()
+    }
   })
 
-  it('renders nothing for a turn without canvas calls', () => {
-    const view = render(<CanvasTail {...tailProps([])} />)
-    expect(view.container.innerHTML).toBe('')
-    view.rerender(<CanvasTail {...tailProps(undefined)} />)
-    expect(view.container.innerHTML).toBe('')
-  })
-
-  it('folds tool calls and board publications into hidden chat nodes', () => {
+  it('folds tool calls and board publications into Turn-level chat nodes', () => {
     const call = { type: 'tool/call', seq: 3, data: { name: 'canvas_board', callId: 'k', arguments: '{}' } }
     const publish = { type: 'canvas/board', seq: 4, data: { boardId: 'b', version: 1, callId: 'k', title: 't' } }
     expect(canvasDefinition.match(call as never)).toEqual({ id: 'k', role: 'start' })
@@ -433,7 +438,7 @@ describe('turn tail', () => {
     expect(canvasDefinition.update({ state } as never, { event: publish } as never)).toMatchObject({ published: { boardId: 'b', version: 1 } })
     expect(canvasDefinition.update({ state } as never, { event: call } as never)).toBe(state)
     const location = { turn: 1 }
-    expect(canvasDefinition.buildViewNode?.({ key: 'x', id: 'k', state, start: { event: call, location }, matches: [] } as never)).toMatchObject({ kind: 'canvas-visual', visibility: 'hidden', anchorSeq: 3, data: state })
+    expect(canvasDefinition.buildViewNode?.({ key: 'x', id: 'k', state, start: { event: call, location }, matches: [] } as never)).toMatchObject({ kind: 'canvas-visual', visibility: 'visible', groupTree: 'turn', anchorSeq: 3, data: state })
     expect(canvasDefinition.buildViewNode?.({ key: 'x', id: 'k', state: undefined, matches: [] } as never)).toBeNull()
     expect(canvasDefinition.buildViewNode?.({ key: 'x', id: 'k', state, matches: [{ event: call, location }] } as never)).toMatchObject({ anchorSeq: 3 })
     expect(canvasCall({ type: 'tool/call', data: { name: 'other', callId: 'x', arguments: '{}' } })).toBeUndefined()
@@ -502,11 +507,10 @@ describe('plugin registration', () => {
     expect(inject).toEqual(['slots', 'locale', 'remote', 'remote.session', 'sessions', 'uiConversation', 'resources', 'sidebarRight', 'sidebarRightTabs'])
   })
 
-  it('registers views, the tail, the resource, and the tab, and routes composer and workspace actions', () => {
+  it('registers views, the reply-flow node, the resource, and the tab, and routes composer and workspace actions', () => {
     const registrations: Array<{ options: { name: string; key?: string; inject?: (sessionId: string) => Record<string, unknown> } }> = []
     const effects: Array<() => unknown> = []
     const input = { setDraft: vi.fn(), submit: vi.fn(), focus: vi.fn() }
-    const nodes = { turnDataSource: vi.fn(() => 'source') }
     const sessionCtx = { get: vi.fn(() => ({ input: { for: vi.fn(() => input) } })) }
     const ctx = {
       effect: (fn: () => unknown) => { effects.push(fn) },
@@ -516,7 +520,7 @@ describe('plugin registration', () => {
       sidebarRight: { openResource: vi.fn() },
       remote: { session: {} },
       sessions: { binding: vi.fn((id: string) => id === 'gone' ? undefined : { ctx: sessionCtx }) },
-      uiConversation: { events: { register: vi.fn() }, binding: vi.fn(() => ({ target: () => ({ getSnapshot: () => ({ nodes }) }) })) },
+      uiConversation: { events: { register: vi.fn() } },
       slots: {
         inject: (_name: string, body: () => unknown) => {
           const result = body()
@@ -534,7 +538,7 @@ describe('plugin registration', () => {
     expect(tabType.canOpen(boardAddress({ sessionId: 's' as never, boardId: 'b' }))).toBe(true)
     expect(tabType.canOpen('dsh-resource://plan/x')).toBe(false)
     expect(tabType.title()).toBe('board.title')
-    expect(registrations.map(entry => entry.options.key ?? entry.options.name)).toEqual(['show_ui', 'canvas_board', 'conversation.chat.turnTail', '@deepseek-ai/dsh-client-ui-canvas', '@deepseek-ai/dsh-client-ui-canvas'])
+    expect(registrations.map(entry => entry.options.key ?? entry.options.name)).toEqual(['show_ui', 'canvas_board', 'canvas-visual', '@deepseek-ai/dsh-client-ui-canvas', '@deepseek-ai/dsh-client-ui-canvas'])
     const view = registrations[0]?.options.inject?.('s1') as ReturnType<typeof viewActions>
     view.sendPrompt('hello')
     expect(input.setDraft).toHaveBeenCalledWith('hello')
@@ -547,32 +551,10 @@ describe('plugin registration', () => {
     gone.sendPrompt('x')
     gone.draftPrompt('x')
     expect(input.setDraft).toHaveBeenCalledTimes(2)
-    const tail = registrations[2]?.options.inject?.('s1') as { keyedHooks: { visuals: (turn: string) => unknown } }
-    expect(tail.keyedHooks.visuals('4')).toBe('source')
-    expect(nodes.turnDataSource).toHaveBeenCalledWith(4, 'canvas-visual')
-    expect(() => registrations[2]?.options.inject?.('gone')).toThrow('unknown session')
+    expect(registrations[2]?.options.inject).toBe(registrations[0]?.options.inject)
     const tab = registrations[3]?.options.inject?.('s1') as { sendPrompt: (session: string, prompt: string) => void; markdownLabels: unknown }
     tab.sendPrompt('s1', 'tab prompt')
     expect(input.setDraft).toHaveBeenCalledWith('tab prompt')
     expect(tab.markdownLabels).toBe(view.markdownLabels)
-  })
-
-  it('reports an unavailable chat target', () => {
-    type TailInject = (sessionId: string) => { keyedHooks: { visuals: (turn: string) => unknown } }
-    const registrations: Array<{ name: string; inject?: TailInject }> = []
-    const ctx = {
-      effect: () => {}, locale: { register: vi.fn(), bind: vi.fn(() => (key: string) => key) },
-      resources: { register: vi.fn() }, sidebarRightTabs: { register: vi.fn() },
-      sidebarRight: { openResource: vi.fn() }, remote: { session: {} },
-      sessions: { binding: vi.fn(() => ({ ctx: { get: () => undefined } })) },
-      uiConversation: { events: { register: vi.fn() }, binding: vi.fn(() => ({ target: () => ({ getSnapshot: () => undefined }) })) },
-      slots: {
-        inject: (_name: string, body: () => unknown) => { const result = body(); if (result !== null && typeof result === 'object' && Symbol.iterator in result) for (const _ of result as Iterable<unknown>) { /* drain */ } },
-        register: (options: { name: string }) => { registrations.push(options); return () => {} },
-      },
-    }
-    apply(ctx as never)
-    const tail = registrations.find(entry => entry.name === 'conversation.chat.turnTail')
-    expect(() => tail?.inject?.('s').keyedHooks.visuals('1')).toThrow('Chat target is unavailable')
   })
 })

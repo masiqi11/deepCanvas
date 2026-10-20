@@ -1,4 +1,4 @@
-/** Per-call canvas facts folded from Session history for the Turn tail. */
+/** Per-call canvas facts folded from Session history into reply-flow Chat nodes. */
 import type { ChatNode } from '@deepseek-ai/dsh-client-ui-chat/client'
 import type { ConversationNodeDefinition } from '@deepseek-ai/dsh-client-ui-conversation/client'
 
@@ -14,7 +14,7 @@ export interface CanvasVisual {
 
 declare module '@deepseek-ai/dsh-client-ui-chat/client' {
   interface ChatNodeDataMap {
-    /** A canvas tool call shown in its Turn tail. */
+    /** A canvas tool call shown in the reply where the model made it. */
     'canvas-visual': CanvasVisual
   }
 }
@@ -49,7 +49,10 @@ export function boardPublication(
   return { callId, boardId, version }
 }
 
-/** Hidden Chat nodes read by the Turn tail through `turnDataSource`. */
+/**
+ * Chat nodes at Turn level, so a completed Turn's folded work trace never hides
+ * the visuals: each node stays at its call's position between the reply text.
+ */
 export const canvasDefinition: ConversationNodeDefinition<CanvasVisual> = {
   kind: 'canvas-visual',
   target: 'chat',
@@ -71,7 +74,7 @@ export const canvasDefinition: ConversationNodeDefinition<CanvasVisual> = {
     return {
       key: context.key, kind: 'canvas-visual', id: context.id, target: 'chat',
       anchorSeq: start.event.seq, location: start.location,
-      visibility: 'hidden', data: context.state,
+      visibility: 'visible', groupTree: 'turn', data: context.state,
     } satisfies ChatNode<'canvas-visual'>
   },
 }

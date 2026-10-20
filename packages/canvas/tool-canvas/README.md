@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`show_ui` displays validated components in the conversation, and `canvas_board` publishes a complete board to the workspace as a new immutable version. Invalid arguments return every problem with its path and publish nothing. A prompt section tells the model when to answer in text, components, or a board, and how to cite evidence.
+`show_ui` displays validated components in the conversation, and `canvas_board` publishes a complete board to the workspace as a new immutable version. Invalid arguments return every problem with its path and publish nothing. A prompt section tells the model when to answer in text, components, or a board (components carry structured content and text only connects it), and how to cite evidence.
 
 ## Table of Contents
 

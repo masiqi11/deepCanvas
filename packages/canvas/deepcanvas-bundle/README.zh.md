@@ -9,7 +9,7 @@ kind: "package-bundle"
 
 ## 概述
 
-`deepcanvas` profile 在 base 与 Web 组合包之上叠加本层。它设置产品名称，用一个 DeepCanvas preset 替换随附 preset（包含网页研究、澄清、任务清单、文件工具和画布工具），并移除 Harness 开发相关界面。
+`deepcanvas` profile 在 base 与 Web 组合包之上叠加本层。它设置产品名称，用一个 DeepCanvas preset 替换随附 preset（包含网页研究、澄清、任务清单、文件工具和画布工具），并移除 Harness 开发相关界面、插件管理与内置插件设置、Agent 模式切换以及模型发布标识。
 
 ## 目录
 

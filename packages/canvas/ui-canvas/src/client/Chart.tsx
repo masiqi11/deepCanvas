@@ -8,8 +8,8 @@ import css from './Canvas.module.css'
 /** Palette slots; colors come from CSS so both themes stay legible. */
 const PALETTE_SIZE = 8
 
-const WIDTH = 560
-const HEIGHT = 260
+const WIDTH = 760
+const HEIGHT = 280
 const PAD = { top: 14, right: 14, bottom: 40, left: 52 }
 
 /** Slot class for series or slice index. */
