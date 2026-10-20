@@ -1,0 +1,25 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/canvas/README.md
+/:
+  en: 0d37c756b056a0b6
+  zh: e41c47a0ae772647
+/packages-canvas:
+  en: 3f35ea18b0132c88
+  zh: a56933f82e2b6ad7
+/packages-canvas/summary:
+  en: 91e1147f5bfcd648
+  zh: 399fd15799c0d328
+/packages-canvas/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/packages-canvas/packages:
+  en: 8e182ce8e593e865
+  zh: 7f5691ccf4cb19c9
+/packages-canvas/related-documentation:
+  en: bed055e153bf8d1d
+  zh: 9a5a88679219d70b
+/packages-canvas/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 3fee785f424f1018

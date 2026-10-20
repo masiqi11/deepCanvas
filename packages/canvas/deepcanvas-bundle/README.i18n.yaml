@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/canvas/deepcanvas-bundle/README.md
+/:
+  en: 57081a172e565b84
+  zh: 8bbcae7c08122e8b
+/deepseek-ai-dsh-deepcanvas:
+  en: 0153ebc4a6be95d8
+  zh: b5ba5e5ea8c6dffa
+/deepseek-ai-dsh-deepcanvas/summary:
+  en: 2ddabfd883cef477
+  zh: cefe822b3b66bfaa
+/deepseek-ai-dsh-deepcanvas/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-deepcanvas/use-this-package:
+  en: 6de9ba5cda094aef
+  zh: 7dc9c07c4cebe739
+/deepseek-ai-dsh-deepcanvas/understand-the-implementation:
+  en: c87329005744e691
+  zh: 8955332cb9bd5022
+/deepseek-ai-dsh-deepcanvas/further-exploration:
+  en: 22bc77e3b3938757
+  zh: 1f75dbb81aac7519
+/deepseek-ai-dsh-deepcanvas/model-experience:
+  en: 80765dc21f85f0b6
+  zh: 89961b69ca70d071
+/deepseek-ai-dsh-deepcanvas/model-experience/kv-cache-effect:
+  en: 9fb44efdb970abc4
+  zh: 510b045df1900d1b
+/deepseek-ai-dsh-deepcanvas/known-limitations-and-deferred-work:
+  en: 5caa5eac54b0ad6a
+  zh: 7ae9ecf55c8f636d
+/deepseek-ai-dsh-deepcanvas/known-limitations-and-deferred-work/dev-note:
+  en: 279d01435256cd2a
+  zh: 6df6019931844fb2
