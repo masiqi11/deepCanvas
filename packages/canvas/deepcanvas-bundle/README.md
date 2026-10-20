@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-The `deepcanvas` profile stacks this layer on the base and Web bundles. It names the product, replaces the shipped presets with one DeepCanvas preset that includes web research, clarification, todo tracking, file tools, and the canvas tools, and removes Harness development surfaces, the plugin manager and built-in plugin settings, the agent mode switch, and the model-release badge.
+The `deepcanvas` profile stacks this layer on the base and Web bundles. It names the product, replaces the shipped presets with one DeepCanvas preset that includes web research, clarification, todo tracking, file tools, interactive `openui` answers, and canvas boards, and removes Harness development surfaces, the plugin manager and built-in plugin settings, the agent mode switch, and the model-release badge.
 
 ## Table of Contents
 

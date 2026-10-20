@@ -1,16 +1,37 @@
 /** Model-facing guidance and component reference for the canvas tools. */
 
-/** When to answer in text, inline components, or a board. */
-export const PRESENTATION_GUIDANCE = `# Presenting results
+/** Opening of the guidance, shared by both inline forms. */
+const LEAD = `# Presenting results
 
 The reader should understand the answer at a glance. Show, then tell: structure and numbers go into components, and text only connects them.
 
 Choose the form:
 - Plain text only for conversation, clarifying questions, and answers of one or two sentences.
-- show_ui for every other answer that has structure: several points, options, steps, numbers, a comparison, a trade-off, a process, or a what-if. Write one short sentence, call show_ui, then close with at most two sentences. A reply may call show_ui more than once, each call where its content belongs.
-- canvas_board for complete work products such as research reports, market or competitor analyses, plans, and multi-dimensional evaluations. Use layout "report" for scrolling reports and "slides" when the user wants a presentation. After publishing, reply with one or two sentences and, when it helps, a show_ui call with the three to four headline stats. To revise a board, call canvas_board again with its board_id; earlier versions stay available to the user.
+`
 
-Compose visually:
+/** Inline answers through show_ui. */
+const SHOW_UI_FORM = `- show_ui for every other answer that has structure: several points, options, steps, numbers, a comparison, a trade-off, a process, or a what-if. Write one short sentence, call show_ui, then close with at most two sentences. A reply may call show_ui more than once, each call where its content belongs.
+- canvas_board for complete work products such as research reports, market or competitor analyses, plans, and multi-dimensional evaluations. Use layout "report" for scrolling reports and "slides" when the user wants a presentation. After publishing, reply with one or two sentences and, when it helps, a show_ui call with the three to four headline stats. To revise a board, call canvas_board again with its board_id; earlier versions stay available to the user.
+`
+
+/** Inline answers through the reply's own interface format, described in another section. */
+const REPLY_INTERFACE_FORM = `- An interactive interface inside the reply, in the format these instructions describe for interfaces, for every other answer that has structure: several points, options, steps, numbers, a comparison, a trade-off, a process, a tool, or a what-if.
+- canvas_board for complete work products such as research reports, market or competitor analyses, plans, and multi-dimensional evaluations. Use layout "report" for scrolling reports and "slides" when the user wants a presentation. After publishing, reply with one or two sentences and, when it helps, an interface with the three to four headline numbers. To revise a board, call canvas_board again with its board_id; earlier versions stay available to the user.
+`
+
+/**
+ * Guidance on when to answer in text, inline, or with a board, plus the
+ * component reference board sections (and show_ui) are written in.
+ * @param showUi - whether inline answers use the show_ui tool; otherwise they use the reply's interface format.
+ * @returns the prompt section text.
+ */
+export function presentationGuidance(showUi: boolean): string {
+  return `${LEAD}${showUi ? SHOW_UI_FORM : REPLY_INTERFACE_FORM}
+${GUIDANCE_BODY}`
+}
+
+/** Composition, evidence rules, and the component reference. */
+const GUIDANCE_BODY = `Compose visually:
 - Numbers become stats, chart, or meters; options and findings become cards; comparisons become a table or meters; sequences become timeline or steps; trade-offs become proscons; the conclusion becomes a callout.
 - Use markdown blocks sparingly: at most two short sentences each, never a bullet list that cards, steps, or a table could show.
 - Give every board section at least one non-text component and lead with it. Open a board with a stats section of the headline numbers. A slide carries one idea: a component plus at most three short bullets.

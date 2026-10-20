@@ -3764,8 +3764,10 @@ export interface Config {
 - `source`: [`packages/canvas/tool-canvas/src/index.ts:34`](../packages/canvas/tool-canvas/src/index.ts)
 
 ```ts config-catalog
-/** Validation size limits; each bound applies to one description. */
+/** Validation size limits and whether inline answers use show_ui. */
 export interface Config {
+  /** Register show_ui; when false, inline answers use the reply's own interface format. */
+  showUi: boolean
   /** Size bounds applied when validating show_ui and canvas_board arguments. */
   limits: CanvasLimits
 }
@@ -4644,6 +4646,7 @@ export interface Config {
 | `@deepseek-ai/dsh-client-ui-message-feedback` | — | [`packages/client/ui-message-feedback/src/index.ts`](../packages/client/ui-message-feedback/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-model-selection` | — | [`packages/client/ui-model-selection/src/index.ts`](../packages/client/ui-model-selection/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-open-in-app` | — | [`packages/client/ui-open-in-app/src/index.ts`](../packages/client/ui-open-in-app/src/index.ts) |
+| `@deepseek-ai/dsh-client-ui-openui` | — | [`packages/canvas/ui-openui/src/index.ts`](../packages/canvas/ui-openui/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-permission-presets` | — | [`packages/client/ui-permission-presets/src/index.ts`](../packages/client/ui-permission-presets/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-plan` | — | [`packages/client/ui-plan/src/index.ts`](../packages/client/ui-plan/src/index.ts) |
 | `@deepseek-ai/dsh-client-ui-plugin-market` | — | [`packages/client/ui-plugin-market/src/index.ts`](../packages/client/ui-plugin-market/src/index.ts) |
@@ -4700,6 +4703,7 @@ export interface Config {
 | `@deepseek-ai/dsh-llm` | — | [`packages/llm/llm/src/index.ts`](../packages/llm/llm/src/index.ts) |
 | `@deepseek-ai/dsh-lsp` | — | [`packages/lsp/lsp/src/index.ts`](../packages/lsp/lsp/src/index.ts) |
 | `@deepseek-ai/dsh-mcp-resources` | `tools` | [`packages/mcp/mcp-resources/src/index.ts`](../packages/mcp/mcp-resources/src/index.ts) |
+| `@deepseek-ai/dsh-openui-prompt` | `systemPrompt` | [`packages/canvas/openui-prompt/src/index.ts`](../packages/canvas/openui-prompt/src/index.ts) |
 | `@deepseek-ai/dsh-otel` | — | [`packages/telemetry/otel/src/index.ts`](../packages/telemetry/otel/src/index.ts) |
 | `@deepseek-ai/dsh-sandbox-ssh` | `ssh` | [`packages/ssh/sandbox-ssh/src/index.ts`](../packages/ssh/sandbox-ssh/src/index.ts) |
 | `@deepseek-ai/dsh-session` | — | [`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts) |

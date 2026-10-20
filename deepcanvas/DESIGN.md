@@ -21,15 +21,20 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 
 对上游源码的直接修改集中记录在本文件末尾的“上游修改记录”。
 
-## 呈现模型：原生组件为主，HTML 兜底
+## 呈现模型：回复内的交互界面 + 工作区看板
 
-参考 ChatGPT Intelligent UI 的思路：应用提供一套原生组件库，模型只生成受 Schema 约束的组件描述，由客户端渲染。组件库覆盖不了的交互（专用计算器、小游戏、特殊可视化），允许模型写一段在隔离 iframe 中运行的 HTML。
+参考 ChatGPT Intelligent UI 的思路：应用提供一套原生组件库，模型只描述界面，由客户端渲染。DeepCanvas 有两层：
+
+- **回复内的交互界面（OpenUI Lang）**：模型在回复的 Markdown 中写 ```` ```openui ```` 代码块，用声明式的 OpenUI Lang 组合组件，`$变量` 保存界面状态，`@函数` 在页面内计算。客户端边流式接收边渲染；输入、勾选、翻页、游戏操作都在本地完成，不发起模型请求，只有明确的提交按钮才把消息（连同界面上的数值）发回对话。组件库与函数改编自 [Open Intelligent UI](https://github.com/thesysdev/open-intelligent-ui)（MIT），回复内渲染与修复流程参考了 [dsh-intelligent-ui](https://github.com/gulagala001/dsh-intelligent-ui)（MIT）。
+- **工作区看板（`canvas_board`）**：调研、分析、规划等完整成果，以受 Schema 约束的 JSON 组件发布到右侧工作区，有版本、演示和导出。
 
 模型按问题选择形式：
 
 - 闲聊、澄清和一两句话能答完的问题：直接文字回答。
-- 其他有结构的回答（多个要点、方案、步骤、数字、比较、取舍）：调用 `show_ui`，组件显示在回复中调用它的位置；文字只作一句引入和简短收尾。
+- 其他有结构的回答（多个要点、方案、步骤、数字、比较、取舍、工具、小游戏）：在回复中写 `openui` 交互界面；文字只作一句引入和简短收尾。
 - 调研、分析、规划等完整成果：调用 `canvas_board`，在右侧工作区生成任务看板（可滚动报告或幻灯片），并在对话中留一张入口卡片。
+
+`show_ui`（JSON 组件内联）仍保留在 `tool-canvas` 中，DeepCanvas 叠加层以 `showUi: false` 关闭它，避免两种内联格式同时出现。
 
 ### 工具
 
@@ -92,3 +97,11 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 - `show_ui` 组件与已发布看板卡片作为 `groupTree: 'turn'` 的 Chat 节点渲染，回合结束后不会被收进“已完成”的工作步骤；这使用上游已有的分组位置，不修改上游代码。
 - DeepCanvas 叠加层关闭 `ui-agent-preset`（模式切换与 Agent 预设设置）、`ui-settings-plugins` 及其配置页、`ui-deepseek-model-label-1017`；保留 DeepSeek 账号登录。
 - DeepCanvas 叠加层通过已有配置项关闭 `includeHarnessIdentity`，由 persona 说明产品身份，不修改上游代码。
+
+### 回复内交互界面（OpenUI）
+
+- `packages/client/ui-primitives`：`MarkdownText` 新增 `fences` 参数（`MarkdownFences`），可按语言替换代码块的渲染，流式与定稿两种渲染都会调用。
+- `packages/client/ui-chat`：新增按代码块语言分发的 `conversation.chat.markdown.fence` 插槽，助手回复中的代码块经它渲染，未认领的语言保持代码块。
+- 新增 `packages/canvas/ui-openui`（渲染器与组件库）与 `packages/canvas/openui-prompt`（由组件库生成的提示词片段）；`tool-canvas` 新增 `showUi` 配置。
+- `.oxlintrc.json` 与 `vitest.config.ts`：为移植的组件与函数目录增加有说明的规则与覆盖率豁免；`pnpm-workspace.yaml` 拒绝 `@openuidev/lang-core` 的安装脚本（仅用于上报安装统计）。
+- `scripts/gen-client-catalog.ts`：单个插槽报告的行数上限由 122 调为 124（`tool.call.toolview` 多了两个注册方）。

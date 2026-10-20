@@ -83,6 +83,20 @@ export interface ReasoningBodyOwnerProps {
   readonly running: boolean
 }
 
+/** One fenced block of an Assistant reply offered to its language's renderer. */
+export interface MarkdownFenceOwnerProps {
+  /** Fence content without the trailing newline; it may still grow while `streaming`. */
+  readonly code: string
+  /** Whether the reply is still streaming. */
+  readonly streaming: boolean
+  /** Turn of the Assistant step that wrote the fence. */
+  readonly turn: number
+  /** Step within that Turn. */
+  readonly step: number
+  /** Index of the text block that contains the fence. */
+  readonly block: number
+}
+
 /** Session-independent original or derived display input to the Content Factory. */
 export interface ReasoningContentInput extends ReasoningBodyOwnerProps {
   /** Localized Markdown controls, used unchanged when supplied; omission uses Chat's defaults. */
@@ -421,6 +435,13 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
      * replaces that command renderer; an unoccupied key uses the generic card.
      */
     'conversation.chat.commandview': { kind: 'keyed'; scope: 'session'; owner: CommandRowOwnerProps }
+    /**
+     * Renderer for a fenced block in an Assistant reply, keyed by the fence
+     * language (the first word of its info string). The entry receives the
+     * fence content while it streams and once settled; an unclaimed language
+     * keeps the code block.
+     */
+    'conversation.chat.markdown.fence': { kind: 'keyed'; scope: 'session'; owner: MarkdownFenceOwnerProps }
     /**
      * Expanded reasoning body with the unchanged model text. The official entry
      * has priority 100 and calls the reasoning Content Factory; smaller priority

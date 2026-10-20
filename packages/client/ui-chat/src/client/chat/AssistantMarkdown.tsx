@@ -3,7 +3,7 @@ import { fileMediaUrl } from '@deepseek-ai/dsh-util-workspace-path'
 import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
 import type { ReactNode } from 'react'
 import { JsonBlock, MarkdownText } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { MarkdownFileMentions, MarkdownPathImages } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { MarkdownFences, MarkdownFileMentions, MarkdownPathImages } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { ChatNodeOwnerProps, ChatViewSlotProps, UseDisclosure, UsePresentation, UseGroupAction } from '../contract/slots.ts'
 import type { AssistantBlock } from '../contract/snapshot.ts'
 import { markdownLabels } from '../markdown-labels.ts'
@@ -28,7 +28,7 @@ export function localPathMediaUrl(base: string, value: string): string | undefin
 }
 
 export interface AssistantMarkdownProps extends
-  Pick<PropsRenderSlots<'conversation.chat.reasoning.body' | 'conversation.chat.message.images'>, 'renderSlot'>,
+  Pick<PropsRenderSlots<'conversation.chat.reasoning.body' | 'conversation.chat.message.images' | 'conversation.chat.markdown.fence'>, 'renderSlot'>,
   Pick<ChatNodeOwnerProps, 'loadImage'> {
   /** Render only the requested business portion, preserving original block indexes. */
   groupPart?: string | undefined
@@ -50,12 +50,16 @@ export interface AssistantMarkdownProps extends
   mentions?: MarkdownFileMentions | undefined
   /** The owning view's locale seat, passed down as a plain prop. */
   t: ChatViewSlotProps['t']
+  /** Turn of this Assistant step, offered to fence renderers. */
+  turn?: number | undefined
+  /** Step within the Turn, offered to fence renderers. */
+  step?: number | undefined
 }
 
 /** Renders non-blank reasoning blocks as independent disclosures alongside the response. */
 export const AssistantMarkdown = memo(function AssistantMarkdown({
   blocks, streaming, interrupted, loadImage, groupPart, useDisclosure,
-  reasoningHidden = false, usePresentation, revealProcess, mentions, renderSlot, useGroupAction, t,
+  reasoningHidden = false, usePresentation, revealProcess, mentions, renderSlot, useGroupAction, t, turn = 0, step = 0,
 }: AssistantMarkdownProps) {
   // Stable per locale revision (t identity changes on switch): a fresh object
   // per render would rebuild MarkdownText's component table every chunk.
@@ -64,6 +68,13 @@ export const AssistantMarkdown = memo(function AssistantMarkdown({
   const pathImages = useMemo<MarkdownPathImages>(() => {
     return { resolve: value => localPathMediaUrl(document.baseURI, value) }
   }, [])
+  // One renderer per block index, stable across chunks so MarkdownText keeps its streaming cache.
+  const count = blocks.length
+  const fences = useMemo(() => Array.from({ length: count }, (_, block): MarkdownFences => ({
+    render: (fence, fallback) => renderSlot('conversation.chat.markdown.fence',
+      { code: fence.code, streaming: fence.streaming, turn, step, block },
+      { entryKey: fence.language, fallback }),
+  })), [count, renderSlot, turn, step])
   const last = blocks.length - 1
   // Tool-call heads render as tool rows in the chat view's grouping pass, so
   // a node that is only those heads (or empty) would paint an empty root
@@ -88,6 +99,7 @@ export const AssistantMarkdown = memo(function AssistantMarkdown({
             labels={labels}
             fileMentions={mentions}
             pathImages={pathImages}
+            fences={fences[i]}
           />,
         )
         break

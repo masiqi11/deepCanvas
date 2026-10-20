@@ -247,6 +247,7 @@
     { "path": "./packages/canvas/deepcanvas-bundle" },
     { "path": "./packages/canvas/canvas-spec" },
     { "path": "./packages/canvas/tool-canvas" },
+    { "path": "./packages/canvas/openui-prompt" },
     { "path": "./packages/experimental/translator" },
     { "path": "./packages/client/product-analytics/tsconfig.host.json" },
     { "path": "./packages/telemetry/otel" },

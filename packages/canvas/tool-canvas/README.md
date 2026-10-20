@@ -31,8 +31,11 @@ Add the plugin to an agent preset with explicit limits:
 - id: tool-canvas
   name: '@deepseek-ai/dsh-tool-canvas'
   config:
+    showUi: true
     limits: { blocks: 60, sections: 24, items: 200, series: 12, depth: 3, text: 20000, html: 200000 }
 ```
+
+Set `showUi: false` when inline answers use the reply's own interface format, such as [`openui` fences](../openui-prompt/README.md); the guidance then points inline answers there and only `canvas_board` is registered.
 
 Compose [the Web surfaces](../ui-canvas/README.md) so users see the results. Omitting `board_id` creates a board; passing an id from an earlier result publishes the next version.
 

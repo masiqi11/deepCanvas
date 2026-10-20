@@ -619,7 +619,7 @@ const TOOL_PACKAGES: ToolPackage[] = [
     requires: ['ctx.tools', 'ctx.sessionProjections', 'ctx.systemPrompt'],
     writes: ['tool/call', 'tool/result', 'canvas/board'],
     async mount(ctx) {
-      await ctx.plugin(ToolCanvas, { limits: DEFAULT_LIMITS })
+      await ctx.plugin(ToolCanvas, { showUi: true, limits: DEFAULT_LIMITS })
     },
     note:
       'show_ui renders validated components in the reply; canvas_board publishes an immutable board version recorded as canvas/board. The "Presenting results" prompt section carries the component reference both schemas point to.',

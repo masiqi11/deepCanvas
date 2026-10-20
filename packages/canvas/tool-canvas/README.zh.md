@@ -31,8 +31,11 @@ kind: "package-reference"
 - id: tool-canvas
   name: '@deepseek-ai/dsh-tool-canvas'
   config:
+    showUi: true
     limits: { blocks: 60, sections: 24, items: 200, series: 12, depth: 3, text: 20000, html: 200000 }
 ```
+
+当内联回答改用回复自身的界面格式（例如 [`openui` 代码块](../openui-prompt/README.zh.md)）时，设置 `showUi: false`；此时呈现指引会把内联回答引向该格式，并且只注册 `canvas_board`。
 
 同时组装 [Web 界面](../ui-canvas/README.zh.md)，用户才能看到结果。省略 `board_id` 会新建看板；传入先前结果中的编号会发布下一个版本。
 

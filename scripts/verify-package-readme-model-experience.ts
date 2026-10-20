@@ -47,6 +47,7 @@ const NO_MODEL_EXPERIENCE_SECTION: Readonly<Record<string, string>> = {
 const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/canvas/canvas-spec': { kind: 'none', reason: 'A pure vocabulary and validation library; the canvas tools own every model-visible result.' },
   'packages/canvas/ui-canvas': { kind: 'none', reason: 'Renders recorded canvas calls; follow-up prompts travel through ordinary user submission.' },
+  'packages/canvas/ui-openui': { kind: 'none', reason: 'Renders recorded openui fences; submissions travel through ordinary user messages, and the prompt package owns the reference.' },
   'packages/canvas/ui-brand-deepcanvas': { kind: 'none', reason: 'Browser brand occupants; registers nothing model-facing.' },
   'packages/canvas/deepcanvas-bundle': { kind: 'indirect', reason: 'The profile layer composes a persona and preset whose plugins own model context.' },
   'packages/experimental/client-ui-cot-translation': { kind: 'indirect', reason: 'The translator owns optional paid queries; normal Session activation delegates startup context to the preset.' },

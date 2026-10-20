@@ -155,15 +155,18 @@ export function boardResourceProvider(remote: Pick<Context['remote']['session'],
         }
         if (aborted()) return
         if (snapshot === undefined) throw new RemoteError('canvas-board/unavailable', 'Session history ended before the board could be read.', {})
-        let page = { records: snapshot.records, hasMore: snapshot.hasMore }
-        while (true) {
-          for (const entry of page.records) collectBoardEvent(entry.event, target.boardId, facts)
-          const beforeSeq = page.records[0]?.event.seq
-          if (!page.hasMore || beforeSeq === undefined) break
-          const next = await remote.page({ address: sessionAddress, throughSeq: snapshot.cursor, beforeSeq }, signal)
+        // Older history arrives newest-first, one page before the oldest record read so far.
+        let records = snapshot.records
+        let hasMore = snapshot.hasMore
+        for (;;) {
+          for (const entry of records) collectBoardEvent(entry.event, target.boardId, facts)
+          const oldest = records[0]?.event.seq
+          if (!hasMore || oldest === undefined) break
+          const older = await remote.page({ address: sessionAddress, throughSeq: snapshot.cursor, beforeSeq: oldest }, signal)
           if (aborted()) return
-          if (!next.ok) { yield next; return }
-          page = next.value
+          if (!older.ok) { yield older; return }
+          records = older.value.records
+          hasMore = older.value.hasMore
         }
         let history = assembleHistory(target.boardId, facts)
         yield history === undefined

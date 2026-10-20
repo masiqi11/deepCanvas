@@ -73,6 +73,9 @@
     - id: ui-canvas
       name: '@deepseek-ai/dsh-client-ui-canvas'
 
+    - id: ui-openui
+      name: '@deepseek-ai/dsh-client-ui-openui'
+
     - id: preset-deepcanvas
       name: '@deepseek-ai/dsh-agent-preset'
       config:
@@ -142,9 +145,13 @@
               searchTimeoutMs: 60000
           - id: present
             name: '@deepseek-ai/dsh-tool-present'
+          - id: openui-prompt
+            name: '@deepseek-ai/dsh-openui-prompt'
           - id: tool-canvas
             name: '@deepseek-ai/dsh-tool-canvas'
             config:
+              # Inline answers are openui fences in the reply; boards stay a tool.
+              showUi: false
               limits:
                 blocks: 60
                 sections: 24

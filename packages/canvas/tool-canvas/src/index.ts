@@ -19,7 +19,7 @@ import type { ToolCallId } from '@deepseek-ai/dsh-llm/brand'
 import {
   BLOCK_TYPES, validateBoard, validateInline, type CanvasLimits, type Validation,
 } from '@deepseek-ai/dsh-canvas-spec'
-import { PRESENTATION_GUIDANCE } from './prompt.ts'
+import { presentationGuidance } from './prompt.ts'
 import type { CanvasBoardsState } from './types.ts'
 
 export type * from './types.ts'
@@ -30,14 +30,17 @@ export const name = 'tool-canvas'
 /** Services used by the scoped canvas tools. */
 export const inject = ['tools', 'sessionProjections', 'systemPrompt']
 
-/** Validation size limits; each bound applies to one description. */
+/** Validation size limits and whether inline answers use show_ui. */
 export interface Config {
+  /** Register show_ui; when false, inline answers use the reply's own interface format. */
+  showUi: boolean
   /** Size bounds applied when validating show_ui and canvas_board arguments. */
   limits: CanvasLimits
 }
 
-/** Validated limits with the shipped defaults. */
+/** Validated configuration with the shipped defaults. */
 export const Config: z<Config> = z.object({
+  showUi: z.boolean().default(true).description('Register show_ui for inline answers.'),
   limits: z.object({
     blocks: z.natural().default(60).description('Blocks in one block list.'),
     sections: z.natural().default(24).description('Board sections or slides.'),
@@ -118,10 +121,10 @@ export function apply(ctx: Context, config: Config): void {
   ctx.systemPrompt.section({
     name: 'canvas:presentation',
     order: ctx.systemPrompt.getSectionOrder('TOOL_REPORT'),
-    text: PRESENTATION_GUIDANCE,
+    text: presentationGuidance(config.showUi),
   })
 
-  ctx.tools.register(defineTool({
+  if (config.showUi) ctx.tools.register(defineTool({
     name: 'show_ui',
     description: 'Show validated visual components inside the conversation, such as a comparison table, chart, cards, timeline, or calculator. '
       + 'See "Presenting results" for when to use it and the component reference for block fields. '

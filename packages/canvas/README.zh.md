@@ -27,6 +27,8 @@ canvas 系列把结果交付为可视化内容，而不是大段文字。模型�
 | [`canvas-spec`](canvas-spec/README.zh.md) | 组件词汇、校验与计算器公式 | 库，无 ctx 键 |
 | [`tool-canvas`](tool-canvas/README.zh.md) | `show_ui` 与 `canvas_board` 工具及呈现指引 | 注册到 `ctx.tools`、`ctx.sessionProjections`、`ctx.systemPrompt` |
 | [`ui-canvas`](ui-canvas/README.zh.md) | 内联组件、看板卡片与看板工作区标签页 | 注册 slot、资源与侧栏标签页类型 |
+| [`openui-prompt`](openui-prompt/README.zh.md) | 讲解 `openui` 代码块的 OpenUI Lang 参考 | 注册到 `ctx.systemPrompt` |
+| [`ui-openui`](ui-openui/README.zh.md) | 把回复中的 `openui` 代码块渲染为可操作界面 | 注册 Markdown 代码块渲染器 |
 | [`ui-brand-deepcanvas`](ui-brand-deepcanvas/README.zh.md) | 品牌 slot 中的 DeepCanvas 标识与名称 | 注册 slot |
 | [`deepcanvas-bundle`](deepcanvas-bundle/README.zh.md) | DeepCanvas profile 叠加层 | 组合包，无 ctx 键 |
 

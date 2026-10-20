@@ -10,6 +10,7 @@ import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import * as Canvas from '../src/index.ts'
+import { presentationGuidance } from '../src/prompt.ts'
 
 const LIMITS = { blocks: 60, sections: 24, items: 200, series: 12, depth: 3, text: 20_000, html: 200_000 }
 const cleanups: Array<() => Promise<unknown>> = []
@@ -43,14 +44,14 @@ async function agent(ctx: Context): Promise<Agent> {
   return value
 }
 
-async function setup() {
+async function setup(showUi = true) {
   const ctx = new Context()
   cleanups.push(() => ctx.fiber.dispose())
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
-  const fiber = ctx.plugin(Canvas, { limits: LIMITS })
+  const fiber = ctx.plugin(Canvas, { showUi, limits: LIMITS })
   await fiber
   const owner = await agent(ctx)
   const execute = (name: string, args: Record<string, unknown>, caller: Agent | null = owner) => ctx.tools.execute({
@@ -171,5 +172,17 @@ describe('canvas_board', () => {
     await fiber.dispose()
     expect(ctx.tools.get('canvas_board', owner)).toBeUndefined()
     expect(ctx.tools.get('show_ui', owner)).toBeUndefined()
+  })
+})
+
+describe('inline form', () => {
+  it('leaves show_ui out and points inline answers at the reply interface format when show_ui is off', async () => {
+    const { ctx, owner } = await setup(false)
+    expect(ctx.tools.get('show_ui', owner)).toBeUndefined()
+    expect(ctx.tools.get('canvas_board', owner)).toBeDefined()
+    expect(presentationGuidance(false)).toContain('in the format these instructions describe for interfaces')
+    expect(presentationGuidance(false)).not.toContain('call show_ui')
+    expect(presentationGuidance(true)).toContain('call show_ui')
+    expect(presentationGuidance(true)).toContain('# Component reference')
   })
 })

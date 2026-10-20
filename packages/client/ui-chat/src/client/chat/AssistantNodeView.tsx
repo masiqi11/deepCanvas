@@ -4,7 +4,7 @@ import type { ChatNodeViewProps, PresentationInjected, TurnTailOwnerProps } from
 import { AssistantMarkdown } from './AssistantMarkdown.tsx'
 
 type AssistantNodeViewProps = ChatNodeViewProps<'assistant-step'> & InjectFace<PresentationInjected>
-  & PropsRenderSlots<'conversation.chat.reasoning.body' | 'conversation.chat.message.images'>
+  & PropsRenderSlots<'conversation.chat.reasoning.body' | 'conversation.chat.message.images' | 'conversation.chat.markdown.fence'>
 
 /** Streaming, settled, and interrupted Assistant states share one keyed renderer instance. */
 export const AssistantNodeView = memo(function AssistantNodeView({
@@ -43,6 +43,8 @@ export const AssistantNodeView = memo(function AssistantNodeView({
       useGroupAction={useGroupAction}
       usePresentation={usePresentation}
       renderSlot={renderSlot}
+      turn={data.turn}
+      step={data.step}
       revealProcess={revealProcess}
       mentions={mentions}
       t={t}

@@ -27,6 +27,8 @@ The canvas family delivers results as visuals instead of long text. The model wr
 | [`canvas-spec`](canvas-spec/README.md) | Component vocabulary, validation, and calculator formulas | library, no ctx key |
 | [`tool-canvas`](tool-canvas/README.md) | `show_ui` and `canvas_board` tools and the presentation guidance | registers on `ctx.tools`, `ctx.sessionProjections`, `ctx.systemPrompt` |
 | [`ui-canvas`](ui-canvas/README.md) | Inline components, board cards, and the board workspace tab | registers slots, a resource, and a Sidebar tab type |
+| [`openui-prompt`](openui-prompt/README.md) | The OpenUI Lang reference that teaches `openui` fences | registers on `ctx.systemPrompt` |
+| [`ui-openui`](ui-openui/README.md) | Live interfaces rendered from `openui` fences in replies | registers a Markdown fence renderer |
 | [`ui-brand-deepcanvas`](ui-brand-deepcanvas/README.md) | DeepCanvas mark and name in the brand slots | registers slots |
 | [`deepcanvas-bundle`](deepcanvas-bundle/README.md) | The DeepCanvas profile layer | bundle, no ctx key |
 
