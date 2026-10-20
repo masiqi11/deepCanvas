@@ -1031,7 +1031,7 @@ describe('web e2e: plugin manager', () => {
     const install = dialog.getByRole('button', { name: '安装', exact: true })
     expect(await install.isDisabled()).toBe(true)
     expect(await dialog.getByRole('note').textContent()).toContain('请确认插件来源可信')
-    expect(await dialog.getByRole('note').textContent()).toContain('按需安装的官方插件会在版本与 DSH 不同时提供“更新”')
+    expect(await dialog.getByRole('note').textContent()).toContain('按需安装的官方插件会在版本与 DeepCanvas 不同时提供“更新”')
     expect(await dialog.getByRole('note').textContent()).toContain('其他插件请先卸载再安装新版')
     await dialog.getByRole('button', { name: '插件安装引导和示例' }).click()
     // The guide carries the package-name example only; the former template strings keep their replacement reminder.
@@ -1146,7 +1146,7 @@ describe('web e2e: startup-applied plugin management', () => {
       // The selection is saved and the switch turns on, but nothing mounts before the next start; a toast says so.
       await expect.poll(bundles, { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toEqual([...SCAFFOLD_BUNDLES, '@fixture/bundle'])
       await expect.poll(() => toggle.getAttribute('aria-checked'), { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toBe('true')
-      await page.getByText('请重启 DSH 使更改生效。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 10_000 })
+      await page.getByText('请重启 DeepCanvas 使更改生效。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 10_000 })
       expect(mounted()?.fiber?.state).toBeUndefined()
       // The pack's page lists its rows from their declarations, with no live entry to switch.
       await panel.getByRole('button', { name: '查看 @fixture/bundle' }).click()

@@ -31,7 +31,7 @@ function lastStep(context: ConversationNodeContext<TurnErrorState>): number {
 
 /**
  * Failure shown for a turn ending: a recorded error, a sign-out cancellation,
- * or a turn that restart recovery closed because the DSH process exited mid-turn.
+ * or a turn that restart recovery closed because the DeepCanvas process exited mid-turn.
  */
 function endFailure(reason: TurnEndReason): { readonly message: string; readonly code?: string } | undefined {
   switch (reason.kind) {
@@ -43,7 +43,7 @@ function endFailure(reason: TurnEndReason): { readonly message: string; readonly
         ? { message: 'Stopped because you signed out of DeepSeek.', code: 'ACCOUNT_SIGNED_OUT' }
         : undefined
     case 'interrupted':
-      return { message: 'The DSH process exited before this turn finished.', code: 'INTERRUPTED' }
+      return { message: 'The DeepCanvas process exited before this turn finished.', code: 'INTERRUPTED' }
     default:
       // Completed, blocked, max-tokens, forked, and plugin-merged endings have no failure row.
       return undefined

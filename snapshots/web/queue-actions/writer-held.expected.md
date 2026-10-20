@@ -1,4 +1,4 @@
-- alert: This session is already in use, possibly by another running DSH instance (such as dsh web or the desktop app). Quit other running DSH instances and try again.
+- alert: This session is already in use, possibly by another running DeepCanvas instance (such as another DeepCanvas window or process). Quit other running DeepCanvas instances and try again.
 - textbox "Message or run a task, / commands, @ files or sessions":
   - paragraph: Queue submission to retry
 - button "Add files or run commands"

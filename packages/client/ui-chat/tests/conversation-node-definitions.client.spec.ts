@@ -2862,7 +2862,7 @@ it('reports a turn closed after its process exited as a stopped turn', () => {
     at(7, 'turn/end', { turn: 1, reason: { kind: 'interrupted' } }),
   ], true)
   expect(node(snapshot(value), 'turn-error')?.data).toMatchObject({
-    code: 'INTERRUPTED', message: 'The DSH process exited before this turn finished.',
+    code: 'INTERRUPTED', message: 'The DeepCanvas process exited before this turn finished.',
   })
 })
 
