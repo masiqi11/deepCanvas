@@ -55,6 +55,16 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@deepseek-ai/dsh-sdk-app` | yes | The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base |
 | `@deepseek-ai/dsh-web-app` | yes | The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line) |
 
+## canvas
+
+| Package | Config | Description |
+|---|---|---|
+| `@deepseek-ai/dsh-client-ui-brand-deepcanvas` | no | DeepCanvas brand occupants for the Web client's sidebar and empty-conversation brand slots |
+| `@deepseek-ai/dsh-client-ui-canvas` | no | DeepCanvas Web surfaces: inline visual components, board cards, and the versioned board workspace |
+| `@deepseek-ai/dsh-client-ui-openui` | no | DeepCanvas interactive answers: renders openui fences in assistant replies as live components |
+| `@deepseek-ai/dsh-openui-prompt` | no | DeepCanvas interactive answers: the system prompt section that teaches openui fences |
+| `@deepseek-ai/dsh-tool-canvas` | yes | Model-facing DeepCanvas tools: inline visual components and versioned workspace boards |
+
 ## client
 
 | Package | Config | Description |

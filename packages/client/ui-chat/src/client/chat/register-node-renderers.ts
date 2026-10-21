@@ -54,6 +54,8 @@ export function registerChatNodeRenderers(
     children: {
       'conversation.chat.reasoning.body': { kind: 'single', scope: 'session' },
       'conversation.chat.message.images': { kind: 'single', scope: 'session' },
+      'conversation.chat.markdown.fence': { kind: 'keyed', scope: 'session' },
+      'conversation.chat.markdown.fence.unlabeled': { kind: 'chain', scope: 'session' },
     },
     inject: () => ({ hooks: { presentation } }),
   }, AssistantNodeView))

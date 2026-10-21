@@ -250,6 +250,11 @@ export default defineConfig({
         // harness the jsdom lane doesn't cover yet. TODO(gui): cover and
         // remove as the client test lane matures.
         'packages/client/ui-trajectory/src/*',
+        // Components and functions ported from Open Intelligent UI: the gallery
+        // render smoke test and the ported function specs cover them, not per
+        // branch. TODO(gui): cover and remove as the client test lane matures.
+        'packages/canvas/ui-openui/src/client/library/**',
+        'packages/canvas/ui-openui/src/client/functions/**',
         // Electron guest integration retains its unit specs; per-file coverage
         // is deferred until a native Electron harness covers guest behavior.
         'packages/client/ui-sidebar-browser/src/client/electron/**',

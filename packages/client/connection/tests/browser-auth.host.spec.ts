@@ -103,7 +103,7 @@ describe('API credentials', () => {
     expect(res.state).toEqual({
       status: 401,
       headers: { 'cache-control': 'no-store', 'content-type': 'text/plain; charset=utf-8' },
-      body: 'dsh web authentication required; reopen the URL printed by dsh web.\n',
+      body: '需要访问凭据：请重新打开启动 DeepCanvas 时终端打印的链接。 / Authentication required: reopen the URL DeepCanvas printed at launch.\n',
     })
     expect(publish).not.toHaveBeenCalled()
   })
@@ -283,7 +283,7 @@ describe('BrowserAuth', () => {
       })
       expect(denied.state.body).toBe(candidate.method === 'HEAD'
         ? undefined
-        : 'dsh web authentication required; reopen the URL printed by dsh web.\n')
+        : '需要访问凭据：请重新打开启动 DeepCanvas 时终端打印的链接。 / Authentication required: reopen the URL DeepCanvas printed at launch.\n')
     }
   })
 

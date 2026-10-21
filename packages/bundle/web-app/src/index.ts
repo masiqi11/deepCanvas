@@ -70,6 +70,8 @@ export interface Config {
    * Absent or YAML `null` advertises the bind-address URL.
    */
   publicUrl?: string
+  /** Product name prefixing the console URL, readiness, and browser-handoff lines. */
+  consoleLabel: string
 }
 
 export const Config: z<Config> = z.object({
@@ -77,6 +79,7 @@ export const Config: z<Config> = z.object({
   printUrl: z.boolean().default(true),
   surfaceContext: z.boolean().default(true),
   publicUrl: z.transform(z.string(), value => parsePublicUrl(value).href),
+  consoleLabel: z.string().default('dsh web'),
 })
 
 /** Environment variable naming the advertised URL of this Web GUI. */
@@ -195,7 +198,7 @@ export function apply(ctx: Context, config: Config): void {
     )
   }
   if (ctx.webServer.protocol === 'http:' && !isLoopbackHost(boundHost)) {
-    console.warn(`dsh web: listening on ${boundHost} over plain HTTP; restrict this port to a trusted proxy or network`)
+    console.warn(`${config.consoleLabel}: listening on ${boundHost} over plain HTTP; restrict this port to a trusted proxy or network`)
   }
   // The bind URL belongs to this host. Under SSH, the operator reaches it
   // through a local forwarding address that this process cannot derive.
@@ -228,13 +231,13 @@ export function apply(ctx: Context, config: Config): void {
         const authenticatedUrl = connectionCtx.connection.authenticatedUrl(webUrl)
         ANNOUNCED_ROOTS.add(connectionCtx.root)
         if (config.printUrl) {
-          console.log(`dsh web: ${authenticatedUrl}`)
+          console.log(`${config.consoleLabel}: ${authenticatedUrl}`)
         }
         if (handoffBrowser) {
-          console.log('dsh web: opening the default browser; pass --no-open to disable')
+          console.log(`${config.consoleLabel}: opening the default browser; pass --no-open to disable`)
           void internals.openBrowser(authenticatedUrl).catch((error: unknown) => {
             const reason = error instanceof Error ? error.message : String(error)
-            console.error(`web-app: could not open the default browser because ${reason}; use the dsh web URL printed at startup`)
+            console.error(`web-app: could not open the default browser because ${reason}; use the ${config.consoleLabel} URL printed at startup`)
           })
         }
       }
