@@ -126,6 +126,20 @@ $mode = "A"`)
     expect(await screen.findByText('合计 42')).toBeTruthy()
   })
 
+  it('walks through the example with the code line following the step', async () => {
+    const { exampleWalkthrough } = await import('../src/client/prompt-options.ts')
+    const { props } = fence(exampleWalkthrough)
+    const view = render(createElement(OpenUIFence, props))
+    const marked = () => [...view.container.querySelectorAll('.iui-code-line[data-on]')].map(line => line.textContent)
+    expect(await screen.findByText('Start with the whole array: lo = 0, hi = 6.')).toBeTruthy()
+    expect(marked()).toEqual(['2    lo, hi = 0, len(a) - 1'])
+    fireEvent.click(screen.getByRole('button', { name: /Next/ }))
+    expect(await screen.findByText('mid = 3, a[3] = 17.')).toBeTruthy()
+    expect(marked()).toEqual(['4        mid = (lo + hi) // 2'])
+    await act(async () => { await Promise.resolve() })
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
   it('keeps rendering while warnings remain', async () => {
     const { props } = fence('root = Col([Title("Hello")])\nunused = Text("x")')
     render(createElement(OpenUIFence, props))

@@ -41,6 +41,18 @@ drawings = [s0, s1, s2, s3]
 viewer = Card([Row([Badge("Step " + ($step + 1) + " of 4", "info"), Spacer(), Caption(@Percent($step + 1, 4) + "% done")], 2), Box([drawings[$step]], null, null, 3, "surface", "lg"), Title(steps[$step].title, "md"), Text(steps[$step].text, "sm"), Row([Button("Back", @Set($step, @Clamp($step - 1, 0, 3)), "outline", null, null, "arrow-left", $step == 0), Spacer(), Button("Next step", @Set($step, @Clamp($step + 1, 0, 3)), "solid", null, null, "arrow-right", $step == 3)], 2)], null, 4, 3)
 strip = Grid(@Each(@Range(0, 4), "i", Pressable([drawings[i], Caption((i + 1) + ". " + steps[i].title)], @Set($step, i), i == $step, 2)), 4, 110, 2)`
 
+/** Worked example: an algorithm walkthrough whose drawing and code highlight follow the same step. */
+export const exampleWalkthrough = `root = Col([head, Grid([board, codeCard], 2, 280, 3), controls])
+$step = 0
+head = Col([Title("Binary search for 21", "xl"), Text("Each step halves the range that can still hold 21.", "md", "muted")], 2)
+a = [3, 8, 12, 17, 21, 29, 34]
+steps = [{lo: 0, hi: 6, mid: -1, line: 2, text: "Start with the whole array: lo = 0, hi = 6."}, {lo: 0, hi: 6, mid: 3, line: 4, text: "mid = 3, a[3] = 17."}, {lo: 4, hi: 6, mid: 3, line: 6, text: "17 < 21, so the answer is to the right: lo = 4."}, {lo: 4, hi: 6, mid: 5, line: 4, text: "mid = 5, a[5] = 29."}, {lo: 4, hi: 4, mid: 5, line: 7, text: "29 > 21, so it is to the left: hi = 4."}, {lo: 4, hi: 4, mid: 4, line: 4, text: "mid = 4, a[4] = 21."}, {lo: 4, hi: 4, mid: 4, line: 5, text: "Found 21 at index 4 after 3 comparisons."}]
+s = steps[$step]
+cells = @Each(@Range(0, 7), "i", G([Rect(8 + i * 32, 30, 28, 28, i == s.mid ? "warning" : (i >= s.lo && i <= s.hi ? "info" : "surface"), "ink", 1.5, 1, 6), SvgText(a[i] + "", 22 + i * 32, 49, 12, "ink", "middle", "semibold"), SvgText(i + "", 22 + i * 32, 74, 10, "muted", "middle")]))
+board = Card([Row([Badge("Step " + ($step + 1) + " of 7", "info"), Spacer(), Badge("compared", "warning"), Badge("in range", "info")], 2), Svg(cells, "0 0 240 84"), Text(s.text, "sm")], null, 4, 3)
+codeCard = Code("def search(a, x):\\n    lo, hi = 0, len(a) - 1\\n    while lo <= hi:\\n        mid = (lo + hi) // 2\\n        if a[mid] == x: return mid\\n        if a[mid] < x: lo = mid + 1\\n        else: hi = mid - 1\\n    return -1", "python", s.line)
+controls = Row([Button("Back", @Set($step, @Clamp($step - 1, 0, 6)), "outline", null, null, "arrow-left", $step == 0), Slider($step, 0, 6, 1, "Step"), Button("Next", @Set($step, @Clamp($step + 1, 0, 6)), "solid", null, null, "arrow-right", $step == 6)], 3)`
+
 const rules = [
   "Write prose in Markdown and put each interface in its own fenced block that opens with exactly ```openui (a fence without the openui label shows as raw source); keep the text around a fence to a sentence or two. Never put openui code outside a fence, and write labels in the user's language.",
   'Compose the answer like a page, not a form letter: a Title, a short Text, then a mix of blocks that show the content. Icon rows and Badge rows for quick facts; Row, Grid and Carousel to set things side by side; Card only to group a block; Popover for an aside.',
@@ -54,6 +66,7 @@ const rules = [
   'cond ? a : b also picks between components; there is no @If. Use only the listed @functions; you cannot define your own.',
   'Derive rows once in a statement with @Each(list, "x", {...}), then reuse them in @Each, Table, Chart, @Sum(rows.field) and @Join. @Each(@Range(0, n), "i", ...) builds a series or repeats a step.',
   '@Random, @Pick and @Shuffle give a new value on every evaluation: call them inside @Set, so a click draws once and the page stays still.',
+  'Walk through an algorithm, program or procedure with one step list that drives everything: draw the data with Svg and give the elements the step compares, swaps or moves their own color; show the code in Code beside the drawing with highlight set to the line or lines that step runs; let Back, Next and a Slider move $step.',
   'Pick the medium that shows the idea: Chart for numbers across time or categories; Svg drawings for shapes, parts and movement; Table for comparisons; Flashcard and Celebration for learning and games; HtmlView only for a game or animation that needs a loop.',
   'Draw with Svg whenever the user would otherwise have to picture it: assembly and how-to steps, how a machine, mechanism or the body works, geometry and science diagrams, the layout of a room or board, processes and flows. Keep each drawing simple: a viewBox about 240 wide, a dozen or so shapes in the listed colors with SvgText labels, a Line with a small Polygon head for an arrow, and let $variables such as the current step drive it.',
   'Image shows only an https URL given by the user or a tool result; never invent image URLs.',
@@ -76,5 +89,6 @@ export const promptOptions: PromptOptions = {
     `Example 1: A guest stepper that rescales a shopping list, with a checklist and a copy button:\n\n${exampleShoppingList}`,
     `Example 2: A composed trip answer: facts, day rows and a short form:\n\n${exampleTrip}`,
     `Example 3: Step-by-step instructions with a drawing for each step, driven by $step:\n\n${exampleSteps}`,
+    `Example 4: An algorithm walkthrough where the drawing and the highlighted code line follow the same step:\n\n${exampleWalkthrough}`,
   ],
 }

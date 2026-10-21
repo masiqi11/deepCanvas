@@ -12,7 +12,7 @@ export const COMPONENT_NOTES = {
   Celebration: 'Bursts confetti when its condition turns true, e.g. Celebration($score == 5) at the end of a quiz.',
   Chart: 'Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like "EUR".',
   Checkbox: 'lineThrough strikes the label when checked, for to-do lists.',
-  Code: 'Code block with a copy button.',
+  Code: 'Code block with a copy button. highlight marks 1-based line numbers, e.g. the line the current step runs, so a walkthrough can drive it from $step.',
   Col: 'Vertical layout. Without gap it spaces blocks like an article.',
   DatePicker: 'Dates are "YYYY-MM-DD".',
   Flashcard: 'Card that flips between front and back when tapped. Put several in a Carousel or Grid.',

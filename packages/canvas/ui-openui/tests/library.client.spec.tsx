@@ -6,7 +6,7 @@ import { cleanup, render } from '@testing-library/react'
 import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
 import { OpenUIFence } from '../src/client/OpenUIFence.tsx'
 import { zh } from '../src/client/locales.ts'
-import { exampleShoppingList, exampleSteps, exampleTrip } from '../src/client/prompt-options.ts'
+import { exampleShoppingList, exampleSteps, exampleTrip, exampleWalkthrough } from '../src/client/prompt-options.ts'
 import { compositionPrograms } from './fixtures/composition-programs.client.ts'
 import { programs } from './fixtures/programs.client.ts'
 import { toolPrograms } from './fixtures/tool-programs.client.ts'
@@ -22,6 +22,7 @@ const all = [
   { id: 'example-list', code: exampleShoppingList },
   { id: 'example-trip', code: exampleTrip },
   { id: 'example-steps', code: exampleSteps },
+  { id: 'example-walkthrough', code: exampleWalkthrough },
   ...toolPrograms,
   ...programs,
   ...compositionPrograms,

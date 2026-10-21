@@ -129,12 +129,13 @@ export const Popover = defineComponent({
 // Code, quote, math
 export const Code = defineComponent({
   name: 'Code',
-  props: z.object({ code: z.string(), language: z.string().optional() }),
+  props: z.object({ code: z.string(), language: z.string().optional(), highlight: z.union([z.number(), z.array(z.number())]).optional() }),
   description: COMPONENT_NOTES.Code,
   component: function CodeView({ props }) {
     const tr = useCopy()
     const [copied, setCopied] = useState(false)
     const code = str(props.code)
+    const marked = props.highlight === undefined ? undefined : new Set([props.highlight].flat())
     const copy = () =>
       void navigator.clipboard?.writeText(code).then(() => {
         setCopied(true)
@@ -150,7 +151,16 @@ export const Code = defineComponent({
           </button>
         </div>
         <pre>
-          <code>{code}</code>
+          {marked === undefined ? <code>{code}</code> : (
+            <code className="iui-code-lines">
+              {code.split('\n').map((line, i) => (
+                <span key={i} className="iui-code-line" data-on={marked.has(i + 1) || undefined}>
+                  <span className="iui-code-no" aria-hidden="true">{i + 1}</span>
+                  {line === '' ? ' ' : line}
+                </span>
+              ))}
+            </code>
+          )}
         </pre>
       </div>
     )

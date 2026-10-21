@@ -295,7 +295,7 @@ body[data-ds-dark-theme] .iui-segmented > button.is-selected { background: var(-
 .iui-pie-legend span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .iui-pie-legend b { font-weight: 560; font-variant-numeric: tabular-nums; }
 
-.iui-svg { display: block; max-width: 100%; height: auto; margin-inline: auto; overflow: visible; color: var(--iui-ink); }
+.iui-svg { display: block; max-width: 100%; height: auto; margin-inline: auto; overflow: hidden; color: var(--iui-ink); }
 
 .iui-html-view { position: relative; width: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--iui-border); border-radius: var(--iui-radius-lg); background: var(--iui-canvas); }
 .iui-html-view > iframe { display: block; width: 100%; height: 100%; border: 0; background: transparent; }
@@ -328,6 +328,11 @@ body[data-ds-dark-theme] .iui-segmented > button.is-selected { background: var(-
 .iui-codeblock-head button { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border: 0; border-radius: 6px; background: none; color: inherit; font: inherit; cursor: pointer; }
 .iui-codeblock-head button:hover { background: var(--iui-hover); color: var(--iui-ink); }
 .iui-codeblock pre { margin: 0; padding: 14px 16px; overflow-x: auto; font: 13px/1.6 var(--iui-mono); }
+.iui-codeblock pre:has(.iui-code-lines) { padding: 10px 0; }
+.iui-code-lines { display: block; }
+.iui-code-line { display: grid; grid-template-columns: 2.6em 1fr; padding: 0 16px 0 0; border-left: 3px solid transparent; white-space: pre-wrap; overflow-wrap: anywhere; transition: background-color .25s, border-color .25s; }
+.iui-code-line[data-on] { border-left-color: var(--iui-warning); background: var(--iui-warning-soft); }
+.iui-code-no { padding-right: 1em; color: var(--iui-faint); text-align: right; user-select: none; }
 
 .iui-quote { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 14px 16px; border-left: 3px solid var(--iui-ink); border-radius: 0 12px 12px 0; background: var(--iui-surface); }
 .iui-quote > p { margin: 0; font-size: 16px; line-height: 1.6; }
