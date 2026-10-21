@@ -11,7 +11,7 @@ import { functions } from './functions/index.ts'
 import './library/theme.css'
 import './library/components.css'
 import { Chart } from './library/chart.tsx'
-import { Carousel, Celebration, Code, Flashcard, MathBlock, Popover, Quote } from './library/extra.tsx'
+import { Callout, Carousel, Celebration, Code, Flashcard, MathBlock, Popover, Quote } from './library/extra.tsx'
 import {
   Button, Checkbox, DatePicker, IconButton, Input, Pressable, RadioGroup, SegmentedControl, Select, Slider, TextArea, Timer,
 } from './library/controls.tsx'
@@ -27,7 +27,7 @@ export const library = createLibrary({
   root: 'Col',
   components: [
     Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer,
-    Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Code, MathBlock,
+    Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Callout, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
     Image, Icon, Table, Chart,
     Flashcard, Celebration,
@@ -45,7 +45,7 @@ export const library = createLibrary({
           + 'As a background, status colors are soft tints.',
       ],
     },
-    { name: 'Text', components: ['Title', 'Text', 'Caption', 'Label', 'Badge', 'Link', 'List', 'ListItem', 'Markdown', 'Quote', 'Code', 'Math'] },
+    { name: 'Text', components: ['Title', 'Text', 'Caption', 'Label', 'Badge', 'Link', 'List', 'ListItem', 'Markdown', 'Quote', 'Callout', 'Code', 'Math'] },
     {
       name: 'Inputs',
       components: [

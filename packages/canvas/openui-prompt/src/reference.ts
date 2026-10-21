@@ -42,7 +42,7 @@ Spacer() — Fills the free space in a Row.
 
 ### Text
 Title(text: string, size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl", color?: Color) — Heading; md for a card title, lg for a section, 2xl for a big number.
-Text(text: string | Node[], size?: "xs" | "sm" | "md" | "lg", color?: Color, weight?: "normal" | "medium" | "semibold", italic?: boolean, lineThrough?: boolean, tabularNums?: boolean, maxLines?: number) — Paragraph; supports **bold**, *italic*, \`code\` and [links](https://…). text may be a list mixing strings and inline components: [Icon("clock", "sm"), " 25 min · ", Badge("Easy")].
+Text(text: string | Node[], size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl", color?: Color, weight?: "normal" | "medium" | "semibold", italic?: boolean, lineThrough?: boolean, tabularNums?: boolean, maxLines?: number) — Paragraph; supports **bold**, *italic*, \`code\` and [links](https://…). text may be a list mixing strings and inline components: [Icon("clock", "sm"), " 25 min · ", Badge("Easy")].
 Caption(text: string, color?: Color) — Small secondary text.
 Label(text: string) — Field or group label.
 Badge(text: string, color?: "neutral" | "info" | "success" | "warning" | "danger" | "purple" | "pink", icon?: string) — Pill tag; icon is an optional leading lucide name.
@@ -50,7 +50,8 @@ Link(text: string, url: string) — Opens an http(s) URL in a new tab.
 List(items: (string | ListItem)[], marker?: "bullet" | "number" | "none", timeline?: boolean) — timeline joins the markers with a line.
 ListItem(title: string, description?: string, marker?: string, children?: Node[]) — marker replaces the bullet or number, e.g. a time or an emoji.
 Markdown(text: string) — Prose with headings, lists, quotes, code and tables.
-Quote(text: string, cite?: string) — A quotation or a callout with a side rule; cite names the source.
+Quote(text: string, cite?: string) — A quotation with a side rule; cite names the source.
+Callout(text: string, tone?: "info" | "success" | "warning" | "danger", title?: string) — A tinted note for a conclusion, tip or risk; tone sets the color and icon.
 Code(code: string, language?: string) — Code block with a copy button.
 Math(tex: string, inline?: boolean) — LaTeX formula, e.g. Math("E = mc^2"); inline true to sit in a Text list.
 
@@ -61,7 +62,7 @@ Pressable(children: Node[], action?: ActionExpression, selected?: boolean, paddi
 Input(value: $binding<string | number>, label?: string, type?: "text" | "number", placeholder?: string) — Text or number field; a number field stores numbers.
 TextArea(value: $binding<string>, label?: string, placeholder?: string, rows?: number)
 Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string) — Dropdown, for long option lists.
-SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], block?: boolean) — 2 to 4 short choices in a row.
+SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, block?: boolean) — 2 to 4 short choices in a row.
 Slider(value: $binding<number>, min: number, max: number, step?: number, label?: string, unit?: string, marks?: {value: number, label: string}[]) — Shows label and value; unit like "%" or "$" formats the value.
 Checkbox(checked: $binding<boolean>, label: string, lineThrough?: boolean) — lineThrough strikes the label when checked, for to-do lists.
 RadioGroup(value: $binding<string>, options: (string | {value: string, label: string, description?: string})[], label?: string, variant?: "list" | "pills" | "cards") — pills for short choices; cards for choices that need a description line.
@@ -262,9 +263,9 @@ Before finishing, walk your output and verify:
 2. Every referenced name is defined. Every defined name (other than root) is reachable from root.
 3. Every $binding appears in at least one component or expression.
 
-- Write prose in Markdown and put each interface in its own fenced block with the info string openui; keep the text around a fence to a sentence or two. Never put openui code outside a fence, and write labels in the user's language.
+- Write prose in Markdown and put each interface in its own fenced block that opens with exactly \`\`\`openui (a fence without the openui label shows as raw source); keep the text around a fence to a sentence or two. Never put openui code outside a fence, and write labels in the user's language.
 - Compose the answer like a page, not a form letter: a Title, a short Text, then a mix of blocks that show the content. Icon rows and Badge rows for quick facts; Row, Grid and Carousel to set things side by side; Card only to group a block; Popover for an aside.
-- Write an interface directly from what you know or have already found; do not run commands, write files, or call tools only to build or check it.
+- Write an interface directly from what you know or have already found. The page computes live with expressions and @functions, so do the math there: never run commands, write files, or call tools to compute, test, preview or check an interface, and never build it as an HTML file.
 - Keep a page compact: at most about 40 statements. Put repeated content in a data list and render it with @Each instead of writing one component per item.
 - Spacing is a system with three tiers that always nest: inner (gap 1-2, 4-8px) for a title with its subtitle, tags or line; group (gap 3-4, 12-16px) between blocks inside a Card or grid cell; section (24px) between the blocks of the page. Leave gap unset on the page's root Col and on card contents: the app applies these tiers. Set a gap only on a Row or Grid. Never use one gap for everything, and never a gap larger than the section gap.
 - Keep cards compact and scannable: Title "md" (never lg or xl inside a Card), Text "sm" for the body, at most one short paragraph, then facts as Badges or label/value rows (Caption label, Spacer, Text value). Cards side by side in a Grid share the same blocks in the same order, so they line up.

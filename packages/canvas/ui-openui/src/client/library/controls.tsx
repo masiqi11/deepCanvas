@@ -264,13 +264,13 @@ export const Select = defineComponent({
 
 export const SegmentedControl = defineComponent({
   name: 'SegmentedControl',
-  props: z.object({ value: reactive(z.string()), options, block: z.boolean().optional() }),
+  props: z.object({ value: reactive(z.string()), options, label: z.string().optional(), block: z.boolean().optional() }),
   description: COMPONENT_NOTES.SegmentedControl,
   component: function SegmentedView({ props, statementId }) {
-    const field = useStateField(useFieldName(undefined, statementId), props.value)
+    const field = useStateField(useFieldName(props.label, statementId), props.value)
     const value = field.value == null ? '' : String(field.value)
-    return (
-      <div className={cx('iui-segmented', props.block && 'iui-block')} role="radiogroup">
+    const control = (
+      <div className={cx('iui-segmented', props.block && 'iui-block')} role="radiogroup" aria-label={props.label}>
         {optionList(props.options).map((o, i) => (
           <button
             key={`${o.value}-${i}`}
@@ -283,6 +283,13 @@ export const SegmentedControl = defineComponent({
             {o.label}
           </button>
         ))}
+      </div>
+    )
+    if (!props.label) return control
+    return (
+      <div className="iui-field">
+        <span className="iui-label">{props.label}</span>
+        {control}
       </div>
     )
   },

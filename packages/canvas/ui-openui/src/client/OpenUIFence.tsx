@@ -1,5 +1,5 @@
 /** Chat renderer of an `openui` fence: the live interface, its state, actions, and repair. */
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { BuiltinActionType, Renderer, type ActionEvent, type OpenUIError } from '@openuidev/react-lang'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
@@ -30,6 +30,12 @@ function blocking(errors: readonly OpenUIError[]): OpenUIError[] {
   return errors.filter(error => error.severity !== 'warning')
 }
 
+/** Whether the rendered view shows anything: text, graphics, media, or a control. */
+function visible(element: HTMLElement | null): boolean {
+  if (element === null) return false
+  return element.textContent.trim() !== '' || element.querySelector('svg, img, canvas, iframe, input, button, select, textarea') !== null
+}
+
 /**
  * Render one `openui` fence of an Assistant reply.
  * @param props - fence content, streaming state, copy, and Session actions.
@@ -57,24 +63,30 @@ export function OpenUIFence(props: FenceProps) {
     void runLibraryAction(event)
   }, [sendPrompt, t])
   const problems = useMemo(() => streaming ? [] : blocking(errors), [errors, streaming])
+  // Invalid components are dropped while the rest renders, so the notice says whether anything is visible.
   const empty = code.trim() === ''
+  const view = useRef<HTMLDivElement>(null)
+  const [partial, setPartial] = useState(false)
+  useLayoutEffect(() => { setPartial(problems.length > 0 && visible(view.current)) }, [problems, empty])
   return (
     <CopyContext.Provider value={translate}>
       <div className="iui-root" data-streaming={streaming || undefined}>
         {empty ? <div className="iui-fence-status">{t('fence.preparing')}</div> : (
-          <Renderer
-            response={code}
-            library={library}
-            isStreaming={streaming}
-            onAction={onAction}
-            onError={setErrors}
-            onStateUpdate={onStateUpdate}
-            {...initialState === undefined ? {} : { initialState }}
-          />
+          <div ref={view} className="iui-fence-view">
+            <Renderer
+              response={code}
+              library={library}
+              isStreaming={streaming}
+              onAction={onAction}
+              onError={setErrors}
+              onStateUpdate={onStateUpdate}
+              {...initialState === undefined ? {} : { initialState }}
+            />
+          </div>
         )}
         {problems.length > 0 && (
-          <div className="iui-fence-problem" role="alert">
-            <strong>{t('fence.failed')}</strong>
+          <div className="iui-fence-problem" role="alert" data-partial={partial || undefined}>
+            <strong>{t(partial ? 'fence.partial' : 'fence.failed')}</strong>
             <ul>{problems.map((problem, index) => <li key={index}>{problem.message}</li>)}</ul>
             <div className="iui-fence-actions">
               <button type="button" className="iui-button iui-button-outline iui-button-sm"

@@ -11,6 +11,7 @@ import { z } from 'zod/v4'
 import { inline } from './markdown.tsx'
 import { children, cx } from './style.ts'
 import { useCopy } from '../copy.ts'
+import { Glyph } from '../glyph.tsx'
 import { COMPONENT_NOTES } from './notes.ts'
 
 const str = (value: unknown) => (value == null ? '' : String(value))
@@ -166,6 +167,26 @@ export const Quote = defineComponent({
       {props.cite ? <cite>{inline(str(props.cite))}</cite> : null}
     </blockquote>
   ),
+})
+
+const CALLOUT_ICON = { info: 'info', success: 'check-circle', warning: 'triangle-alert', danger: 'circle-alert' } as const
+
+export const Callout = defineComponent({
+  name: 'Callout',
+  props: z.object({ text: z.string(), tone: z.enum(['info', 'success', 'warning', 'danger']).optional(), title: z.string().optional() }),
+  description: COMPONENT_NOTES.Callout,
+  component: ({ props }) => {
+    const tone = props.tone ?? 'info'
+    return (
+      <div className={`iui-callout iui-callout-${tone}`} role="note">
+        <Glyph name={CALLOUT_ICON[tone]} size={16} className="iui-callout-icon" />
+        <div className="iui-callout-body">
+          {props.title ? <strong>{inline(str(props.title))}</strong> : null}
+          <p>{inline(str(props.text))}</p>
+        </div>
+      </div>
+    )
+  },
 })
 
 export const MathBlock = defineComponent({

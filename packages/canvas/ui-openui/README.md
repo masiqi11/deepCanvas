@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-An `openui` fence in an assistant reply renders as a live interface written in OpenUI Lang: calculators, checklists, comparisons, charts, step-by-step drawings, and small games. Inputs and buttons change the page locally without a model request; only an explicit submit sends a message, with the values on the page. A program that fails shows its problems and a button that asks the assistant to fix it.
+An `openui` fence in an assistant reply renders as a live interface written in OpenUI Lang: calculators, checklists, comparisons, charts, step-by-step drawings, and small games. Inputs and buttons change the page locally without a model request; only an explicit submit sends a message, with the values on the page. A program with errors keeps its valid parts on screen and lists the problems with a button that asks the assistant to fix them.
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ Change any input or tick any item in an answer; the page updates at once. Button
 <details>
 <summary>Implementation details — click to expand</summary>
 
-[`src/client/index.ts`](src/client/index.ts) claims the `openui` and `openui-lang` keys of the `conversation.chat.markdown.fence` slot. [`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) renders the fence with the `@openuidev/react-lang` renderer against [`library.ts`](src/client/library.ts), keeps page state per fence while the page is open, maps `@ToAssistant` to the Session composer, opens only http(s) links, and shows blocking parser problems once the reply settles. The components in [`library/`](src/client/library) and the functions in [`functions/`](src/client/functions) are adapted from Open Intelligent UI (MIT, Copyright (c) 2026 Thesys Inc.); photo search, street maps, and video embeds are left out because they need the network. [`prompt-options.ts`](src/client/prompt-options.ts) holds the rules and examples the host prompt is generated from. `HtmlView` pages run in `sandbox="allow-scripts"` frames whose policy blocks all network access.
+[`src/client/index.ts`](src/client/index.ts) claims the `openui` and `openui-lang` keys of the `conversation.chat.markdown.fence` slot. [`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) renders the fence with the `@openuidev/react-lang` renderer against [`library.ts`](src/client/library.ts), keeps page state per fence while the page is open, maps `@ToAssistant` to the Session composer, opens only http(s) links, and shows blocking parser problems once the reply settles, labelled as partial when the valid components still render. The components in [`library/`](src/client/library) and the functions in [`functions/`](src/client/functions) are adapted from Open Intelligent UI (MIT, Copyright (c) 2026 Thesys Inc.); photo search, street maps, and video embeds are left out because they need the network. [`prompt-options.ts`](src/client/prompt-options.ts) holds the rules and examples the host prompt is generated from. `HtmlView` pages run in `sandbox="allow-scripts"` frames whose policy blocks all network access.
 
 </details>
 

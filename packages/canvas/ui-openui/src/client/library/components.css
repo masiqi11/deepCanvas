@@ -13,6 +13,8 @@
 .iui-fence-problem ul { padding-left: 18px; list-style: disc; color: var(--iui-ink); }
 .iui-fence-problem pre { max-height: 240px; overflow: auto; padding: 8px; border-radius: var(--iui-radius-sm); background: var(--iui-surface); color: var(--iui-ink); font: 12px/1.5 var(--iui-mono); white-space: pre-wrap; }
 .iui-fence-problem summary { cursor: pointer; color: var(--iui-muted); }
+.iui-fence-view { display: contents; }
+.iui-fence-problem[data-partial] { margin-top: 12px; padding: 10px 14px; background: var(--iui-surface); border: 1px solid var(--iui-border); color: var(--iui-muted); }
 
 /* Component styles in the Open Intelligent UI design: quiet 20px panels,
    pill controls, a 24px range track, soft status tints. Tokens: theme.css. */
@@ -64,6 +66,9 @@
 .iui-text-sm { font-size: 14px; line-height: 1.55; }
 .iui-text-md { font-size: 16px; line-height: 1.6; }
 .iui-text-lg { font-size: 18px; line-height: 1.55; }
+.iui-text-xl { font-size: 22px; line-height: 1.4; }
+.iui-text-2xl { font-size: 28px; line-height: 1.25; }
+.iui-text-3xl { font-size: 34px; line-height: 1.2; }
 .iui-weight-normal { font-weight: 440; }
 .iui-weight-medium { font-weight: 560; }
 .iui-weight-semibold { font-weight: 640; }
@@ -327,6 +332,15 @@ body[data-ds-dark-theme] .iui-segmented > button.is-selected { background: var(-
 .iui-quote { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 14px 16px; border-left: 3px solid var(--iui-ink); border-radius: 0 12px 12px 0; background: var(--iui-surface); }
 .iui-quote > p { margin: 0; font-size: 16px; line-height: 1.6; }
 .iui-quote > cite { color: var(--iui-muted); font-size: 13px; font-style: normal; }
+.iui-callout { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; }
+.iui-callout-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.iui-callout-body > p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--iui-ink); }
+.iui-callout-body > strong { font-size: 14px; font-weight: 600; }
+.iui-callout-icon { flex: none; margin-top: 2px; }
+.iui-callout-info { background: var(--iui-info-soft); color: var(--iui-info); }
+.iui-callout-success { background: var(--iui-success-soft); color: var(--iui-success); }
+.iui-callout-warning { background: var(--iui-warning-soft); color: var(--iui-warning); }
+.iui-callout-danger { background: var(--iui-danger-soft); color: var(--iui-danger); }
 
 .iui-math.is-block { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
 .iui-math .katex { font-size: 1.12em; }

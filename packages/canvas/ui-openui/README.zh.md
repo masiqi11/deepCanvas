@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-助手回复中的 `openui` 代码块会渲染为用 OpenUI Lang 写成的可操作界面：计算器、清单、对比、图表、分步示意图和小游戏。输入和按钮只在本地改变界面，不会发起模型请求；只有明确的提交才会发送消息，并带上界面上的数值。程序出错时会列出问题，并提供一个让助手修正的按钮。
+助手回复中的 `openui` 代码块会渲染为用 OpenUI Lang 写成的可操作界面：计算器、清单、对比、图表、分步示意图和小游戏。输入和按钮只在本地改变界面，不会发起模型请求；只有明确的提交才会发送消息，并带上界面上的数值。程序出错时保留能正常显示的部分，列出问题，并提供一个让助手修正的按钮。
 
 ## 目录
 
@@ -42,7 +42,7 @@ kind: "package-reference"
 <details>
 <summary>实现细节 — 点击展开</summary>
 
-[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
+[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题；有效组件仍能显示时标为部分显示。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
 
 </details>
 

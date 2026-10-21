@@ -36,7 +36,7 @@ export const Text = defineComponent({
   name: 'Text',
   props: z.object({
     text: richText,
-    size: z.enum(['xs', 'sm', 'md', 'lg']).optional(),
+    size: z.enum(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']).optional(),
     color: color.optional(),
     weight: z.enum(['normal', 'medium', 'semibold']).optional(),
     italic: z.boolean().optional(),
