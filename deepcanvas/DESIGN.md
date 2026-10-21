@@ -101,7 +101,7 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 ### 回复内交互界面（OpenUI）
 
 - `packages/client/ui-primitives`：`MarkdownText` 新增 `fences` 参数（`MarkdownFences`），可按语言替换代码块的渲染，流式与定稿两种渲染都会调用。
-- `packages/client/ui-chat`：新增按代码块语言分发的 `conversation.chat.markdown.fence` 插槽，助手回复中的代码块经它渲染，未认领的语言保持代码块。
+- `packages/client/ui-chat`：新增按代码块语言分发的 `conversation.chat.markdown.fence` 插槽，助手回复中的代码块经它渲染，未认领的语言保持代码块；没有标注语言的代码块经链式插槽 `conversation.chat.markdown.fence.unlabeled` 分发，所有条目都不认领时保持代码块。`MarkdownFence.language` 对这类代码块为 `undefined`。
 - 新增 `packages/canvas/ui-openui`（渲染器与组件库）与 `packages/canvas/openui-prompt`（由组件库生成的提示词片段）；`tool-canvas` 新增 `showUi` 配置。
 - `.oxlintrc.json` 与 `vitest.config.ts`：为移植的组件与函数目录增加有说明的规则与覆盖率豁免；`pnpm-workspace.yaml` 拒绝 `@openuidev/lang-core` 的安装脚本（仅用于上报安装统计）。
 - `scripts/gen-client-catalog.ts`：单个插槽报告的行数上限由 122 调为 124（`tool.call.toolview` 多了两个注册方）。

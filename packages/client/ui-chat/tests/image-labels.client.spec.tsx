@@ -49,7 +49,7 @@ async function renderImages(blocks: AssistantMarkdownProps['blocks'], calls: Mes
     'conversation.chat.message.images': { kind: 'single', scope: 'session' },
   }, ({ renderSlot, SessionProvider }) => (
     <SessionProvider session={session}>
-      <AssistantMarkdown loadImage={loadImage} renderSlot={renderSlot}
+      <AssistantMarkdown loadImage={loadImage} renderSlot={renderSlot} renderSlotChain={() => null}
         useDisclosure={useDisclosure} useGroupAction={useSearchableHidden}
         usePresentation={useDetailedPresentation} t={t} blocks={blocks} streaming={false} />
     </SessionProvider>
@@ -81,8 +81,8 @@ describe('assistant image slot handoff', () => {
     } satisfies Omit<AssistantMarkdownProps, 'loadImage' | 'renderSlot'>
     const content = (loadImage: AssistantMarkdownProps['loadImage']) => (
       <>
-        <AssistantMarkdown {...props} loadImage={loadImage} renderSlot={firstRenderer} />
-        <AssistantMarkdown {...props} loadImage={siblingLoader} renderSlot={siblingRenderer} />
+        <AssistantMarkdown {...props} loadImage={loadImage} renderSlot={firstRenderer} renderSlotChain={() => null} />
+        <AssistantMarkdown {...props} loadImage={siblingLoader} renderSlot={siblingRenderer} renderSlotChain={() => null} />
       </>
     )
     const view = render(content(firstLoader))

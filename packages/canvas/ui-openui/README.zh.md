@@ -42,7 +42,7 @@ kind: "package-reference"
 <details>
 <summary>实现细节 — 点击展开</summary>
 
-[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题；有效组件仍能显示时标为部分显示。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
+[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键；没有标注语言的代码块经 `conversation.chat.markdown.fence.unlabeled` 分发，内容含 `root =` 语句时也会认领。[`source.ts`](src/client/source.ts) 在解析前为非 ASCII 的对象键和成员加上引号，因为 OpenUI Lang 的分词器会丢弃非 ASCII 标识符。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题；有效组件仍能显示时标为部分显示。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
 
 </details>
 

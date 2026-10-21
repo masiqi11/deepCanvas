@@ -1,6 +1,6 @@
 /** Non-ASCII object keys and members survive the OpenUI tokenizer once quoted. */
 import { describe, expect, it } from 'vitest'
-import { quoteUnicodeNames } from '../src/client/source.ts'
+import { isProgram, quoteUnicodeNames } from '../src/client/source.ts'
 
 describe('quoteUnicodeNames', () => {
   it('quotes non-ASCII object keys and turns member access into index access', () => {
@@ -18,5 +18,11 @@ describe('quoteUnicodeNames', () => {
   it('keeps a streaming prefix with an open string as it is', () => {
     expect(quoteUnicodeNames('a = {名: "未完')).toBe('a = {"名": "未完')
     expect(quoteUnicodeNames('a = "x\\')).toBe('a = "x\\')
+  })
+
+  it('recognizes an OpenUI program by its root statement', () => {
+    expect(isProgram('head = Title("x")\nroot = Col([head])')).toBe(true)
+    expect(isProgram('for i in range(3):\n  root=1')).toBe(true)
+    expect(isProgram('print("root = no")')).toBe(false)
   })
 })

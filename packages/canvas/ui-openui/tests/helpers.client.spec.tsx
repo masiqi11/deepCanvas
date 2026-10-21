@@ -80,7 +80,9 @@ describe('plugin registration', () => {
 
   it('registers the fence renderer for both languages and submits through the composer', () => {
     type Injected = { sendPrompt: (p: string) => void; states: Map<string, unknown> }
-    const registrations: Array<{ name: string; key: string; inject: (sessionId: string) => Injected }> = []
+    type Select = (owner: { code: string }) => unknown
+    type Registration = { name: string; key?: string; inject: (sessionId: string) => Injected; select?: Select }
+    const registrations: Registration[] = []
     const components: unknown[] = []
     const effects: Array<() => unknown> = []
     const input = { setDraft: vi.fn(), submit: vi.fn() }
@@ -105,8 +107,12 @@ describe('plugin registration', () => {
     apply(ctx as never)
     const disposers = effects.map(effect => effect())
     expect(ctx.locale.register).toHaveBeenCalled()
-    expect(registrations.map(entry => entry.key)).toEqual([...FENCE_LANGUAGES])
-    expect(components).toEqual([OpenUIFence, OpenUIFence])
+    expect(registrations.map(entry => entry.key)).toEqual([...FENCE_LANGUAGES, undefined])
+    expect(components).toEqual([OpenUIFence, OpenUIFence, OpenUIFence])
+    const unlabeled = registrations[2]
+    expect(unlabeled?.name).toBe('conversation.chat.markdown.fence.unlabeled')
+    expect(unlabeled?.select?.({ code: 'root = Col([])' })).toEqual({ code: 'root = Col([])' })
+    expect(unlabeled?.select?.({ code: 'print(1)' })).toBeNull()
     const live = registrations[0]?.inject('s1')
     live?.sendPrompt('hello')
     expect(input.setDraft).toHaveBeenCalledWith('hello')

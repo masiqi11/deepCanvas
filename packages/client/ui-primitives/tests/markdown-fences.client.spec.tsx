@@ -47,10 +47,10 @@ describe('MarkdownText fence renderers', () => {
     expect(second.seen.length).toBeGreaterThan(0)
   })
 
-  it('leaves fences without a language and empty fences to the default renderer', () => {
+  it('offers fences without a language with an undefined language and leaves empty fences to the default renderer', () => {
     const { fences, seen } = recorder()
     const { container } = render(<MarkdownText fences={fences} text={'```\nplain\n```\n\n```openui\n```'} />)
     expect(container.querySelectorAll('pre')).toHaveLength(2)
-    expect(seen).toEqual([])
+    expect(seen).toEqual([{ language: undefined, code: 'plain', streaming: false }])
   })
 })

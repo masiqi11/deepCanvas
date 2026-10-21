@@ -443,6 +443,12 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
      */
     'conversation.chat.markdown.fence': { kind: 'keyed'; scope: 'session'; owner: MarkdownFenceOwnerProps }
     /**
+     * Renderer for a fenced block without an info string in an Assistant
+     * reply. Entry selectors claim a fence from its content; when every
+     * selector declines, the code block renders.
+     */
+    'conversation.chat.markdown.fence.unlabeled': { kind: 'chain'; scope: 'session'; owner: MarkdownFenceOwnerProps }
+    /**
      * Expanded reasoning body with the unchanged model text. The official entry
      * has priority 100 and calls the reasoning Content Factory; smaller priority
      * values replace it. Contributions must preserve access to the original text.

@@ -180,8 +180,8 @@ export interface MarkdownFileMentions {
 
 /** One fenced block offered to a {@link MarkdownFences} renderer. */
 export interface MarkdownFence {
-  /** First word of the info string, e.g. `openui` for a ```openui fence. */
-  readonly language: string
+  /** First word of the info string, e.g. `openui` for a ```openui fence; undefined for a fence without one. */
+  readonly language: string | undefined
   /** Fence content without the trailing newline. */
   readonly code: string
   /** Whether the message is still streaming; the fence may still be growing. */
@@ -436,7 +436,7 @@ function renderCode(node: Md.Code, key: Key, context: MarkdownRenderContext): Re
       toolbarLabels={context.labels.code.toolbarLabels}
     />
   )
-  if (context.fences === undefined || lang === undefined) return block
+  if (context.fences === undefined) return block
   return <Fragment key={key}>{context.fences.render({ language: lang, code: node.value, streaming: context.streaming }, block)}</Fragment>
 }
 

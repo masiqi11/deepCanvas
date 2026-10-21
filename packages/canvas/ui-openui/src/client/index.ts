@@ -11,6 +11,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-session/client'
 import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { en, NS, zh, type OpenUIKey } from './locales.ts'
 import { OpenUIFence, type FenceInjected, type FenceStates } from './OpenUIFence.tsx'
+import { isProgram } from './source.ts'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
@@ -52,4 +53,9 @@ export function apply(ctx: ClientContext): void {
       yield ctx.slots.register({ name: 'conversation.chat.markdown.fence', key, locale: NS, inject: fenceInject }, OpenUIFence)
     }
   })
+  // Models sometimes open the fence without its label; claim it when the content is an OpenUI program.
+  ctx.slots.inject('conversation.chat.markdown.fence.unlabeled', () => ctx.slots.register({
+    name: 'conversation.chat.markdown.fence.unlabeled', locale: NS, inject: fenceInject,
+    select: owner => isProgram(owner.code) ? owner : null,
+  }, OpenUIFence))
 }

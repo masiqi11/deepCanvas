@@ -54,12 +54,14 @@ export interface AssistantMarkdownProps extends
   turn?: number | undefined
   /** Step within the Turn, offered to fence renderers. */
   step?: number | undefined
+  /** Chain renderer for fences without a language; without it they keep the code block. */
+  renderSlotChain?: PropsRenderSlots<'conversation.chat.markdown.fence.unlabeled'>['renderSlotChain'] | undefined
 }
 
 /** Renders non-blank reasoning blocks as independent disclosures alongside the response. */
 export const AssistantMarkdown = memo(function AssistantMarkdown({
   blocks, streaming, interrupted, loadImage, groupPart, useDisclosure,
-  reasoningHidden = false, usePresentation, revealProcess, mentions, renderSlot, useGroupAction, t, turn = 0, step = 0,
+  reasoningHidden = false, usePresentation, revealProcess, mentions, renderSlot, renderSlotChain, useGroupAction, t, turn = 0, step = 0,
 }: AssistantMarkdownProps) {
   // Stable per locale revision (t identity changes on switch): a fresh object
   // per render would rebuild MarkdownText's component table every chunk.
@@ -71,10 +73,13 @@ export const AssistantMarkdown = memo(function AssistantMarkdown({
   // One renderer per block index, stable across chunks so MarkdownText keeps its streaming cache.
   const count = blocks.length
   const fences = useMemo(() => Array.from({ length: count }, (_, block): MarkdownFences => ({
-    render: (fence, fallback) => renderSlot('conversation.chat.markdown.fence',
-      { code: fence.code, streaming: fence.streaming, turn, step, block },
-      { entryKey: fence.language, fallback }),
-  })), [count, renderSlot, turn, step])
+    render: (fence, fallback) => {
+      const owner = { code: fence.code, streaming: fence.streaming, turn, step, block }
+      if (fence.language !== undefined) return renderSlot('conversation.chat.markdown.fence', owner, { entryKey: fence.language, fallback })
+      // Without the chain (standalone hosts), an unlabeled fence keeps its code block.
+      return renderSlotChain === undefined ? fallback : renderSlotChain('conversation.chat.markdown.fence.unlabeled', owner, { fallback })
+    },
+  })), [count, renderSlot, renderSlotChain, turn, step])
   const last = blocks.length - 1
   // Tool-call heads render as tool rows in the chat view's grouping pass, so
   // a node that is only those heads (or empty) would paint an empty root

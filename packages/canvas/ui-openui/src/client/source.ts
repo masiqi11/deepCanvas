@@ -68,3 +68,14 @@ function match(pattern: RegExp, code: string, at: number): string | undefined {
   pattern.lastIndex = at
   return pattern.exec(code)?.[0]
 }
+
+const ROOT_STATEMENT = /^\s*root\s*=/mu
+
+/**
+ * Whether fence content is an OpenUI program: it assigns the `root` statement.
+ * @param code - fence content, possibly a streaming prefix.
+ * @returns true once a line starts with `root =`.
+ */
+export function isProgram(code: string): boolean {
+  return ROOT_STATEMENT.test(code)
+}
