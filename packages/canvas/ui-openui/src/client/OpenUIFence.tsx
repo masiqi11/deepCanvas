@@ -9,6 +9,7 @@ import { CopyContext, type Translate } from './copy.ts'
 import { webUrl } from './library/style.ts'
 import type { NS } from './locales.ts'
 import { actionMessage, fenceKey, problemList } from './message.ts'
+import { quoteUnicodeNames } from './source.ts'
 
 /** Page state retained per fence while the page is open. */
 export type FenceStates = Map<string, Record<string, unknown>>
@@ -65,6 +66,7 @@ export function OpenUIFence(props: FenceProps) {
   const problems = useMemo(() => streaming ? [] : blocking(errors), [errors, streaming])
   // Invalid components are dropped while the rest renders, so the notice says whether anything is visible.
   const empty = code.trim() === ''
+  const program = useMemo(() => quoteUnicodeNames(code), [code])
   const view = useRef<HTMLDivElement>(null)
   const [partial, setPartial] = useState(false)
   useLayoutEffect(() => { setPartial(problems.length > 0 && visible(view.current)) }, [problems, empty])
@@ -74,7 +76,7 @@ export function OpenUIFence(props: FenceProps) {
         {empty ? <div className="iui-fence-status">{t('fence.preparing')}</div> : (
           <div ref={view} className="iui-fence-view">
             <Renderer
-              response={code}
+              response={program}
               library={library}
               isStreaming={streaming}
               onAction={onAction}

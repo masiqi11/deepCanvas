@@ -120,6 +120,12 @@ $mode = "A"`)
     expect(screen.queryByRole('alert')).toBeNull()
   })
 
+  it('reads Chinese object keys and members', async () => {
+    const { props } = fence('root = Col([Text("合计 " + r.销售额)])\nr = {销售额: 42}')
+    render(createElement(OpenUIFence, props))
+    expect(await screen.findByText('合计 42')).toBeTruthy()
+  })
+
   it('keeps rendering while warnings remain', async () => {
     const { props } = fence('root = Col([Title("Hello")])\nunused = Text("x")')
     render(createElement(OpenUIFence, props))
