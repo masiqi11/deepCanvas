@@ -11,6 +11,8 @@ export type OpenUIKey =
   | 'input.value' | 'input.date'
   | 'chart.label' | 'chart.values'
   | 'html.title' | 'html.preparing'
+  | 'week.title' | 'week.count' | 'week.deadlines' | 'week.deadline' | 'week.today' | 'week.done' | 'week.moveHere' | 'week.hint'
+  | 'week.day1' | 'week.day2' | 'week.day3' | 'week.day4' | 'week.day5' | 'week.day6' | 'week.day7'
   | 'action.values' | 'copied'
 
 /** Simplified Chinese copy. */
@@ -38,6 +40,21 @@ export const zh: Record<OpenUIKey, string> = {
   'chart.values': '数值',
   'html.title': '交互视图',
   'html.preparing': '正在准备交互视图…',
+  'week.title': '本周计划',
+  'week.count': '{n} 件事',
+  'week.deadlines': '{n} 个截止',
+  'week.deadline': '截止',
+  'week.today': '今天',
+  'week.done': '完成：{title}',
+  'week.moveHere': '移到这天',
+  'week.hint': '点一件事，再点“移到这天”可以换日子；点圆圈标记完成。',
+  'week.day1': '周一',
+  'week.day2': '周二',
+  'week.day3': '周三',
+  'week.day4': '周四',
+  'week.day5': '周五',
+  'week.day6': '周六',
+  'week.day7': '周日',
   'action.values': '当前界面数值：',
   'copied': '已复制',
 }
@@ -67,6 +84,21 @@ export const en: Record<OpenUIKey, string> = {
   'chart.values': 'values',
   'html.title': 'Interactive view',
   'html.preparing': 'Preparing the interactive view…',
+  'week.title': 'This week',
+  'week.count': '{n} items',
+  'week.deadlines': '{n} deadlines',
+  'week.deadline': 'Due',
+  'week.today': 'today',
+  'week.done': 'Done: {title}',
+  'week.moveHere': 'Move here',
+  'week.hint': 'Pick an item, then choose “Move here” on another day; tap the circle to mark it done.',
+  'week.day1': 'Mon',
+  'week.day2': 'Tue',
+  'week.day3': 'Wed',
+  'week.day4': 'Thu',
+  'week.day5': 'Fri',
+  'week.day6': 'Sat',
+  'week.day7': 'Sun',
   'action.values': 'Values on the page: ',
   'copied': 'Copied',
 }

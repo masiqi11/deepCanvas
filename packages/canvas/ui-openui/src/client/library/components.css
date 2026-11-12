@@ -418,3 +418,34 @@ body[data-ds-dark-theme] .iui-segmented > button.is-selected { background: var(-
 .iui-row:has(> :is(.iui-image, .iui-box:has(> .iui-image:only-child))) { align-items: flex-start !important; gap: var(--iui-space-group-lg) !important; }
 .iui-row > :is(.iui-image, .iui-box:has(> .iui-image:only-child)) { flex: none !important; width: clamp(120px, 33%, 200px) !important; }
 .iui-row > .iui-box:has(> .iui-image:only-child) > .iui-image, .iui-row > .iui-image { aspect-ratio: 4 / 3 !important; height: auto !important; }
+
+/* Week plan */
+.iui-week { display: flex; flex-direction: column; gap: 12px; padding: 16px; border: 1px solid var(--iui-border); border-radius: var(--iui-radius-xl); background: var(--iui-canvas); }
+.iui-week-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 16px; }
+.iui-week-chip { padding: 2px 10px; border-radius: 999px; background: var(--iui-surface); color: var(--iui-muted); font-size: 12px; }
+.iui-week-chip.is-deadline { background: var(--iui-danger-soft); color: var(--iui-danger); font-weight: 600; }
+.iui-week-scroll { overflow-x: auto; }
+.iui-week-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; min-width: 700px; }
+.iui-week-day { display: flex; flex-direction: column; gap: 6px; min-height: 180px; padding: 8px 6px; border-radius: 12px; background: var(--iui-surface); }
+.iui-week-day.is-today { background: var(--iui-info-soft); }
+.iui-week-dayname { padding-bottom: 2px; color: var(--iui-muted); font-size: 12px; font-weight: 600; text-align: center; }
+.iui-week-day.is-today .iui-week-dayname { color: var(--iui-info); }
+.iui-week-item { display: flex; gap: 6px; align-items: flex-start; padding: 7px 8px; border: 1px solid transparent; border-radius: 9px; background: var(--iui-info-soft); animation: iui-week-in .35s cubic-bezier(.3, .7, .3, 1) both; }
+.iui-week-item.is-success { background: var(--iui-success-soft); }
+.iui-week-item.is-warning { background: var(--iui-warning-soft); }
+.iui-week-item.is-danger { background: var(--iui-danger-soft); }
+.iui-week-item.is-purple { background: var(--iui-purple-soft); }
+.iui-week-day.is-today .iui-week-item.is-info { background: var(--iui-canvas); }
+.iui-week-item.is-picked { border-color: var(--iui-ink); box-shadow: var(--iui-shadow); }
+.iui-week-item.is-done .iui-week-title { color: var(--iui-muted); text-decoration: line-through; }
+.iui-week-check { flex: none; display: grid; place-items: center; width: 16px; height: 16px; margin-top: 2px; padding: 0; border: 1.5px solid var(--iui-faint); border-radius: 50%; background: var(--iui-canvas); color: var(--iui-on-ink); cursor: pointer; }
+.iui-week-check[aria-pressed="true"] { border-color: var(--iui-info); background: var(--iui-info); }
+.iui-week-body { display: flex; flex: 1; flex-direction: column; gap: 1px; min-width: 0; padding: 0; border: 0; background: none; color: var(--iui-ink); font: inherit; text-align: left; cursor: pointer; }
+.iui-week-time, .iui-week-note { color: var(--iui-muted); font-size: 11px; line-height: 1.35; }
+.iui-week-title { font-size: 13px; font-weight: 600; line-height: 1.35; }
+.iui-week-deadline { align-self: flex-start; margin-top: 3px; padding: 0 7px; border-radius: 999px; background: var(--iui-canvas); color: var(--iui-danger); font-size: 11px; font-weight: 700; }
+.iui-week-drop { margin-top: auto; padding: 6px; border: 1px dashed var(--iui-faint); border-radius: 9px; background: none; color: var(--iui-muted); font: inherit; font-size: 12px; cursor: pointer; }
+.iui-week-drop:hover { border-color: var(--iui-ink); color: var(--iui-ink); }
+.iui-week-hint { margin: 0; color: var(--iui-muted); font-size: 12px; }
+@keyframes iui-week-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .iui-week-item { animation: none; } }

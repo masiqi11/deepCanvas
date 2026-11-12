@@ -42,6 +42,7 @@ export const COMPONENT_NOTES = {
   Slider: 'Shows label and value; unit like "%" or "$" formats the value.',
   Spacer: 'Fills the free space in a Row.',
   Svg: 'A drawing for steps, parts, mechanisms, diagrams and layouts. Scales to its width; its shapes take expressions, so state can move them.',
+  WeekPlan: 'A week of to-dos laid out Monday to Sunday that the user can tick off and move between days. day is 1 (Monday) to 7 (Sunday); time is a short label like "上午" or "14:00"; deadline marks a due item; today highlights a column.',
   Table: 'Each row lists its cells in column order; a cell may be a component. Number columns align right.',
   Text: 'Paragraph; supports **bold**, *italic*, `code` and [links](https://…). text may be a list mixing strings and inline components: [Icon("clock", "sm"), " 25 min · ", Badge("Easy")].',
   Timer: 'Countdown with start, pause and reset. It counts the bound seconds down to 0, so other statements can react, e.g. $left == 0.',

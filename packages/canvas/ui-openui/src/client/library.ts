@@ -20,6 +20,7 @@ import { Box, Card, Col, Divider, Form, Grid, Row, Spacer } from './library/layo
 import { Icon, Image } from './library/media.tsx'
 import { svgComponents } from './library/svg.tsx'
 import { Table } from './library/table.tsx'
+import { WeekPlan } from './library/week-plan.tsx'
 import { Badge, Caption, Label, Link, List, ListItem, Markdown, Text, Title } from './library/text.tsx'
 
 /** The library every `openui` fence renders against. */
@@ -30,7 +31,7 @@ export const library = createLibrary({
     Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Callout, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
     Image, Icon, Table, Chart,
-    Flashcard, Celebration,
+    Flashcard, Celebration, WeekPlan,
     ...svgComponents, HtmlView,
   ],
   functions,
@@ -59,6 +60,7 @@ export const library = createLibrary({
     },
     { name: 'Media and data', components: ['Image', 'Icon', 'Table', 'Chart'] },
     { name: 'Play', components: ['Flashcard', 'Celebration'] },
+    { name: 'Planning', components: ['WeekPlan'] },
     { name: 'Drawing', components: ['Svg', 'G', 'Circle', 'Ellipse', 'Rect', 'Line', 'Path', 'Polyline', 'Polygon', 'SvgText', 'HtmlView'] },
   ],
 })

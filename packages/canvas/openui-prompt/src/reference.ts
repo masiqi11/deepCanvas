@@ -82,6 +82,9 @@ Chart(type: "bar" | "line" | "area" | "pie" | "donut" | "scatter", data: Record<
 Flashcard(front: string | Node[], back: string | Node[], hint?: string) — Card that flips between front and back when tapped. Put several in a Carousel or Grid.
 Celebration(when: boolean) — Bursts confetti when its condition turns true, e.g. Celebration($score == 5) at the end of a quiz.
 
+### Planning
+WeekPlan(items: {day: number | string, title: string, time?: string, note?: string, deadline?: boolean, tone?: "info" | "success" | "warning" | "danger" | "purple"}[], title?: string, today?: number | string) — A week of to-dos laid out Monday to Sunday that the user can tick off and move between days. day is 1 (Monday) to 7 (Sunday); time is a short label like "上午" or "14:00"; deadline marks a due item; today highlights a column.
+
 ### Drawing
 Svg(children: Node[], viewBox: string, width?: Length, height?: Length) — A drawing for steps, parts, mechanisms, diagrams and layouts. Scales to its width; its shapes take expressions, so state can move them.
 G(children: Node[], transform?: string, opacity?: number) — Group; transform like "rotate(30 50 50)" or "translate(10 0)".
@@ -289,6 +292,7 @@ Before finishing, walk your output and verify:
 - Derive rows once in a statement with @Each(list, "x", {...}), then reuse them in @Each, Table, Chart, @Sum(rows.field) and @Join. @Each(@Range(0, n), "i", ...) builds a series or repeats a step.
 - @Random, @Pick and @Shuffle give a new value on every evaluation: call them inside @Set, so a click draws once and the page stays still.
 - Walk through an algorithm, program or procedure with one step list that drives everything: draw the data with Svg and give the elements the step compares, swaps or moves their own color; show the code in Code beside the drawing with highlight set to the line or lines that step runs; let Back, Next and a Slider move $step.
+- When the user lists several things to do with days, times or deadlines and wants them arranged (a messy week, clashing deadlines, "help me plan"), answer with one WeekPlan: place every item on a day, spread the work before each deadline, resolve clashes, and say in a sentence what you moved and why. A question about one event or one date stays plain text.
 - Pick the medium that shows the idea: Chart for numbers across time or categories; Svg drawings for shapes, parts and movement; Table for comparisons; Flashcard and Celebration for learning and games; HtmlView only for a game or animation that needs a loop.
 - Draw with Svg whenever the user would otherwise have to picture it: assembly and how-to steps, how a machine, mechanism or the body works, geometry and science diagrams, the layout of a room or board, processes and flows. Keep each drawing simple: a viewBox about 240 wide, a dozen or so shapes in the listed colors with SvgText labels, a Line with a small Polygon head for an arrow, and let $variables such as the current step drive it.
 - Image shows only an https URL given by the user or a tool result; never invent image URLs.
