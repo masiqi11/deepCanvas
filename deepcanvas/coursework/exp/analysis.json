@@ -1,0 +1,1893 @@
+{
+ "n": 30,
+ "v1": {
+  "n": 30,
+  "structured_n": 28,
+  "chat_n": 2,
+  "visual_n": 26,
+  "visual_rate": "92.9%",
+  "chat_text_n": 2,
+  "clean_n": 17,
+  "clean_rate": "65.4%",
+  "partial_n": 9,
+  "failed_n": 0,
+  "first_visual_mean_s": 41.5,
+  "first_visual_median_s": 31.3,
+  "done_mean_s": 48.8,
+  "done_median_s": 37.4,
+  "cache_mean": "97%",
+  "cache_values": [
+   97,
+   99,
+   99,
+   98,
+   98,
+   97,
+   98,
+   97,
+   97,
+   87,
+   97,
+   97,
+   97,
+   97,
+   98,
+   97,
+   98,
+   98,
+   97,
+   98,
+   97,
+   99,
+   97,
+   97,
+   97,
+   98,
+   97,
+   99,
+   97,
+   97
+  ],
+  "speed_mean": 226.0,
+  "controls_mean": 6.2,
+  "tool_runs": 14,
+  "tool_names": [
+   "bash",
+   "edit",
+   "web_fetch",
+   "web_search",
+   "write"
+  ],
+  "approvals": 0,
+  "usage_mean_k": 50.2,
+  "code_mean": 4097.0,
+  "prose_mean": 513.0,
+  "per_cat": [
+   {
+    "cat": "工具计算",
+    "n": 6,
+    "visual": 6,
+    "clean": 4,
+    "first_mean": 33.4,
+    "done_mean": 37.2,
+    "controls_mean": 5.8
+   },
+   {
+    "cat": "对比决策",
+    "n": 5,
+    "visual": 4,
+    "clean": 2,
+    "first_mean": 48.4,
+    "done_mean": 52.3,
+    "controls_mean": 5.2
+   },
+   {
+    "cat": "讲解演示",
+    "n": 6,
+    "visual": 6,
+    "clean": 5,
+    "first_mean": 47.6,
+    "done_mean": 53.9,
+    "controls_mean": 7.7
+   },
+   {
+    "cat": "数据图表",
+    "n": 4,
+    "visual": 4,
+    "clean": 2,
+    "first_mean": 25.8,
+    "done_mean": 30.0,
+    "controls_mean": 4.2
+   },
+   {
+    "cat": "游戏模拟",
+    "n": 4,
+    "visual": 3,
+    "clean": 2,
+    "first_mean": 56.5,
+    "done_mean": 73.0,
+    "controls_mean": 3.5
+   },
+   {
+    "cat": "规划清单",
+    "n": 3,
+    "visual": 3,
+    "clean": 2,
+    "first_mean": 42.2,
+    "done_mean": 49.0,
+    "controls_mean": 7.7
+   },
+   {
+    "cat": "简单闲聊",
+    "n": 2,
+    "visual": 0,
+    "clean": 0,
+    "first_mean": null,
+    "done_mean": 2.5,
+    "controls_mean": 0
+   }
+  ],
+  "errors": {
+   "组件不存在": 4,
+   "参数类型不符": 3,
+   "其他": 2,
+   "参数取值不在允许范围": 7
+  }
+ },
+ "v2": {
+  "n": 30,
+  "structured_n": 28,
+  "chat_n": 2,
+  "visual_n": 28,
+  "visual_rate": "100.0%",
+  "chat_text_n": 2,
+  "clean_n": 24,
+  "clean_rate": "85.7%",
+  "partial_n": 4,
+  "failed_n": 0,
+  "first_visual_mean_s": 41.0,
+  "first_visual_median_s": 38.4,
+  "done_mean_s": 46.6,
+  "done_median_s": 43.1,
+  "cache_mean": "98%",
+  "cache_values": [
+   98,
+   98,
+   98,
+   98,
+   98,
+   99,
+   98,
+   98,
+   96,
+   94,
+   97,
+   98,
+   98,
+   97,
+   97,
+   98,
+   97,
+   98,
+   98,
+   98,
+   98,
+   98,
+   99,
+   97,
+   97,
+   98,
+   97,
+   97,
+   97,
+   97
+  ],
+  "speed_mean": 225.0,
+  "controls_mean": 5.4,
+  "tool_runs": 13,
+  "tool_names": [
+   "bash",
+   "web_fetch",
+   "web_search"
+  ],
+  "approvals": 0,
+  "usage_mean_k": 46.6,
+  "code_mean": 3888.0,
+  "prose_mean": 246.0,
+  "per_cat": [
+   {
+    "cat": "工具计算",
+    "n": 6,
+    "visual": 6,
+    "clean": 5,
+    "first_mean": 33.4,
+    "done_mean": 36.3,
+    "controls_mean": 5.5
+   },
+   {
+    "cat": "对比决策",
+    "n": 5,
+    "visual": 5,
+    "clean": 4,
+    "first_mean": 41.0,
+    "done_mean": 48.9,
+    "controls_mean": 5
+   },
+   {
+    "cat": "讲解演示",
+    "n": 6,
+    "visual": 6,
+    "clean": 5,
+    "first_mean": 54.9,
+    "done_mean": 61.9,
+    "controls_mean": 5
+   },
+   {
+    "cat": "数据图表",
+    "n": 4,
+    "visual": 4,
+    "clean": 3,
+    "first_mean": 26.4,
+    "done_mean": 30.8,
+    "controls_mean": 1.8
+   },
+   {
+    "cat": "游戏模拟",
+    "n": 4,
+    "visual": 4,
+    "clean": 4,
+    "first_mean": 42.8,
+    "done_mean": 46.8,
+    "controls_mean": 8.5
+   },
+   {
+    "cat": "规划清单",
+    "n": 3,
+    "visual": 3,
+    "clean": 3,
+    "first_mean": 45.4,
+    "done_mean": 53.5,
+    "controls_mean": 7.7
+   },
+   {
+    "cat": "简单闲聊",
+    "n": 2,
+    "visual": 0,
+    "clean": 0,
+    "first_mean": null,
+    "done_mean": 2.6,
+    "controls_mean": 0
+   }
+  ],
+  "errors": {
+   "组件不存在": 3,
+   "其他": 2
+  }
+ },
+ "baseline": {
+  "chars_mean": 2540.0,
+  "prose_mean": 1092.0,
+  "ms_mean_s": 12.7,
+  "code_n": 5,
+  "code_ids": [
+   "T04",
+   "T06",
+   "D02",
+   "G02",
+   "G03"
+  ],
+  "tokens_mean": 2903.0
+ },
+ "prompts": [
+  {
+   "id": "T01",
+   "cat": "工具计算",
+   "text": "我们4个人吃饭，账单386元，想加10%服务费再平分，帮我算一下，人数和比例可能会变。"
+  },
+  {
+   "id": "T02",
+   "cat": "工具计算",
+   "text": "帮我算房贷：贷款100万，30年，年利率3.5%，等额本息和等额本金各每月还多少？我想调整参数对比。"
+  },
+  {
+   "id": "T03",
+   "cat": "工具计算",
+   "text": "我身高175厘米，体重72公斤，帮我算BMI并告诉我属于什么区间。"
+  },
+  {
+   "id": "T04",
+   "cat": "工具计算",
+   "text": "做一个摄氏度、华氏度、开尔文互相换算的小工具。"
+  },
+  {
+   "id": "T05",
+   "cat": "工具计算",
+   "text": "我每月存2000元，年化收益4%，存10年复利能有多少钱？我想试不同的金额和年限。"
+  },
+  {
+   "id": "T06",
+   "cat": "工具计算",
+   "text": "帮我做一个番茄钟，25分钟专注、5分钟休息。"
+  },
+  {
+   "id": "C01",
+   "cat": "对比决策",
+   "text": "MySQL、MongoDB、Redis 有什么区别，各适合什么场景？"
+  },
+  {
+   "id": "C02",
+   "cat": "对比决策",
+   "text": "大学生想学编程，Python、Java、C++ 先学哪个？"
+  },
+  {
+   "id": "C03",
+   "cat": "对比决策",
+   "text": "向量数据库 Milvus 和 Faiss 怎么选？"
+  },
+  {
+   "id": "C04",
+   "cat": "对比决策",
+   "text": "考研、考公、直接工作，帮我对比一下优缺点。"
+  },
+  {
+   "id": "C05",
+   "cat": "对比决策",
+   "text": "Transformer、RNN、CNN 三种模型结构对比。"
+  },
+  {
+   "id": "E01",
+   "cat": "讲解演示",
+   "text": "用图示讲解 TCP 三次握手的过程。"
+  },
+  {
+   "id": "E02",
+   "cat": "讲解演示",
+   "text": "演示冒泡排序对数组 [5, 2, 9, 1, 6] 的每一步。"
+  },
+  {
+   "id": "E03",
+   "cat": "讲解演示",
+   "text": "用直观的方式解释梯度下降是怎么找到最小值的。"
+  },
+  {
+   "id": "E04",
+   "cat": "讲解演示",
+   "text": "Transformer 的自注意力机制是怎么计算的？分步骤讲。"
+  },
+  {
+   "id": "E05",
+   "cat": "讲解演示",
+   "text": "二叉树的前序、中序、后序遍历有什么区别？举例说明。"
+  },
+  {
+   "id": "E06",
+   "cat": "讲解演示",
+   "text": "解释一下 RAG（检索增强生成）的工作流程。"
+  },
+  {
+   "id": "D01",
+   "cat": "数据图表",
+   "text": "我们店上半年每月销售额（万元）：1月12，2月9，3月15，4月18，5月16，6月22。帮我看看趋势。"
+  },
+  {
+   "id": "D02",
+   "cat": "数据图表",
+   "text": "班级数学成绩分布：90分以上6人，80-89分14人，70-79分11人，60-69分5人，不及格3人。帮我可视化并分析。"
+  },
+  {
+   "id": "D03",
+   "cat": "数据图表",
+   "text": "我每月生活费2500元：房租1000，吃饭900，交通150，娱乐250，其他200。帮我看下支出结构。"
+  },
+  {
+   "id": "D04",
+   "cat": "数据图表",
+   "text": "模型训练损失：第1轮2.31，第2轮1.85，第3轮1.42，第4轮1.18，第5轮1.05，第6轮0.99，第7轮0.97。帮我判断是否该停止训练。"
+  },
+  {
+   "id": "G01",
+   "cat": "游戏模拟",
+   "text": "来玩24点。"
+  },
+  {
+   "id": "G02",
+   "cat": "游戏模拟",
+   "text": "模拟一个平抛运动，可以调初速度和高度。"
+  },
+  {
+   "id": "G03",
+   "cat": "游戏模拟",
+   "text": "做一个猜数字小游戏，1到100。"
+  },
+  {
+   "id": "G04",
+   "cat": "游戏模拟",
+   "text": "出5道英语单词的选择题考考我。"
+  },
+  {
+   "id": "P01",
+   "cat": "规划清单",
+   "text": "帮我制定一个一周的健身计划，我是新手，每天只有40分钟。"
+  },
+  {
+   "id": "P02",
+   "cat": "规划清单",
+   "text": "下周要搬家，帮我列一个搬家清单。"
+  },
+  {
+   "id": "P03",
+   "cat": "规划清单",
+   "text": "离期末考试还有3周，有高数、线代、大英三门，帮我安排复习计划。"
+  },
+  {
+   "id": "S01",
+   "cat": "简单闲聊",
+   "text": "你好呀"
+  },
+  {
+   "id": "S02",
+   "cat": "简单闲聊",
+   "text": "中国的首都是哪里？"
+  }
+ ],
+ "example_code": "root = Col([head, inputs, stats, roundNote, splitTable, copyRow])\n$bill = 386\n$people = 4\n$service = 10\n$roundUp = false\nhead = Col([Title(\"这顿饭怎么摊\", \"lg\"), Text(\"修改人数、比例或金额，数字会实时更新。\", \"sm\", \"muted\")], 1)\nfee = $bill * $service / 100\ntotal = $bill + fee\nper = total / $people\npay = $roundUp ? @Ceil(per) : per\ncollected = pay * $people\nextra = collected - total\nbillIn = Input($bill, \"账单金额（元）\", \"number\")\nserviceIn = Slider($service, 0, 30, 1, \"服务费比例\", \"%\")\npeopleIn = Slider($people, 2, 12, 1, \"人数\", \"人\")\nroundIn = Checkbox($roundUp, \"按整元收取（每人向上取整）\")\ninputs = Card([billIn, serviceIn, peopleIn, roundIn], \"soft\")\n…",
+ "example_chars": 1939,
+ "code_rows": [
+  [
+   "ui-openui",
+   "回复内交互界面（客户端）",
+   "1043",
+   "1882"
+  ],
+  [
+   "openui-prompt",
+   "组件参考提示词（服务端）",
+   "318",
+   "17"
+  ],
+  [
+   "ui-canvas",
+   "工作区看板界面",
+   "2413",
+   "1056"
+  ],
+  [
+   "canvas-spec",
+   "看板组件 Schema 与校验",
+   "1060",
+   "240"
+  ],
+  [
+   "tool-canvas",
+   "看板工具与呈现指导",
+   "318",
+   "188"
+  ],
+  [
+   "ui-brand-deepcanvas",
+   "品牌",
+   "74",
+   "71"
+  ],
+  [
+   "deepcanvas-bundle",
+   "产品组装",
+   "174",
+   "0"
+  ]
+ ],
+ "unit_tests": 434,
+ "diff_files": 269,
+ "fix_row": "为 SegmentedControl 增加与其他控件一致的 label 参数；Text 字号与 Title 对齐；新增 Callout 组件；提示词强调代码块标记与不调用工具",
+ "rows_v1": [
+  {
+   "id": "T01",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 11.493,
+   "done_s": 13.673,
+   "controls": 6,
+   "tools": [],
+   "problems": [
+    "Unknown component \"Callout\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Text"
+   ],
+   "cache": 97,
+   "usage": 18600.0,
+   "code_chars": 1878,
+   "prose_chars": 114
+  },
+  {
+   "id": "T02",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 31.082,
+   "done_s": 35.172,
+   "controls": 8,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 60600.0,
+   "code_chars": 3590,
+   "prose_chars": 173
+  },
+  {
+   "id": "T03",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 24.945,
+   "done_s": 27.789,
+   "controls": 2,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 41900.0,
+   "code_chars": 2484,
+   "prose_chars": 287
+  },
+  {
+   "id": "T04",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 29.512,
+   "done_s": 32.896,
+   "controls": 12,
+   "tools": [
+    "bash"
+   ],
+   "problems": [
+    "field \"/block\" expects boolean but got string"
+   ],
+   "cache": 98,
+   "usage": 41500.0,
+   "code_chars": 2516,
+   "prose_chars": 236
+  },
+  {
+   "id": "T05",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 22.128,
+   "done_s": 25.356,
+   "controls": 6,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 37400.0,
+   "code_chars": 2463,
+   "prose_chars": 381
+  },
+  {
+   "id": "T06",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 81.135,
+   "done_s": 88.478,
+   "controls": 1,
+   "tools": [
+    "bash",
+    "write",
+    "bash",
+    "edit",
+    "bash",
+    "bash",
+    "bash",
+    "bash",
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 97,
+   "usage": 344000.0,
+   "code_chars": 8743,
+   "prose_chars": 165
+  },
+  {
+   "id": "C01",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 23.272,
+   "done_s": 29.651,
+   "controls": 5,
+   "tools": [
+    "bash"
+   ],
+   "problems": [
+    "field \"/block\" expects boolean but got string",
+    "SegmentedControl takes 3 arg(s), got 4 (1 excess dropped)"
+   ],
+   "cache": 98,
+   "usage": 40900.0,
+   "code_chars": 3859,
+   "prose_chars": 148
+  },
+  {
+   "id": "C02",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 17.544,
+   "done_s": 22.113,
+   "controls": 4,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 19800.0,
+   "code_chars": 2832,
+   "prose_chars": 156
+  },
+  {
+   "id": "C03",
+   "cat": "对比决策",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 39.006,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 24000.0,
+   "code_chars": 0,
+   "prose_chars": 4355
+  },
+  {
+   "id": "C04",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 57.626,
+   "done_s": 63.578,
+   "controls": 10,
+   "tools": [
+    "web_search",
+    "web_search",
+    "web_fetch",
+    "web_fetch",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 87,
+   "usage": 107000.0,
+   "code_chars": 3838,
+   "prose_chars": 469
+  },
+  {
+   "id": "C05",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 95.282,
+   "done_s": 107.12,
+   "controls": 7,
+   "tools": [],
+   "problems": [
+    "field \"/block\" expects boolean but got string",
+    "SegmentedControl takes 3 arg(s), got 4 (1 excess dropped)"
+   ],
+   "cache": 97,
+   "usage": 33700.0,
+   "code_chars": 6398,
+   "prose_chars": 323
+  },
+  {
+   "id": "E01",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 44.426,
+   "done_s": 51.09,
+   "controls": 6,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 27200.0,
+   "code_chars": 4589,
+   "prose_chars": 200
+  },
+  {
+   "id": "E02",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 49.018,
+   "done_s": 52.464,
+   "controls": 4,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 28100.0,
+   "code_chars": 4002,
+   "prose_chars": 117
+  },
+  {
+   "id": "E03",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 82.008,
+   "done_s": 86.89,
+   "controls": 11,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 34900.0,
+   "code_chars": 3792,
+   "prose_chars": 123
+  },
+  {
+   "id": "E04",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 39.881,
+   "done_s": 47.339,
+   "controls": 7,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [
+    "Unknown component \"Actions\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Text"
+   ],
+   "cache": 98,
+   "usage": 69000.0,
+   "code_chars": 3953,
+   "prose_chars": 346
+  },
+  {
+   "id": "E05",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 22.506,
+   "done_s": 27.914,
+   "controls": 10,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 21800.0,
+   "code_chars": 3360,
+   "prose_chars": 350
+  },
+  {
+   "id": "E06",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 47.882,
+   "done_s": 57.602,
+   "controls": 8,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 53100.0,
+   "code_chars": 6124,
+   "prose_chars": 157
+  },
+  {
+   "id": "D01",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 22.213,
+   "done_s": 25.815,
+   "controls": 3,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [
+    "Unknown component \"Callout\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Text"
+   ],
+   "cache": 98,
+   "usage": 56100.0,
+   "code_chars": 2060,
+   "prose_chars": 316
+  },
+  {
+   "id": "D02",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 31.576,
+   "done_s": 35.832,
+   "controls": 3,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 23900.0,
+   "code_chars": 3685,
+   "prose_chars": 215
+  },
+  {
+   "id": "D03",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 25.031,
+   "done_s": 29.64,
+   "controls": 6,
+   "tools": [
+    "bash"
+   ],
+   "problems": [
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"xl\"",
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"xl\"",
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"xl\"",
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"xl\""
+   ],
+   "cache": 98,
+   "usage": 42000.0,
+   "code_chars": 2858,
+   "prose_chars": 211
+  },
+  {
+   "id": "D04",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 24.478,
+   "done_s": 28.808,
+   "controls": 5,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 22000.0,
+   "code_chars": 2933,
+   "prose_chars": 226
+  },
+  {
+   "id": "G01",
+   "cat": "游戏模拟",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 104.945,
+   "controls": 0,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 76000.0,
+   "code_chars": 0,
+   "prose_chars": 4067
+  },
+  {
+   "id": "G02",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 97.237,
+   "done_s": 107.109,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 46000.0,
+   "code_chars": 9910,
+   "prose_chars": 195
+  },
+  {
+   "id": "G03",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 45.737,
+   "done_s": 50.215,
+   "controls": 4,
+   "tools": [],
+   "problems": [
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"2xl\"",
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"2xl\"",
+    "field \"/size\" expects one of [\"xs\", \"sm\", \"md\", \"lg\"] but got \"2xl\""
+   ],
+   "cache": 97,
+   "usage": 27000.0,
+   "code_chars": 3865,
+   "prose_chars": 119
+  },
+  {
+   "id": "G04",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 26.599,
+   "done_s": 29.618,
+   "controls": 10,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 22200.0,
+   "code_chars": 3114,
+   "prose_chars": 86
+  },
+  {
+   "id": "P01",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 27.814,
+   "done_s": 34.718,
+   "controls": 6,
+   "tools": [
+    "bash"
+   ],
+   "problems": [
+    "Unknown component \"Accordion\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Te"
+   ],
+   "cache": 98,
+   "usage": 43900.0,
+   "code_chars": 4189,
+   "prose_chars": 351
+  },
+  {
+   "id": "P02",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 37.947,
+   "done_s": 43.13,
+   "controls": 7,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 25000.0,
+   "code_chars": 3936,
+   "prose_chars": 223
+  },
+  {
+   "id": "P03",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 60.914,
+   "done_s": 69.257,
+   "controls": 10,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 85600.0,
+   "code_chars": 5539,
+   "prose_chars": 246
+  },
+  {
+   "id": "S01",
+   "cat": "简单闲聊",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 3.247,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 15800.0,
+   "code_chars": 0,
+   "prose_chars": 192
+  },
+  {
+   "id": "S02",
+   "cat": "简单闲聊",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 1.85,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 15600.0,
+   "code_chars": 0,
+   "prose_chars": 13
+  }
+ ],
+ "rows_v2": [
+  {
+   "id": "T01",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 16.821,
+   "done_s": 18.613,
+   "controls": 6,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 20000.0,
+   "code_chars": 1863,
+   "prose_chars": 123
+  },
+  {
+   "id": "T02",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 67.413,
+   "done_s": 71.747,
+   "controls": 6,
+   "tools": [],
+   "problems": [
+    "Unknown component \"Meters\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Text,"
+   ],
+   "cache": 98,
+   "usage": 33000.0,
+   "code_chars": 3508,
+   "prose_chars": 262
+  },
+  {
+   "id": "T03",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 22.808,
+   "done_s": 25.662,
+   "controls": 2,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 21500.0,
+   "code_chars": 2443,
+   "prose_chars": 175
+  },
+  {
+   "id": "T04",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 34.714,
+   "done_s": 38.112,
+   "controls": 9,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 24400.0,
+   "code_chars": 2777,
+   "prose_chars": 81
+  },
+  {
+   "id": "T05",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 22.807,
+   "done_s": 25.629,
+   "controls": 3,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 21400.0,
+   "code_chars": 2113,
+   "prose_chars": 140
+  },
+  {
+   "id": "T06",
+   "cat": "工具计算",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 35.713,
+   "done_s": 37.856,
+   "controls": 7,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 68000.0,
+   "code_chars": 2266,
+   "prose_chars": 142
+  },
+  {
+   "id": "C01",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 29.416,
+   "done_s": 37.584,
+   "controls": 7,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 23900.0,
+   "code_chars": 4981,
+   "prose_chars": 290
+  },
+  {
+   "id": "C02",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 18.797,
+   "done_s": 23.271,
+   "controls": 5,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 20200.0,
+   "code_chars": 2559,
+   "prose_chars": 99
+  },
+  {
+   "id": "C03",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 61.518,
+   "done_s": 68.56,
+   "controls": 11,
+   "tools": [
+    "web_search",
+    "bash",
+    "web_fetch",
+    "web_fetch",
+    "web_fetch",
+    "web_fetch",
+    "web_fetch",
+    "bash",
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 96,
+   "usage": 191000.0,
+   "code_chars": 3880,
+   "prose_chars": 618
+  },
+  {
+   "id": "C04",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 52.771,
+   "done_s": 61.565,
+   "controls": 1,
+   "tools": [
+    "web_search",
+    "web_fetch"
+   ],
+   "problems": [],
+   "cache": 94,
+   "usage": 62100.0,
+   "code_chars": 4594,
+   "prose_chars": 483
+  },
+  {
+   "id": "C05",
+   "cat": "对比决策",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 42.622,
+   "done_s": 53.683,
+   "controls": 1,
+   "tools": [],
+   "problems": [
+    "Unknown component \"Calculator\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, T",
+    "Unknown component \"Accordion\" — not found in catalog or builtins. Available components: Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, Title, Te"
+   ],
+   "cache": 97,
+   "usage": 28000.0,
+   "code_chars": 7272,
+   "prose_chars": 56
+  },
+  {
+   "id": "E01",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 34.022,
+   "done_s": 41.594,
+   "controls": 5,
+   "tools": [
+    "bash"
+   ],
+   "problems": [
+    "Table takes 2 arg(s), got 3 (1 excess dropped)"
+   ],
+   "cache": 98,
+   "usage": 47000.0,
+   "code_chars": 4713,
+   "prose_chars": 212
+  },
+  {
+   "id": "E02",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 42.593,
+   "done_s": 46.768,
+   "controls": 4,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 52200.0,
+   "code_chars": 3162,
+   "prose_chars": 147
+  },
+  {
+   "id": "E03",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 64.486,
+   "done_s": 71.324,
+   "controls": 7,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 31800.0,
+   "code_chars": 4203,
+   "prose_chars": 306
+  },
+  {
+   "id": "E04",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 99.029,
+   "done_s": 107.679,
+   "controls": 0,
+   "tools": [
+    "bash",
+    "bash",
+    "bash",
+    "bash",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 97,
+   "usage": 193000.0,
+   "code_chars": 5998,
+   "prose_chars": 467
+  },
+  {
+   "id": "E05",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 43.768,
+   "done_s": 50.316,
+   "controls": 8,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 50600.0,
+   "code_chars": 4719,
+   "prose_chars": 145
+  },
+  {
+   "id": "E06",
+   "cat": "讲解演示",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 45.716,
+   "done_s": 53.766,
+   "controls": 6,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 27400.0,
+   "code_chars": 5766,
+   "prose_chars": 126
+  },
+  {
+   "id": "D01",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": false,
+   "partial": true,
+   "failed": false,
+   "first_s": 25.714,
+   "done_s": 29.952,
+   "controls": 1,
+   "tools": [
+    "bash",
+    "bash"
+   ],
+   "problems": [
+    "Table takes 2 arg(s), got 4 (2 excess dropped)"
+   ],
+   "cache": 98,
+   "usage": 60600.0,
+   "code_chars": 2768,
+   "prose_chars": 383
+  },
+  {
+   "id": "D02",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 23.851,
+   "done_s": 27.288,
+   "controls": 1,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 40900.0,
+   "code_chars": 2312,
+   "prose_chars": 372
+  },
+  {
+   "id": "D03",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 24.92,
+   "done_s": 29.766,
+   "controls": 3,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 41300.0,
+   "code_chars": 2851,
+   "prose_chars": 309
+  },
+  {
+   "id": "D04",
+   "cat": "数据图表",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 31.08,
+   "done_s": 36.244,
+   "controls": 2,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 44300.0,
+   "code_chars": 2673,
+   "prose_chars": 434
+  },
+  {
+   "id": "G01",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 54.008,
+   "done_s": 57.519,
+   "controls": 4,
+   "tools": [],
+   "problems": [],
+   "cache": 98,
+   "usage": 28900.0,
+   "code_chars": 4957,
+   "prose_chars": 83
+  },
+  {
+   "id": "G02",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 55.269,
+   "done_s": 59.59,
+   "controls": 7,
+   "tools": [
+    "bash"
+   ],
+   "problems": [],
+   "cache": 99,
+   "usage": 55600.0,
+   "code_chars": 4075,
+   "prose_chars": 105
+  },
+  {
+   "id": "G03",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 39.225,
+   "done_s": 42.339,
+   "controls": 1,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 25300.0,
+   "code_chars": 2784,
+   "prose_chars": 150
+  },
+  {
+   "id": "G04",
+   "cat": "游戏模拟",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 22.872,
+   "done_s": 27.939,
+   "controls": 22,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 21700.0,
+   "code_chars": 4286,
+   "prose_chars": 180
+  },
+  {
+   "id": "P01",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 55.919,
+   "done_s": 65.274,
+   "controls": 9,
+   "tools": [
+    "web_search",
+    "bash"
+   ],
+   "problems": [],
+   "cache": 98,
+   "usage": 80400.0,
+   "code_chars": 5461,
+   "prose_chars": 470
+  },
+  {
+   "id": "P02",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 37.546,
+   "done_s": 43.812,
+   "controls": 9,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 25200.0,
+   "code_chars": 4248,
+   "prose_chars": 117
+  },
+  {
+   "id": "P03",
+   "cat": "规划清单",
+   "visual": true,
+   "clean": true,
+   "partial": false,
+   "failed": false,
+   "first_s": 42.86,
+   "done_s": 51.347,
+   "controls": 5,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 27300.0,
+   "code_chars": 5643,
+   "prose_chars": 419
+  },
+  {
+   "id": "S01",
+   "cat": "简单闲聊",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 3.184,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 15900.0,
+   "code_chars": 0,
+   "prose_chars": 175
+  },
+  {
+   "id": "S02",
+   "cat": "简单闲聊",
+   "visual": false,
+   "clean": false,
+   "partial": false,
+   "failed": false,
+   "first_s": null,
+   "done_s": 2.018,
+   "controls": 0,
+   "tools": [],
+   "problems": [],
+   "cache": 97,
+   "usage": 15800.0,
+   "code_chars": 0,
+   "prose_chars": 13
+  }
+ ],
+ "baseline_rows": [
+  {
+   "id": "T01",
+   "chars": 289,
+   "prose": 289,
+   "has_code": false,
+   "ms": 3366
+  },
+  {
+   "id": "T02",
+   "chars": 1129,
+   "prose": 1129,
+   "has_code": false,
+   "ms": 30793
+  },
+  {
+   "id": "T03",
+   "chars": 170,
+   "prose": 170,
+   "has_code": false,
+   "ms": 1892
+  },
+  {
+   "id": "T04",
+   "chars": 5645,
+   "prose": 218,
+   "has_code": true,
+   "ms": 15337
+  },
+  {
+   "id": "T05",
+   "chars": 933,
+   "prose": 804,
+   "has_code": false,
+   "ms": 14275
+  },
+  {
+   "id": "T06",
+   "chars": 10371,
+   "prose": 464,
+   "has_code": true,
+   "ms": 33994
+  },
+  {
+   "id": "C01",
+   "chars": 1777,
+   "prose": 1777,
+   "has_code": false,
+   "ms": 11227
+  },
+  {
+   "id": "C02",
+   "chars": 1061,
+   "prose": 1061,
+   "has_code": false,
+   "ms": 6753
+  },
+  {
+   "id": "C03",
+   "chars": 2475,
+   "prose": 2475,
+   "has_code": false,
+   "ms": 10167
+  },
+  {
+   "id": "C04",
+   "chars": 1774,
+   "prose": 1774,
+   "has_code": false,
+   "ms": 11913
+  },
+  {
+   "id": "C05",
+   "chars": 2058,
+   "prose": 2058,
+   "has_code": false,
+   "ms": 11053
+  },
+  {
+   "id": "E01",
+   "chars": 2501,
+   "prose": 989,
+   "has_code": false,
+   "ms": 8152
+  },
+  {
+   "id": "E02",
+   "chars": 632,
+   "prose": 632,
+   "has_code": false,
+   "ms": 8709
+  },
+  {
+   "id": "E03",
+   "chars": 942,
+   "prose": 942,
+   "has_code": false,
+   "ms": 6928
+  },
+  {
+   "id": "E04",
+   "chars": 2998,
+   "prose": 2998,
+   "has_code": false,
+   "ms": 7500
+  },
+  {
+   "id": "E05",
+   "chars": 708,
+   "prose": 526,
+   "has_code": false,
+   "ms": 5380
+  },
+  {
+   "id": "E06",
+   "chars": 2015,
+   "prose": 1890,
+   "has_code": false,
+   "ms": 7838
+  },
+  {
+   "id": "D01",
+   "chars": 829,
+   "prose": 829,
+   "has_code": false,
+   "ms": 7902
+  },
+  {
+   "id": "D02",
+   "chars": 2364,
+   "prose": 1541,
+   "has_code": true,
+   "ms": 24475
+  },
+  {
+   "id": "D03",
+   "chars": 796,
+   "prose": 796,
+   "has_code": false,
+   "ms": 6567
+  },
+  {
+   "id": "D04",
+   "chars": 839,
+   "prose": 839,
+   "has_code": false,
+   "ms": 5755
+  },
+  {
+   "id": "G01",
+   "chars": 70,
+   "prose": 70,
+   "has_code": false,
+   "ms": 2620
+  },
+  {
+   "id": "G02",
+   "chars": 16721,
+   "prose": 59,
+   "has_code": true,
+   "ms": 64620
+  },
+  {
+   "id": "G03",
+   "chars": 5938,
+   "prose": 158,
+   "has_code": true,
+   "ms": 7011
+  },
+  {
+   "id": "G04",
+   "chars": 712,
+   "prose": 712,
+   "has_code": false,
+   "ms": 4398
+  },
+  {
+   "id": "P01",
+   "chars": 1769,
+   "prose": 1769,
+   "has_code": false,
+   "ms": 14142
+  },
+  {
+   "id": "P02",
+   "chars": 1840,
+   "prose": 1840,
+   "has_code": false,
+   "ms": 9509
+  },
+  {
+   "id": "P03",
+   "chars": 1768,
+   "prose": 1768,
+   "has_code": false,
+   "ms": 14089
+  },
+  {
+   "id": "S01",
+   "chars": 71,
+   "prose": 71,
+   "has_code": false,
+   "ms": 1318
+  },
+  {
+   "id": "S02",
+   "chars": 9,
+   "prose": 9,
+   "has_code": false,
+   "ms": 1092
+  }
+ ],
+ "text_overall": "改进后（第二轮），需要结构化回答的 28 道题全部在回复中给出了交互界面，两道简单闲聊题都只用文字回答，没有出现多余的界面，说明呈现形式的选择是准确的。界面完整显示率由第一轮的 65.4% 提升到 85.7%，剩余 4 题属于“部分内容未显示”：出错的组件被去掉，其余界面正常可用，没有一题完全无法显示。首个界面平均在 41.0 秒出现（中位数 38.4 秒），回答平均 46.6 秒完成；由于界面边生成边显示，用户在回答结束前约 5.6 秒就能看到并开始使用界面。每次回答的输入 token 平均为 46.6K，其中前缀缓存命中率平均 98%，约 9 千 tokens 的组件参考几乎全部命中缓存，额外成本很低。",
+ "text_categories": "从任务类别看，数据图表类最快（首个界面平均 26.4 秒），因为数据由用户给出，界面结构简单；讲解演示类最慢（平均 61.9 秒完成），这类界面通常包含分步状态和 SVG 绘图，程序较长。游戏模拟类在第二轮全部完整显示，平均控件数最多（8.5 个），说明模型能写出可以直接玩的交互程序。单题最快的是 T01（16.8 秒出现界面），最慢的是 E04（107.7 秒完成），后者调用了较多次命令行验算。",
+ "text_errors": "第一轮共记录 16 条界面问题，按类型分布见下图。主要有三类：一是参数取值越界（7 条），模型把 Title 的大号字（xl、2xl）用在 Text 上；二是参数位置错位（3 条），模型按其他控件的习惯给 SegmentedControl 多传了一个标签，导致布尔参数收到字符串；三是使用不存在的组件（4 条），如 Callout、Accordion、Actions。此外有两题模型输出的代码块没有标注 openui 语言，界面显示成了源代码。评测之外，录制演示时还发现：上游 OpenUI 分词器只接受 ASCII 标识符，模型写的 {月: …} 这类中文键会被静默丢弃，导致图表没有数据。第一轮有 14 题调用了工具，其中番茄钟一题多达 10 次工具调用，包括写文件、编辑文件和运行命令。",
+ "improvements": [
+  "组件库：为 SegmentedControl 增加与 RadioGroup、Slider 一致的可选 label 参数；Text 的字号范围与 Title 对齐（最大 3xl）；新增 Callout（结论、提示、风险）组件。",
+  "渲染：解析前为非 ASCII 的对象键和成员访问加引号（`{月: 1}` → `{\"月\": 1}`，`row.销售额` → `row[\"销售额\"]`），修复中文键丢失的问题。",
+  "出错提示：区分“部分显示”与“完全失败”，部分出错时保留可用的界面。",
+  "提示词：强调代码块必须以 ```openui 开头；强调界面自带计算，不要为计算、测试或预览界面运行命令、写文件。",
+  "兜底：没有标注语言、但内容含 `root =` 语句的代码块，也按 OpenUI 程序渲染（新增链式插槽，所有插件都不认领时保持代码块）。该项在第二轮评测之后完成，用两道出现过该问题的题目单独验证有效。"
+ ],
+ "text_baseline": "纯文本基线（同一模型、无 DeepCanvas 提示词）的回答平均 2540 个字符；DeepCanvas 第二轮中，界面之外的文字平均只有 246 个字符，用户需要阅读的文字减少约 90%，其余信息以表格、图表、控件的形式呈现在界面里。对于“做一个工具”“来玩游戏”类请求，基线有 5 题（T04、T06、D02、G02、G03）直接给出了 HTML 或 Python 源代码，用户需要自己保存并运行；DeepCanvas 则在回复中直接给出可用的界面。代价是时间：基线平均 12.7 秒返回，DeepCanvas 平均 46.6 秒完成，主要因为界面程序比纯文字长（平均约 3888 个字符），且部分题目调用了工具；但界面在完成前已逐步可见，首个界面平均 41.0 秒出现。",
+ "gallery": [
+  [
+   "g-split.png",
+   "工具计算：分账工具（人数改为 5、服务费改为 15%、勾选按整元收取后实时更新）"
+  ],
+  [
+   "g-chart.png",
+   "数据图表：上半年销售趋势（关键指标、折线图、明细表）"
+  ],
+  [
+   "g-sort.png",
+   "讲解演示：冒泡排序分步演示（被交换的元素标红，右侧代码高亮这一步执行的行）"
+  ],
+  [
+   "g-physics.png",
+   "游戏模拟：平抛运动模拟器（调整初速度与高度后重新播放轨迹）"
+  ],
+  [
+   "g-24.png",
+   "游戏模拟：24 点小游戏（点击数字与运算符，过关后提示）"
+  ],
+  [
+   "g-form.png",
+   "澄清与表单：根据用户选择给出的数据分析表单，提交后数值随消息发回对话"
+  ],
+  [
+   "g-repair.png",
+   "出错处理：部分内容未显示时的提示卡片与“让助手修正”按钮"
+  ],
+  [
+   "g-board.png",
+   "工作区看板：调研类任务发布的看板（左侧为对话，右侧为看板）"
+  ]
+ ],
+ "findings": [
+  "呈现形式选择准确：结构化问题 100.0% 给出界面，闲聊题全部为文字，模型能理解“什么时候该用界面”。",
+  "迭代改进有效：针对第一轮发现的问题修改组件库和提示词后，界面完整显示率由 65.4% 提升到 85.7%，写文件、编辑文件等不必要的工具调用消失。",
+  "让组件库“迎合”模型比约束模型更有效：模型会按其他组件或其他 UI 库的习惯来写（大字号、标签参数、Callout），把这些写法变成合法写法，比在提示词里禁止更可靠。",
+  "仍有不足：第二轮仍有 10 题调用命令行验算数字（在沙箱中运行、不需要审批，但增加了耗时）；仍有 4 题使用了不存在的组件（如 Meters、Calculator、Accordion）或给表格多传参数。后续可为常见的误用名称提供别名，或在出错时自动修正一次。",
+  "稳定的系统提示词让长参考几乎零成本：缓存命中率稳定在 94%–99%。",
+  "评测规模有限：每题每轮只运行一次，模型输出有随机性，结论应看作趋势而非精确值。"
+ ]
+}

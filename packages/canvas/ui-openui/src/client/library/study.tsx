@@ -42,7 +42,7 @@ export const ConceptMap = defineComponent({
     const current = all.find(c => c.name === picked)
     const mastered = all.filter(isKnown).length
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('map.title')}>
+      <section className="iui-scene" data-scene="ConceptMap" aria-label={props.title ?? tr('map.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('map.title')}</strong>
           <span className="iui-chip">{tr('map.progress', { done: mastered, total: all.length })}</span>
@@ -94,7 +94,7 @@ export const PaperBrief = defineComponent({
     const tr = useCopy()
     const cells = [['problem', props.problem], ['method', props.method], ['result', props.result], ['limit', props.limit]] as const
     return (
-      <section className="iui-scene" aria-label={props.title}>
+      <section data-scene="PaperBrief" className="iui-scene" aria-label={props.title}>
         <header className="iui-paper-head">
           <div><strong>{props.title}</strong>{props.meta ? <span>{props.meta}</span> : null}</div>
           {props.verdict ? <div className="iui-paper-verdict"><span>{tr('paper.verdict')}</span><strong>{props.verdict}</strong></div> : null}
@@ -133,7 +133,7 @@ export const FollowUps = defineComponent({
       setDraft('')
     }
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('ask.title')}>
+      <section className="iui-scene" data-scene="FollowUps" aria-label={props.title ?? tr('ask.title')}>
         <header className="iui-scene-head"><strong>{props.title ?? tr('ask.title')}</strong></header>
         <div className="iui-ask">
           {list(props.items).map((it, i) => (
@@ -200,7 +200,7 @@ export const Quiz = defineComponent({
     const current = questions[at]
     const restart = () => { setAt(0); setPicks({}) }
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('quiz.title')}>
+      <section className="iui-scene" data-scene="Quiz" aria-label={props.title ?? tr('quiz.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('quiz.title')}</strong>
           <span className="iui-chip">{current === undefined ? tr('quiz.score', { n: score, total }) : tr('quiz.progress', { n: at + 1, total })}</span>

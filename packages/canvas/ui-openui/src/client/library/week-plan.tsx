@@ -60,7 +60,7 @@ export const WeekPlan = defineComponent({
       return { name: tr(DAY_KEYS[mondayIndex(date)] ?? 'week.day1'), date: `${date.getMonth() + 1}/${date.getDate()}` }
     }
     return (
-      <section className="iui-scene iui-week" aria-label={props.title ?? tr('week.title')}>
+      <section data-scene="WeekPlan" className="iui-scene iui-week" aria-label={props.title ?? tr('week.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('week.title')}</strong>
           <span className="iui-chip">{tr('week.count', { n: items.length })}</span>

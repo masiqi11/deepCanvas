@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>一周计划</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+body{margin:0;font-family:Inter,"Noto Sans SC",system-ui,sans-serif;color:#1d1d1f;background:#fff}
+a{color:#2456e6;text-decoration:none}a:hover{color:#1a3fb0}
+button{font:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 940px; font-size: 14px; line-height: 1.5">
+<nav aria-label="我的空间" style="flex: 1 1 220px; background: #f5f5f7; padding: 22px 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 14px">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><rect width="26" height="26" rx="7" fill="#2456e6"/><rect x="6" y="14" width="3.4" height="7" rx="1.5" fill="#fff"/><rect x="11.3" y="10" width="3.4" height="11" rx="1.5" fill="#fff"/><rect x="16.6" y="6" width="3.4" height="15" rx="1.5" fill="#fff"/></svg>
+<span style="font-weight: 700; font-size: 15px">DeepCanvas</span>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #5f5f66; padding: 6px 8px 4px">我的空间</div>
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+<a href="{{n.href}}" style="display: flex; gap: 10px; align-items: center; min-height: 48px; padding: 4px 10px; border-radius: 10px; color: #1d1d1f; background: {{n.bg}}; box-shadow: {{n.shadow}}"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{n.dot}}"></span><span><span style="display: block; font-weight: {{n.weight}}">{{n.name}}</span><span style="display: block; font-size: 12px; color: #5f5f66">{{n.meta}}</span></span></a>
+</sc-for>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 30px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="align-self: flex-end; max-width: 560px; background: #f5f5f7; border-radius: 16px; padding: 12px 16px">周三组会要讲论文，周五交课程设计，实验还差两组没跑，周四下午有课，简历也得改，周末想回趟家……帮我排一下</div>
+<p style="margin: 0">排好了。周四下午有一处冲突，我先把“实验 B 组”挪到了周二晚上。可以直接拖动调整。</p>
+<section aria-label="本周计划" style="border: 1px solid #e3e3e8; border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.06); padding: 20px 22px; display: flex; flex-direction: column; gap: 16px">
+<header style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<h1 style="margin: 0; font-size: 18px; font-weight: 700">本周计划</h1>
+<span style="color: #5f5f66">11月16日 – 22日</span>
+<span style="padding: 3px 10px; border-radius: 12px; background: #f5f5f7; font-size: 12.5px; color: #5f5f66">7 件事</span>
+<span style="padding: 3px 10px; border-radius: 12px; background: #fff1e6; font-size: 12.5px; font-weight: 600; color: #b23b0a">2 个截止</span>
+<span style="padding: 3px 10px; border-radius: 12px; background: #eaf7ee; font-size: 12.5px; font-weight: 600; color: #15803d">1 处冲突已解决</span>
+<span style="flex: 1"></span>
+<button style="min-height: 44px; padding: 0 16px; border: 1px solid #e3e3e8; border-radius: 22px; background: #fff; color: #1d1d1f">重新排一次</button>
+<button style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #eef2ff; color: #2456e6; font-weight: 600">导出到日历</button>
+</header>
+<div style="display: flex; flex-wrap: wrap; gap: 18px">
+<div style="flex: 3 1 520px; min-width: 0; overflow-x: auto">
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; min-width: 780px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+<div style="border-radius: 12px; padding: 10px 8px; min-height: 470px; background: {{d.bg}}; display: flex; flex-direction: column; gap: 8px">
+<div style="text-align: center; font-size: 12.5px; font-weight: {{d.weight}}; color: {{d.color}}; padding-bottom: 4px">{{d.name}}</div>
+<sc-for list="{{d.blocks}}" as="b" hint-placeholder-count="3">
+<div style="border-radius: 8px; padding: 9px 10px; background: {{b.bg}}; border: 1px {{b.borderStyle}} {{b.border}}; box-shadow: {{b.shadow}}; transform: {{b.transform}}">
+<div style="font-size: 11px; color: #5f5f66">{{b.when}}</div>
+<div style="font-weight: 600; font-size: 13px; color: {{b.ink}}; text-decoration: {{b.deco}}">{{b.title}}</div>
+<div style="font-size: 12px; color: #5f5f66">{{b.sub}}</div>
+<sc-if value="{{b.deadline}}" hint-placeholder-val="{{false}}"><span style="display: inline-block; margin-top: 6px; padding: 1px 8px; border-radius: 9px; background: #fff; font-size: 11px; font-weight: 700; color: #b23b0a">截止</span></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<aside aria-label="今天" style="flex: 1 1 220px; min-width: 0; background: #f5f5f7; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">今天只做三件事</h2>
+<div style="font-size: 12.5px; color: #5f5f66">周四 · 已完成 1 / 3</div>
+<div role="img" aria-label="已完成三分之一" style="height: 4px; border-radius: 2px; background: #e3e3e8"><div style="width: 33%; height: 4px; border-radius: 2px; background: #2456e6"></div></div>
+<label style="display: flex; gap: 10px; min-height: 44px; align-items: flex-start; padding-top: 6px"><input type="checkbox" checked style="width: 18px; height: 18px; margin: 2px 0 0; accent-color: #2456e6"><span><span style="display: block; font-weight: 600; color: #5f5f66; text-decoration: line-through">补实验数据</span><span style="display: block; font-size: 12px; color: #5f5f66">课程设计 · 上午</span></span></label>
+<label style="display: flex; gap: 10px; min-height: 44px; align-items: flex-start"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; accent-color: #2456e6"><span><span style="display: block; font-weight: 600">上课</span><span style="display: block; font-size: 12px; color: #5f5f66">14:00 – 16:30</span></span></label>
+<label style="display: flex; gap: 10px; min-height: 44px; align-items: flex-start"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; accent-color: #2456e6"><span><span style="display: block; font-weight: 600">改简历</span><span style="display: block; font-size: 12px; color: #5f5f66">晚上 · 1 小时</span></span></label>
+<div style="margin-top: auto; background: #fff; border: 1px solid #e3e3e8; border-radius: 10px; padding: 12px 14px">
+<div style="font-size: 12px; font-weight: 700; color: #b23b0a">提醒</div>
+<div style="font-size: 13px">课程设计离截止还有 1 天 4 小时，按现在的进度可以按时交。</div>
+</div>
+</aside>
+</div>
+<p style="margin: 0; font-size: 12.5px; color: #5f5f66">拖动任意一块换时间，后面的安排会自动顺延，不需要再问一遍。虚线框是它原来的位置。</p>
+</section>
+<form aria-label="提问" style="display: flex; gap: 10px; align-items: center; border: 1px solid #e3e3e8; border-radius: 14px; padding: 6px 6px 6px 18px">
+<label for="ask" style="position: absolute; left: -9999px">继续问</label>
+<input id="ask" type="text" placeholder="继续问，或者直接在上面改" style="flex: 1; min-width: 0; min-height: 44px; border: 0; outline: 0; font: inherit; background: transparent">
+<button type="button" aria-label="发送" style="width: 44px; height: 44px; border: 0; border-radius: 50%; background: #2456e6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18"><path d="M9 14V4M4.5 8.5 9 4l4.5 4.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</form>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":940}}'>
+class Component extends DCLogic {
+renderVals() {
+const B = '#2456e6', O = '#c2410c', P = '#6d3fd6', G = '#15803d', S = '#5f5f66';
+const tint = { blue: '#e6ecff', orange: '#ffeede', purple: '#efe9ff', green: '#e3f5e9', grey: '#ececf0' };
+const blk = (when, title, sub, kind, o = {}) => ({ when, title, sub, deadline: !!o.deadline, bg: o.ghost ? 'transparent' : tint[kind], border: o.ghost ? P : o.drag ? P : 'transparent', borderStyle: o.ghost ? 'dashed' : 'solid', shadow: o.drag ? '0 10px 24px rgba(0,0,0,.18)' : 'none', transform: o.drag ? 'rotate(-2deg)' : 'none', ink: o.done ? S : '#1d1d1f', deco: o.done ? 'line-through' : 'none' });
+const day = (name, blocks, today) => ({ name, blocks, bg: today ? '#f5f7ff' : '#fafafb', weight: today ? 700 : 500, color: today ? B : S });
+const nav = (name, meta, dot, href, on) => ({ name, meta, dot, href, bg: on ? '#fff' : 'transparent', shadow: on ? '0 1px 4px rgba(0,0,0,.08)' : 'none', weight: on ? 600 : 500 });
+return {
+nav: [nav('今天', '周四 · 3 件事', B, 'Main.dc.html'), nav('本周计划', '7 件事 · 2 个截止', O, 'WeekPlan.dc.html', true), nav('扩散模型入门', '已掌握 3 / 10 个概念', P, 'DomainMap.dc.html'), nav('论文库', '5 篇 · 2 篇已读', G, 'PaperBrief.dc.html')],
+days: [
+day('周一 16', [blk('上午', '读组会论文', '方法部分 · 1.5h', 'blue', { done: true }), blk('下午', '实验 A 组', '跑完并记录', 'purple', { done: true })]),
+day('周二 17', [blk('上午', '读组会论文', '实验部分 · 1h', 'blue', { done: true }), blk('下午', '做组会 PPT', '看板已起草', 'blue'), blk('晚上', '实验 B 组', '从周四下午挪来', 'purple')]),
+day('周三 18', [blk('10:00', '组会汇报', '讲论文', 'blue', { deadline: true }), blk('下午', '课程设计', '写报告 · 2h', 'orange')]),
+day('周四 19 · 今天', [blk('上午', '课程设计', '补实验数据', 'orange', { done: true }), blk('14:00 – 16:30', '上课', '教三 201', 'grey'), blk('下午', '实验 B 组', '原来排在这里', 'purple', { ghost: true }), blk('晚上', '改简历', '项目经历 · 1h', 'green')], true),
+day('周五 20', [blk('上午', '课程设计', '检查 + 录视频', 'orange'), blk('17:00 前', '提交课程设计', '报告 + 视频', 'orange', { deadline: true }), blk('拖动中', '读 Score SDE', '放到周五晚上', 'blue', { drag: true })]),
+day('周六 21', [blk('09:12', '回家', '高铁', 'green')]),
+day('周日 22', [blk('晚上', '返校', '顺便看下周安排', 'green')])
+]
+};
+}
+}
+</script>
+</body>
+</html>

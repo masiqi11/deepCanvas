@@ -41,7 +41,7 @@ export const Roadmap = defineComponent({
     const total = phases.reduce((n, p) => n + list(p.tasks).length, 0)
     const finished = Object.values(done).filter(Boolean).length
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('road.title')}>
+      <section className="iui-scene" data-scene="Roadmap" aria-label={props.title ?? tr('road.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('road.title')}</strong>
           <span className="iui-chip">{tr('road.progress', { done: finished, total })}</span>
@@ -89,7 +89,7 @@ export const Countdown = defineComponent({
       .sort((a, b) => (a.left ?? 9999) - (b.left ?? 9999))
     const span = Math.max(14, ...rows.map(r => r.left ?? 0))
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('count.title')}>
+      <section className="iui-scene" data-scene="Countdown" aria-label={props.title ?? tr('count.title')}>
         <header className="iui-scene-head"><strong>{props.title ?? tr('count.title')}</strong></header>
         <div className="iui-count">
           {rows.map((row, i) => {
@@ -121,7 +121,7 @@ export const Timeline = defineComponent({
   component: function TimelineView({ props }) {
     const tr = useCopy()
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('time.title')}>
+      <section className="iui-scene" data-scene="Timeline" aria-label={props.title ?? tr('time.title')}>
         <header className="iui-scene-head"><strong>{props.title ?? tr('time.title')}</strong></header>
         <ol className="iui-time">
           {list(props.events).map((event, i) => (
@@ -153,7 +153,7 @@ export const ReadingList = defineComponent({
     const [done, setDone] = useState<Record<number, boolean>>({})
     const finished = Object.values(done).filter(Boolean).length
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('read.title')}>
+      <section className="iui-scene" data-scene="ReadingList" aria-label={props.title ?? tr('read.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('read.title')}</strong>
           <span className="iui-chip">{tr('read.progress', { done: finished, total: items.length })}</span>

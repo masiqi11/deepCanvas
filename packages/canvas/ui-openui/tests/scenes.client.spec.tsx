@@ -37,10 +37,21 @@ function show(id: string, streaming = false, code?: string) {
 
 const texts = (root: Element, selector: string) => [...root.querySelectorAll(selector)].map(el => el.textContent ?? '')
 
+const SCENES: Record<string, string[]> = {
+  'scene-week-rolling': ['WeekPlan'],
+  'scene-week-fixed': ['WeekPlan'],
+  'scene-roadmap': ['Roadmap'],
+  'scene-countdown': ['Countdown'],
+  'scene-field-map': ['ConceptMap', 'ReadingList', 'Timeline'],
+  'scene-paper': ['PaperBrief', 'FollowUps'],
+  'scene-quiz': ['Quiz'],
+  'scene-decision': ['Decision'],
+}
+
 describe.each(scenePrograms)('$id', ({ id, code }) => {
-  it('renders settled without problems', () => {
+  it('renders settled without problems and names its scenes', () => {
     const { root } = show(id)
-    expect(root.querySelector('.iui-scene')).not.toBeNull()
+    expect([...root.querySelectorAll('[data-scene]')].map(el => el.getAttribute('data-scene'))).toEqual(SCENES[id])
     expect(texts(root, '.iui-fence-problem li')).toEqual([])
   })
 

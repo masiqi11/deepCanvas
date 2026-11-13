@@ -34,7 +34,7 @@ export const Decision = defineComponent({
     const totals = weighted(options.length, live)
     const best = totals.indexOf(Math.max(...totals))
     return (
-      <section className="iui-scene" aria-label={props.title ?? tr('decide.title')}>
+      <section className="iui-scene" data-scene="Decision" aria-label={props.title ?? tr('decide.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('decide.title')}</strong>
           {options[best] !== undefined ? <span className="iui-chip is-success">{tr('decide.best', { name: options[best] })}</span> : null}
