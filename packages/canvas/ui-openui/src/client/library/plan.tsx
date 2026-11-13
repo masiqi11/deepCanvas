@@ -1,0 +1,182 @@
+import { defineComponent } from '@openuidev/react-lang'
+import { useState } from 'react'
+import { z } from 'zod/v4'
+import { inline } from './markdown.tsx'
+import { cx, webUrl } from './style.ts'
+import { useCopy } from '../copy.ts'
+import { Glyph } from '../glyph.tsx'
+import { daysBetween, readDate, startOfDay } from './dates.ts'
+import { COMPONENT_NOTES } from './notes.ts'
+
+const list = <T,>(value: T[] | undefined): T[] => (Array.isArray(value) ? value.filter(v => v != null) : [])
+/** Inline Markdown of a model-written value that may still be streaming in. */
+const rich = (value: unknown) => inline(value == null ? '' : String(value))
+
+function Check({ on, label, toggle }: { on: boolean; label: string; toggle: () => void }) {
+  return (
+    <button type="button" className="iui-tick" aria-pressed={on} aria-label={label} onClick={toggle}>
+      {on ? <Glyph name="check" size={12} /> : null}
+    </button>
+  )
+}
+
+function Progress({ done, total }: { done: number; total: number }) {
+  return <span className="iui-progress" role="img" aria-label={`${done} / ${total}`}><span style={{ width: `${total === 0 ? 0 : (done / total) * 100}%` }} /></span>
+}
+
+// Roadmap
+export const Roadmap = defineComponent({
+  name: 'Roadmap',
+  props: z.object({
+    phases: z.array(z.object({
+      name: z.string(), span: z.string().optional(), goal: z.string().optional(), tasks: z.array(z.string()).optional(),
+    })),
+    title: z.string().optional(),
+  }),
+  description: COMPONENT_NOTES.Roadmap,
+  component: function RoadmapView({ props }) {
+    const tr = useCopy()
+    const phases = list(props.phases)
+    const [done, setDone] = useState<Record<string, boolean>>({})
+    const total = phases.reduce((n, p) => n + list(p.tasks).length, 0)
+    const finished = Object.values(done).filter(Boolean).length
+    return (
+      <section className="iui-scene" aria-label={props.title ?? tr('road.title')}>
+        <header className="iui-scene-head">
+          <strong>{props.title ?? tr('road.title')}</strong>
+          <span className="iui-chip">{tr('road.progress', { done: finished, total })}</span>
+        </header>
+        <Progress done={finished} total={total} />
+        <ol className="iui-road">
+          {phases.map((phase, p) => {
+            const tasks = list(phase.tasks)
+            const phaseDone = tasks.length > 0 && tasks.every((_, t) => done[`${p}.${t}`])
+            return (
+              <li key={p} className={cx('iui-road-phase', phaseDone && 'is-done')}>
+                <span className="iui-road-dot">{phaseDone ? <Glyph name="check" size={12} /> : p + 1}</span>
+                <div className="iui-road-body">
+                  <div className="iui-road-name"><strong>{phase.name}</strong>{phase.span ? <span className="iui-chip">{phase.span}</span> : null}</div>
+                  {phase.goal ? <p className="iui-road-goal">{rich(phase.goal)}</p> : null}
+                  {tasks.map((task, t) => (
+                    <div key={t} className={cx('iui-road-task', done[`${p}.${t}`] && 'is-done')}>
+                      <Check on={done[`${p}.${t}`] === true} label={task} toggle={() => { setDone({ ...done, [`${p}.${t}`]: !done[`${p}.${t}`] }) }} />
+                      <span>{rich(task)}</span>
+                    </div>
+                  ))}
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+      </section>
+    )
+  },
+})
+
+// Countdown
+export const Countdown = defineComponent({
+  name: 'Countdown',
+  props: z.object({
+    items: z.array(z.object({ title: z.string(), date: z.string(), note: z.string().optional() })),
+    title: z.string().optional(),
+  }),
+  description: COMPONENT_NOTES.Countdown,
+  component: function CountdownView({ props }) {
+    const tr = useCopy()
+    const now = startOfDay(new Date())
+    const rows = list(props.items)
+      .map(it => ({ ...it, left: (date => (date === null ? null : daysBetween(now, date)))(readDate(it.date, now)) }))
+      .sort((a, b) => (a.left ?? 9999) - (b.left ?? 9999))
+    const span = Math.max(14, ...rows.map(r => r.left ?? 0))
+    return (
+      <section className="iui-scene" aria-label={props.title ?? tr('count.title')}>
+        <header className="iui-scene-head"><strong>{props.title ?? tr('count.title')}</strong></header>
+        <div className="iui-count">
+          {rows.map((row, i) => {
+            const left = row.left
+            const tone = left === null ? 'calm' : left <= 2 ? 'danger' : left <= 7 ? 'warning' : 'calm'
+            const text = left === null ? row.date : left < 0 ? tr('count.over', { n: -left }) : left === 0 ? tr('count.today') : tr('count.left', { n: left })
+            return (
+              <div key={i} className={cx('iui-count-row', `is-${tone}`)}>
+                <div className="iui-count-title"><strong>{row.title}</strong>{row.note ? <span>{row.note}</span> : null}</div>
+                <span className="iui-count-bar"><span style={{ width: `${left === null ? 0 : Math.max(4, 100 - (Math.max(0, left) / span) * 100)}%` }} /></span>
+                <span className="iui-count-left">{text}</span>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+    )
+  },
+})
+
+// Timeline
+export const Timeline = defineComponent({
+  name: 'Timeline',
+  props: z.object({
+    events: z.array(z.object({ when: z.string(), title: z.string(), text: z.string().optional(), highlight: z.boolean().optional() })),
+    title: z.string().optional(),
+  }),
+  description: COMPONENT_NOTES.Timeline,
+  component: function TimelineView({ props }) {
+    const tr = useCopy()
+    return (
+      <section className="iui-scene" aria-label={props.title ?? tr('time.title')}>
+        <header className="iui-scene-head"><strong>{props.title ?? tr('time.title')}</strong></header>
+        <ol className="iui-time">
+          {list(props.events).map((event, i) => (
+            <li key={i} className={cx('iui-time-event', event.highlight === true && 'is-key')}>
+              <span className="iui-time-when">{event.when}</span>
+              <span className="iui-time-dot" />
+              <div className="iui-time-body"><strong>{rich(event.title)}</strong>{event.text ? <p>{rich(event.text)}</p> : null}</div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  },
+})
+
+// ReadingList
+export const ReadingList = defineComponent({
+  name: 'ReadingList',
+  props: z.object({
+    items: z.array(z.object({
+      title: z.string(), meta: z.string().optional(), tag: z.string().optional(), url: z.string().optional(), why: z.string().optional(),
+    })),
+    title: z.string().optional(),
+  }),
+  description: COMPONENT_NOTES.ReadingList,
+  component: function ReadingListView({ props }) {
+    const tr = useCopy()
+    const items = list(props.items)
+    const [done, setDone] = useState<Record<number, boolean>>({})
+    const finished = Object.values(done).filter(Boolean).length
+    return (
+      <section className="iui-scene" aria-label={props.title ?? tr('read.title')}>
+        <header className="iui-scene-head">
+          <strong>{props.title ?? tr('read.title')}</strong>
+          <span className="iui-chip">{tr('read.progress', { done: finished, total: items.length })}</span>
+        </header>
+        <Progress done={finished} total={items.length} />
+        <ol className="iui-read">
+          {items.map((it, i) => {
+            const url = webUrl(it.url)
+            return (
+              <li key={i} className={cx('iui-read-item', done[i] && 'is-done')}>
+                <Check on={done[i] === true} label={it.title} toggle={() => { setDone({ ...done, [i]: !done[i] }) }} />
+                <div className="iui-read-body">
+                  <span className="iui-read-title">{i + 1}. {it.title}</span>
+                  {it.meta ? <span className="iui-read-meta">{it.meta}</span> : null}
+                  {it.why ? <span className="iui-read-why">{rich(it.why)}</span> : null}
+                </div>
+                {it.tag ? <span className="iui-chip">{it.tag}</span> : null}
+                {url !== null ? <a className="iui-read-link" href={url} target="_blank" rel="noopener noreferrer">{tr('read.open')}</a> : null}
+              </li>
+            )
+          })}
+        </ol>
+      </section>
+    )
+  },
+})

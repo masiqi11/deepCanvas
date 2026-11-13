@@ -20,6 +20,9 @@ import { Box, Card, Col, Divider, Form, Grid, Row, Spacer } from './library/layo
 import { Icon, Image } from './library/media.tsx'
 import { svgComponents } from './library/svg.tsx'
 import { Table } from './library/table.tsx'
+import { Decision } from './library/decide.tsx'
+import { Countdown, ReadingList, Roadmap, Timeline } from './library/plan.tsx'
+import { ConceptMap, FollowUps, PaperBrief, Quiz } from './library/study.tsx'
 import { WeekPlan } from './library/week-plan.tsx'
 import { Badge, Caption, Label, Link, List, ListItem, Markdown, Text, Title } from './library/text.tsx'
 
@@ -31,7 +34,8 @@ export const library = createLibrary({
     Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Callout, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
     Image, Icon, Table, Chart,
-    Flashcard, Celebration, WeekPlan,
+    Flashcard, Celebration,
+    WeekPlan, Roadmap, Countdown, Timeline, ReadingList, ConceptMap, PaperBrief, FollowUps, Quiz, Decision,
     ...svgComponents, HtmlView,
   ],
   functions,
@@ -60,7 +64,14 @@ export const library = createLibrary({
     },
     { name: 'Media and data', components: ['Image', 'Icon', 'Table', 'Chart'] },
     { name: 'Play', components: ['Flashcard', 'Celebration'] },
-    { name: 'Planning', components: ['WeekPlan'] },
+    {
+      name: 'Scenes',
+      components: ['WeekPlan', 'Roadmap', 'Countdown', 'Timeline', 'ReadingList', 'ConceptMap', 'PaperBrief', 'FollowUps', 'Quiz', 'Decision'],
+      notes: [
+        '- A scene is a finished block for one common need: it brings its own layout, wording and controls, so pass it data and do not wrap it in a Card or rebuild it from primitives.',
+        '- Scenes sit directly in the root Col, with a sentence of Markdown before the fence and other blocks around them when they help.',
+      ],
+    },
     { name: 'Drawing', components: ['Svg', 'G', 'Circle', 'Ellipse', 'Rect', 'Line', 'Path', 'Polyline', 'Polygon', 'SvgText', 'HtmlView'] },
   ],
 })

@@ -13,6 +13,47 @@ export type OpenUIKey =
   | 'html.title' | 'html.preparing'
   | 'week.title' | 'week.count' | 'week.deadlines' | 'week.deadline' | 'week.today' | 'week.done' | 'week.moveHere' | 'week.hint'
   | 'week.day1' | 'week.day2' | 'week.day3' | 'week.day4' | 'week.day5' | 'week.day6' | 'week.day7'
+  | 'road.title'
+  | 'road.progress'
+  | 'count.title'
+  | 'count.left'
+  | 'count.today'
+  | 'count.over'
+  | 'time.title'
+  | 'read.title'
+  | 'read.progress'
+  | 'read.open'
+  | 'map.title'
+  | 'map.progress'
+  | 'map.pick'
+  | 'map.analogy'
+  | 'map.read'
+  | 'map.simpler'
+  | 'map.example'
+  | 'map.quiz'
+  | 'map.mark'
+  | 'map.unmark'
+  | 'map.askSimpler'
+  | 'map.askExample'
+  | 'map.askQuiz'
+  | 'paper.problem'
+  | 'paper.method'
+  | 'paper.result'
+  | 'paper.limit'
+  | 'paper.verdict'
+  | 'ask.title'
+  | 'ask.placeholder'
+  | 'ask.send'
+  | 'quiz.title'
+  | 'quiz.progress'
+  | 'quiz.next'
+  | 'quiz.finish'
+  | 'quiz.score'
+  | 'quiz.again'
+  | 'decide.title'
+  | 'decide.weight'
+  | 'decide.best'
+  | 'decide.hint'
   | 'action.values' | 'copied'
 
 /** Simplified Chinese copy. */
@@ -55,6 +96,47 @@ export const zh: Record<OpenUIKey, string> = {
   'week.day5': '周五',
   'week.day6': '周六',
   'week.day7': '周日',
+  'road.title': '阶段计划',
+  'road.progress': '完成 {done} / {total}',
+  'count.title': '截止倒计时',
+  'count.left': '还有 {n} 天',
+  'count.today': '今天截止',
+  'count.over': '已过 {n} 天',
+  'time.title': '时间线',
+  'read.title': '阅读路径',
+  'read.progress': '已读 {done} / {total}',
+  'read.open': '打开',
+  'map.title': '入门地图',
+  'map.progress': '已掌握 {done} / {total}',
+  'map.pick': '点一个概念查看解释。',
+  'map.analogy': '类比：',
+  'map.read': '该读：',
+  'map.simpler': '再讲简单点',
+  'map.example': '举个例子',
+  'map.quiz': '考考我',
+  'map.mark': '标记为已掌握',
+  'map.unmark': '取消已掌握',
+  'map.askSimpler': '把“{name}”再讲简单一点',
+  'map.askExample': '给“{name}”举一个具体的例子',
+  'map.askQuiz': '出几道题考考我对“{name}”的理解',
+  'paper.problem': '解决什么问题',
+  'paper.method': '怎么做的',
+  'paper.result': '效果如何',
+  'paper.limit': '局限在哪',
+  'paper.verdict': '值得精读吗',
+  'ask.title': '追问',
+  'ask.placeholder': '输入你自己的问题…',
+  'ask.send': '提问',
+  'quiz.title': '自测',
+  'quiz.progress': '第 {n} / {total} 题',
+  'quiz.next': '下一题',
+  'quiz.finish': '看结果',
+  'quiz.score': '答对 {n} / {total}',
+  'quiz.again': '再来一遍',
+  'decide.title': '帮你做决定',
+  'decide.weight': '权重',
+  'decide.best': '目前最适合：{name}',
+  'decide.hint': '拖动权重，排名会立刻变化；格子里是 1 到 5 的评分。',
   'action.values': '当前界面数值：',
   'copied': '已复制',
 }
@@ -99,6 +181,47 @@ export const en: Record<OpenUIKey, string> = {
   'week.day5': 'Fri',
   'week.day6': 'Sat',
   'week.day7': 'Sun',
+  'road.title': 'Roadmap',
+  'road.progress': '{done} / {total} done',
+  'count.title': 'Deadlines',
+  'count.left': '{n} days left',
+  'count.today': 'Due today',
+  'count.over': '{n} days overdue',
+  'time.title': 'Timeline',
+  'read.title': 'Reading path',
+  'read.progress': '{done} / {total} read',
+  'read.open': 'Open',
+  'map.title': 'Concept map',
+  'map.progress': '{done} / {total} learned',
+  'map.pick': 'Pick a concept to see what it means.',
+  'map.analogy': 'Analogy: ',
+  'map.read': 'Read: ',
+  'map.simpler': 'Simpler',
+  'map.example': 'Example',
+  'map.quiz': 'Quiz me',
+  'map.mark': 'Mark as learned',
+  'map.unmark': 'Unmark',
+  'map.askSimpler': 'Explain "{name}" more simply',
+  'map.askExample': 'Give a concrete example of "{name}"',
+  'map.askQuiz': 'Quiz me on "{name}"',
+  'paper.problem': 'Problem',
+  'paper.method': 'Method',
+  'paper.result': 'Result',
+  'paper.limit': 'Limits',
+  'paper.verdict': 'Worth a close read?',
+  'ask.title': 'Follow-up questions',
+  'ask.placeholder': 'Ask your own question…',
+  'ask.send': 'Ask',
+  'quiz.title': 'Quiz',
+  'quiz.progress': 'Question {n} of {total}',
+  'quiz.next': 'Next',
+  'quiz.finish': 'See result',
+  'quiz.score': '{n} of {total} correct',
+  'quiz.again': 'Try again',
+  'decide.title': 'Decision',
+  'decide.weight': 'Weight',
+  'decide.best': 'Best fit: {name}',
+  'decide.hint': 'Drag a weight and the ranking updates; cells are scores from 1 to 5.',
   'action.values': 'Values on the page: ',
   'copied': 'Copied',
 }
