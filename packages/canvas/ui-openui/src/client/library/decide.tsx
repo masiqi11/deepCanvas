@@ -1,9 +1,10 @@
 import { defineComponent } from '@openuidev/react-lang'
-import { useState, type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { z } from 'zod/v4'
 import { cx } from './style.ts'
 import { useCopy } from '../copy.ts'
 import { COMPONENT_NOTES } from './notes.ts'
+import { itemKeys, useSceneState } from './scene-state.ts'
 import { amount, label, numberOf, textOf } from './scene-values.ts'
 
 const criterion = z.object({ name: label, weight: amount, scores: z.array(amount) })
@@ -32,14 +33,16 @@ export const Decision = defineComponent({
     // Scores pair with options by position, so an unreadable score stays in its slot as null instead of shifting the rest.
     const criteria = (Array.isArray(props.criteria) ? props.criteria : []).filter(c => c != null && Array.isArray(c.scores))
       .map(c => ({ name: textOf(c.name), weight: numberOf(c.weight) ?? 0, scores: c.scores.map(numberOf) }))
-    const [weights, setWeights] = useState<Record<number, number>>({})
-    const live = criteria.map((c, i) => ({ ...c, weight: weights[i] ?? c.weight }))
+    const title = props.title ?? tr('decide.title')
+    const keys = itemKeys(criteria.map(c => c.name))
+    const [weights, setWeights] = useSceneState<Record<string, number>>(`Decision·${title}`, {})
+    const live = criteria.map((c, i) => ({ ...c, weight: weights[keys[i] ?? ''] ?? c.weight }))
     const totals = weighted(options.length, live)
     const best = totals.indexOf(Math.max(...totals))
     return (
-      <section className="iui-scene" data-scene="Decision" aria-label={props.title ?? tr('decide.title')}>
+      <section className="iui-scene" data-scene="Decision" aria-label={title}>
         <header className="iui-scene-head">
-          <strong>{props.title ?? tr('decide.title')}</strong>
+          <strong>{title}</strong>
           {options[best] !== undefined ? <span className="iui-chip is-success">{tr('decide.best', { name: options[best] })}</span> : null}
         </header>
         <div className="iui-decide-rank">
@@ -60,7 +63,7 @@ export const Decision = defineComponent({
             <div key={i} className="iui-decide-row">
               <span className="iui-decide-crit">{c.name}</span>
               <input type="range" min={0} max={5} step={1} value={c.weight} aria-label={`${c.name} ${tr('decide.weight')}`} className="iui-decide-range"
-                onChange={(event) => { setWeights({ ...weights, [i]: Number(event.target.value) }) }} />
+                onChange={(event) => { setWeights({ ...weights, [keys[i] ?? '']: Number(event.target.value) }) }} />
               {options.map((_, o) => <span key={o} className={cx('iui-decide-cell', o === best && 'is-best')}>{c.scores[o] ?? '–'}</span>)}
             </div>
           ))}

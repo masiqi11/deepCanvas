@@ -134,7 +134,8 @@ describe('ConceptMap, ReadingList and Timeline', () => {
     fireEvent.click(actions.find(b => b.textContent === '标记为已掌握')!)
     expect(texts(root, '.iui-scene-head .iui-chip')[0]).toBe('已掌握 4 / 7')
     fireEvent.click(actions.find(b => b.textContent === '考考我')!)
-    expect(sendPrompt).toHaveBeenCalledWith('出几道题考考我对“反向去噪”的理解')
+    // The concept the user just marked learned travels with the message.
+    expect(sendPrompt).toHaveBeenCalledWith('出几道题考考我对“反向去噪”的理解\n\n当前界面数值：{"ConceptMap·扩散模型入门地图":{"反向去噪":true}}')
   })
 
   it('shows another concept when it is picked', () => {

@@ -1,4 +1,4 @@
-import { defineComponent, useFormName, useTriggerAction } from '@openuidev/react-lang'
+import { defineComponent } from '@openuidev/react-lang'
 import { useState } from 'react'
 import { z } from 'zod/v4'
 import { inline } from './markdown.tsx'
@@ -6,18 +6,13 @@ import { cx } from './style.ts'
 import { useCopy } from '../copy.ts'
 import { Glyph } from '../glyph.tsx'
 import { COMPONENT_NOTES } from './notes.ts'
+import { itemKeys, useAsk, useSceneState } from './scene-state.ts'
 import { label, textOf } from './scene-values.ts'
 
 const list = <T,>(value: T[] | undefined): T[] => (Array.isArray(value) ? value.filter(v => v != null) : [])
 /** Inline Markdown of a model-written value that may still be streaming in. */
 const rich = (value: unknown) => inline(value == null ? '' : String(value))
 
-/** Sends a message to the assistant as the user's next turn. */
-function useAsk() {
-  const trigger = useTriggerAction()
-  const form = useFormName()
-  return (message: string) => { void trigger(message, form) }
-}
 
 // ConceptMap
 const concept = z.object({
@@ -39,14 +34,15 @@ export const ConceptMap = defineComponent({
       .map(layer => ({ ...layer, concepts: list(layer.concepts).map(c => ({ ...c, name: textOf(c.name) })).filter(c => c.name !== '') }))
     const all = layers.flatMap(layer => layer.concepts)
     const [picked, setPicked] = useState<string | null>(props.focus ?? null)
-    const [known, setKnown] = useState<Record<string, boolean>>({})
+    const title = props.title ?? tr('map.title')
+    const [known, setKnown] = useSceneState<Record<string, boolean>>(`ConceptMap·${title}`, {})
     const isKnown = (c: { name: string; known?: boolean | undefined }) => known[c.name] ?? c.known === true
     const current = all.find(c => c.name === picked)
     const mastered = all.filter(isKnown).length
     return (
-      <section className="iui-scene" data-scene="ConceptMap" aria-label={props.title ?? tr('map.title')}>
+      <section className="iui-scene" data-scene="ConceptMap" aria-label={title}>
         <header className="iui-scene-head">
-          <strong>{props.title ?? tr('map.title')}</strong>
+          <strong>{title}</strong>
           <span className="iui-chip">{tr('map.progress', { done: mastered, total: all.length })}</span>
         </header>
         {all.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
@@ -198,18 +194,33 @@ export const Quiz = defineComponent({
   component: function QuizView({ props }) {
     const tr = useCopy()
     const questions = list(props.questions).map(q => ({ ...q, options: list(q.options).map(textOf) })).filter(q => q.options.length > 1)
-    const [at, setAt] = useState(0)
-    const [picks, setPicks] = useState<Record<number, number>>({})
+    const title = props.title ?? tr('quiz.title')
+    const keys = itemKeys(questions.map(q => textOf(q.q)))
+    const [answers, setAnswers] = useSceneState<Record<string, string>>(`Quiz·${title}`, {})
+    const picks: Record<number, number> = {}
+    questions.forEach((q, i) => {
+      const chosen = answers[keys[i] ?? '']
+      const index = chosen === undefined ? -1 : q.options.indexOf(chosen)
+      if (index >= 0) picks[i] = index
+    })
+    // Until the user moves on, the quiz stands at the first question without an answer, so a remount resumes there.
+    const open = questions.findIndex((_, i) => picks[i] === undefined)
+    const [cursor, setAt] = useState<number | null>(null)
+    const at = cursor ?? (open < 0 ? questions.length : open)
+    const choose = (i: number, o: number) => {
+      setAt(i) // Stay on the answered question to show its feedback.
+      setAnswers({ ...answers, [keys[i] ?? '']: questions[i]?.options[o] ?? '' })
+    }
     const total = questions.length
     // A question whose answer matches no option is shown but not scored.
     const scored = questions.filter(q => answerIndex(q.answer, q.options) >= 0).length
     const score = questions.filter((q, i) => picks[i] === answerIndex(q.answer, q.options)).length
     const current = questions[at]
-    const restart = () => { setAt(0); setPicks({}) }
+    const restart = () => { setAt(0); setAnswers({}) }
     return (
-      <section className="iui-scene" data-scene="Quiz" aria-label={props.title ?? tr('quiz.title')}>
+      <section className="iui-scene" data-scene="Quiz" aria-label={title}>
         <header className="iui-scene-head">
-          <strong>{props.title ?? tr('quiz.title')}</strong>
+          <strong>{title}</strong>
           <span className="iui-chip">{current === undefined ? tr('quiz.score', { n: score, total: scored }) : tr('quiz.progress', { n: at + 1, total })}</span>
         </header>
         <span className="iui-progress" role="img" aria-label={`${Object.keys(picks).length} / ${total}`}><span style={{ width: `${total === 0 ? 0 : (Object.keys(picks).length / total) * 100}%` }} /></span>
@@ -228,7 +239,7 @@ export const Quiz = defineComponent({
               return (
                 <button key={o} type="button" disabled={picks[at] !== undefined} aria-pressed={picks[at] === o}
                   className={cx('iui-quiz-option', answered && o === right && 'is-right', answered && picks[at] === o && o !== right && 'is-wrong')}
-                  onClick={() => { setPicks({ ...picks, [at]: o }) }}>
+                  onClick={() => { choose(at, o) }}>
                   <span className="iui-quiz-letter">{String.fromCharCode(65 + o)}</span><span>{rich(option)}</span>
                 </button>
               )

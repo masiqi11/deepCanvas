@@ -1,5 +1,4 @@
 import { defineComponent } from '@openuidev/react-lang'
-import { useState } from 'react'
 import { z } from 'zod/v4'
 import { inline } from './markdown.tsx'
 import { cx, webUrl } from './style.ts'
@@ -7,6 +6,7 @@ import { useCopy } from '../copy.ts'
 import { Glyph } from '../glyph.tsx'
 import { daysBetween, readDate, startOfDay } from './dates.ts'
 import { COMPONENT_NOTES } from './notes.ts'
+import { itemKeys, useSceneState } from './scene-state.ts'
 import { label, textOf } from './scene-values.ts'
 
 const list = <T,>(value: T[] | undefined): T[] => (Array.isArray(value) ? value.filter(v => v != null) : [])
@@ -38,13 +38,18 @@ export const Roadmap = defineComponent({
   component: function RoadmapView({ props }) {
     const tr = useCopy()
     const phases = list(props.phases).map(phase => ({ ...phase, name: textOf(phase.name), tasks: list(phase.tasks).map(textOf) }))
-    const [done, setDone] = useState<Record<string, boolean>>({})
-    const total = phases.reduce((n, p) => n + list(p.tasks).length, 0)
-    const finished = Object.values(done).filter(Boolean).length
+    const title = props.title ?? tr('road.title')
+    const keys = itemKeys(phases.flatMap(phase => phase.tasks.map(task => `${phase.name}/${task}`)))
+    const keyOf = (p: number, t: number) => keys[phases.slice(0, p).reduce((n, phase) => n + phase.tasks.length, 0) + t] ?? ''
+    const [done, setDone] = useSceneState<string[]>(`Roadmap·${title}`, [])
+    const isDone = (p: number, t: number) => done.includes(keyOf(p, t))
+    const toggle = (p: number, t: number) => { setDone(isDone(p, t) ? done.filter(k => k !== keyOf(p, t)) : [...done, keyOf(p, t)]) }
+    const total = keys.length
+    const finished = keys.filter(key => done.includes(key)).length
     return (
-      <section className="iui-scene" data-scene="Roadmap" aria-label={props.title ?? tr('road.title')}>
+      <section className="iui-scene" data-scene="Roadmap" aria-label={title}>
         <header className="iui-scene-head">
-          <strong>{props.title ?? tr('road.title')}</strong>
+          <strong>{title}</strong>
           <span className="iui-chip">{tr('road.progress', { done: finished, total })}</span>
         </header>
         <Progress done={finished} total={total} />
@@ -52,7 +57,7 @@ export const Roadmap = defineComponent({
         <ol className="iui-road">
           {phases.map((phase, p) => {
             const tasks = phase.tasks
-            const phaseDone = tasks.length > 0 && tasks.every((_, t) => done[`${p}.${t}`])
+            const phaseDone = tasks.length > 0 && tasks.every((_, t) => isDone(p, t))
             return (
               <li key={p} className={cx('iui-road-phase', phaseDone && 'is-done')}>
                 <span className="iui-road-dot">{phaseDone ? <Glyph name="check" size={12} /> : p + 1}</span>
@@ -60,8 +65,8 @@ export const Roadmap = defineComponent({
                   <div className="iui-road-name"><strong>{phase.name}</strong>{phase.span ? <span className="iui-chip">{phase.span}</span> : null}</div>
                   {phase.goal ? <p className="iui-road-goal">{rich(phase.goal)}</p> : null}
                   {tasks.map((task, t) => (
-                    <div key={t} className={cx('iui-road-task', done[`${p}.${t}`] && 'is-done')}>
-                      <Check on={done[`${p}.${t}`] === true} label={task} toggle={() => { setDone({ ...done, [`${p}.${t}`]: !done[`${p}.${t}`] }) }} />
+                    <div key={t} className={cx('iui-road-task', isDone(p, t) && 'is-done')}>
+                      <Check on={isDone(p, t)} label={task} toggle={() => { toggle(p, t) }} />
                       <span>{rich(task)}</span>
                     </div>
                   ))}
@@ -155,12 +160,16 @@ export const ReadingList = defineComponent({
   component: function ReadingListView({ props }) {
     const tr = useCopy()
     const items = list(props.items).map(it => ({ ...it, title: textOf(it.title) }))
-    const [done, setDone] = useState<Record<number, boolean>>({})
-    const finished = Object.values(done).filter(Boolean).length
+    const title = props.title ?? tr('read.title')
+    const keys = itemKeys(items.map(it => it.title))
+    const [read, setRead] = useSceneState<string[]>(`ReadingList·${title}`, [])
+    const isRead = (i: number) => read.includes(keys[i] ?? '')
+    const toggle = (i: number) => { setRead(isRead(i) ? read.filter(k => k !== keys[i]) : [...read, keys[i] ?? '']) }
+    const finished = keys.filter(key => read.includes(key)).length
     return (
-      <section className="iui-scene" data-scene="ReadingList" aria-label={props.title ?? tr('read.title')}>
+      <section className="iui-scene" data-scene="ReadingList" aria-label={title}>
         <header className="iui-scene-head">
-          <strong>{props.title ?? tr('read.title')}</strong>
+          <strong>{title}</strong>
           <span className="iui-chip">{tr('read.progress', { done: finished, total: items.length })}</span>
         </header>
         <Progress done={finished} total={items.length} />
@@ -169,8 +178,8 @@ export const ReadingList = defineComponent({
           {items.map((it, i) => {
             const url = webUrl(it.url)
             return (
-              <li key={i} className={cx('iui-read-item', done[i] && 'is-done')}>
-                <Check on={done[i] === true} label={it.title} toggle={() => { setDone({ ...done, [i]: !done[i] }) }} />
+              <li key={i} className={cx('iui-read-item', isRead(i) && 'is-done')}>
+                <Check on={isRead(i)} label={it.title} toggle={() => { toggle(i) }} />
                 <div className="iui-read-body">
                   <span className="iui-read-title">{i + 1}. {it.title}</span>
                   {it.meta ? <span className="iui-read-meta">{it.meta}</span> : null}

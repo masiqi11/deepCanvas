@@ -59,6 +59,8 @@ export type OpenUIKey =
   | 'quiz.unscored'
   | 'decide.noWeight'
   | 'scene.empty'
+  | 'week.replan'
+  | 'week.replanAsk'
   | 'action.values' | 'copied'
 
 /** Simplified Chinese copy. */
@@ -147,6 +149,8 @@ export const zh: Record<OpenUIKey, string> = {
   'quiz.unscored': '这题没有给出正确答案，不计分。',
   'decide.noWeight': '所有权重都是 0：至少给一项标准加上权重，才能排出名次。',
   'scene.empty': '还没有内容。',
+  'week.replan': '按现在的安排重排',
+  'week.replanAsk': '我改了一些安排，请按现在的状态把剩下的事重新排一下。',
   'action.values': '当前界面数值：',
   'copied': '已复制',
 }
@@ -237,6 +241,8 @@ export const en: Record<OpenUIKey, string> = {
   'quiz.unscored': 'This question has no correct answer marked, so it is not scored.',
   'decide.noWeight': 'Every weight is 0: give at least one criterion a weight to rank the options.',
   'scene.empty': 'Nothing here yet.',
+  'week.replan': 'Re-plan from here',
+  'week.replanAsk': 'I changed some of the plan. Please re-plan the rest from its current state.',
   'action.values': 'Values on the page: ',
   'copied': 'Copied',
 }

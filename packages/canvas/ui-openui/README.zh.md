@@ -42,7 +42,7 @@ kind: "package-reference"
 <details>
 <summary>实现细节 — 点击展开</summary>
 
-[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键；没有标注语言的代码块经 `conversation.chat.markdown.fence.unlabeled` 分发，内容含 `root =` 语句时也会认领。[`source.ts`](src/client/source.ts) 在解析前为非 ASCII 的对象键和成员加上引号，因为 OpenUI Lang 的分词器会丢弃非 ASCII 标识符。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题；有效组件仍能显示时标为部分显示。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`week-plan.tsx`](src/client/library/week-plan.tsx)、[`plan.tsx`](src/client/library/plan.tsx)、[`study.tsx`](src/client/library/study.tsx) 与 [`decide.tsx`](src/client/library/decide.tsx) 中的场景组件（`WeekPlan`、`Roadmap`、`Countdown`、`Timeline`、`ReadingList`、`ConceptMap`、`PaperBrief`、`FollowUps`、`Quiz`、`Decision`）是 DeepCanvas 自己的：每个组件是面向一种常见需求的成品块，模型只填数据。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
+[`src/client/index.ts`](src/client/index.ts) 认领 `conversation.chat.markdown.fence` 插槽的 `openui` 与 `openui-lang` 两个键；没有标注语言的代码块经 `conversation.chat.markdown.fence.unlabeled` 分发，内容含 `root =` 语句时也会认领。[`source.ts`](src/client/source.ts) 在解析前为非 ASCII 的对象键和成员加上引号，因为 OpenUI Lang 的分词器会丢弃非 ASCII 标识符。[`OpenUIFence.tsx`](src/client/OpenUIFence.tsx) 使用 `@openuidev/react-lang` 渲染器按 [`library.ts`](src/client/library.ts) 渲染代码块，在页面打开期间按代码块保存界面状态，把 `@ToAssistant` 映射到会话输入框，只打开 http(s) 链接，并在回复结束后显示阻断渲染的解析问题；有效组件仍能显示时标为部分显示。[`library/`](src/client/library) 中的组件与 [`functions/`](src/client/functions) 中的函数改编自 Open Intelligent UI（MIT，Copyright (c) 2026 Thesys Inc.）；需要联网的图片搜索、街道地图和视频嵌入没有纳入。[`week-plan.tsx`](src/client/library/week-plan.tsx)、[`plan.tsx`](src/client/library/plan.tsx)、[`study.tsx`](src/client/library/study.tsx) 与 [`decide.tsx`](src/client/library/decide.tsx) 中的场景组件（`WeekPlan`、`Roadmap`、`Countdown`、`Timeline`、`ReadingList`、`ConceptMap`、`PaperBrief`、`FollowUps`、`Quiz`、`Decision`）是 DeepCanvas 自己的：每个组件是面向一种常见需求的成品块，模型只填数据。用户在场景中的勾选、移动和选择保存为代码块页面状态中的具名字段（[`scene-state.ts`](src/client/library/scene-state.ts)），因此重新挂载后仍在，并随消息发给助手。[`prompt-options.ts`](src/client/prompt-options.ts) 保存生成宿主提示词所用的规则和示例。`HtmlView` 页面运行在 `sandbox="allow-scripts"` 的 iframe 中，其策略禁止所有网络访问。
 
 </details>
 
@@ -70,7 +70,6 @@ kind: "package-reference"
 <a id="known-limitations-and-deferred-work"></a>
 
 - 界面状态保存在内存中：刷新页面后，每个代码块会回到默认值。
-- 场景组件把用户的勾选、移动和选择保存在组件状态里：代码块重新挂载后会丢失，也不会随消息发给助手。
 - 浏览器包自带 KaTeX 和 zod 副本，约 1.3 MB。
 
 -----
