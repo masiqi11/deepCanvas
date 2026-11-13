@@ -6,6 +6,7 @@ import { cx } from './style.ts'
 import { useCopy } from '../copy.ts'
 import { Glyph } from '../glyph.tsx'
 import { COMPONENT_NOTES } from './notes.ts'
+import { label, textOf } from './scene-values.ts'
 
 const list = <T,>(value: T[] | undefined): T[] => (Array.isArray(value) ? value.filter(v => v != null) : [])
 /** Inline Markdown of a model-written value that may still be streaming in. */
@@ -20,7 +21,7 @@ function useAsk() {
 
 // ConceptMap
 const concept = z.object({
-  name: z.string(), text: z.string(), analogy: z.string().optional(), read: z.string().optional(), known: z.boolean().optional(),
+  name: label, text: z.string(), analogy: z.string().optional(), read: z.string().optional(), known: z.boolean().optional(),
 })
 
 export const ConceptMap = defineComponent({
@@ -34,7 +35,8 @@ export const ConceptMap = defineComponent({
   component: function ConceptMapView({ props }) {
     const tr = useCopy()
     const ask = useAsk()
-    const layers = list(props.layers).map(layer => ({ ...layer, concepts: list(layer.concepts) }))
+    const layers = list(props.layers)
+      .map(layer => ({ ...layer, concepts: list(layer.concepts).map(c => ({ ...c, name: textOf(c.name) })).filter(c => c.name !== '') }))
     const all = layers.flatMap(layer => layer.concepts)
     const [picked, setPicked] = useState<string | null>(props.focus ?? null)
     const [known, setKnown] = useState<Record<string, boolean>>({})
@@ -47,6 +49,7 @@ export const ConceptMap = defineComponent({
           <strong>{props.title ?? tr('map.title')}</strong>
           <span className="iui-chip">{tr('map.progress', { done: mastered, total: all.length })}</span>
         </header>
+        {all.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
         <div className="iui-map" style={{ gridTemplateColumns: `repeat(${Math.max(1, layers.length)}, minmax(0, 1fr))` }}>
           {layers.map((layer, l) => (
             <div key={l} className="iui-map-layer">
@@ -86,13 +89,15 @@ export const ConceptMap = defineComponent({
 export const PaperBrief = defineComponent({
   name: 'PaperBrief',
   props: z.object({
-    title: z.string(), oneLine: z.string(), problem: z.string(), method: z.string(), result: z.string(), limit: z.string(),
+    title: z.string(), oneLine: z.string(), problem: z.string().optional(), method: z.string().optional(), result: z.string().optional(),
+    limit: z.string().optional(),
     meta: z.string().optional(), verdict: z.string().optional(), why: z.string().optional(),
   }),
   description: COMPONENT_NOTES.PaperBrief,
   component: function PaperBriefView({ props }) {
     const tr = useCopy()
-    const cells = [['problem', props.problem], ['method', props.method], ['result', props.result], ['limit', props.limit]] as const
+    const cells = ([['problem', props.problem], ['method', props.method], ['result', props.result], ['limit', props.limit]] as const)
+      .filter(([, text]) => typeof text === 'string' && text.trim() !== '')
     return (
       <section data-scene="PaperBrief" className="iui-scene" aria-label={props.title}>
         <header className="iui-paper-head">
@@ -168,7 +173,7 @@ export const FollowUps = defineComponent({
 
 // Quiz
 const question = z.object({
-  q: z.string(), options: z.array(z.string()), answer: z.union([z.number(), z.string()]), why: z.string().optional(),
+  q: z.string(), options: z.array(label), answer: z.union([z.number(), z.string()]), why: z.string().optional(),
 })
 
 /**
@@ -192,10 +197,12 @@ export const Quiz = defineComponent({
   description: COMPONENT_NOTES.Quiz,
   component: function QuizView({ props }) {
     const tr = useCopy()
-    const questions = list(props.questions).filter(q => list(q.options).length > 1)
+    const questions = list(props.questions).map(q => ({ ...q, options: list(q.options).map(textOf) })).filter(q => q.options.length > 1)
     const [at, setAt] = useState(0)
     const [picks, setPicks] = useState<Record<number, number>>({})
     const total = questions.length
+    // A question whose answer matches no option is shown but not scored.
+    const scored = questions.filter(q => answerIndex(q.answer, q.options) >= 0).length
     const score = questions.filter((q, i) => picks[i] === answerIndex(q.answer, q.options)).length
     const current = questions[at]
     const restart = () => { setAt(0); setPicks({}) }
@@ -203,12 +210,12 @@ export const Quiz = defineComponent({
       <section className="iui-scene" data-scene="Quiz" aria-label={props.title ?? tr('quiz.title')}>
         <header className="iui-scene-head">
           <strong>{props.title ?? tr('quiz.title')}</strong>
-          <span className="iui-chip">{current === undefined ? tr('quiz.score', { n: score, total }) : tr('quiz.progress', { n: at + 1, total })}</span>
+          <span className="iui-chip">{current === undefined ? tr('quiz.score', { n: score, total: scored }) : tr('quiz.progress', { n: at + 1, total })}</span>
         </header>
         <span className="iui-progress" role="img" aria-label={`${Object.keys(picks).length} / ${total}`}><span style={{ width: `${total === 0 ? 0 : (Object.keys(picks).length / total) * 100}%` }} /></span>
         {current === undefined ? (
           <div className="iui-quiz-end">
-            <strong>{tr('quiz.score', { n: score, total })}</strong>
+            <strong>{tr('quiz.score', { n: score, total: scored })}</strong>
             <button type="button" className="iui-button iui-button-outline iui-button-sm" onClick={restart}>{tr('quiz.again')}</button>
           </div>
         ) : (
@@ -216,9 +223,10 @@ export const Quiz = defineComponent({
             <p className="iui-quiz-q">{rich(current.q)}</p>
             {current.options.map((option, o) => {
               const right = answerIndex(current.answer, current.options)
-              const answered = picks[at] !== undefined
+              // Unscored questions mark neither option: there is no right answer to compare with.
+              const answered = picks[at] !== undefined && right >= 0
               return (
-                <button key={o} type="button" disabled={answered} aria-pressed={picks[at] === o}
+                <button key={o} type="button" disabled={picks[at] !== undefined} aria-pressed={picks[at] === o}
                   className={cx('iui-quiz-option', answered && o === right && 'is-right', answered && picks[at] === o && o !== right && 'is-wrong')}
                   onClick={() => { setPicks({ ...picks, [at]: o }) }}>
                   <span className="iui-quiz-letter">{String.fromCharCode(65 + o)}</span><span>{rich(option)}</span>
@@ -227,7 +235,7 @@ export const Quiz = defineComponent({
             })}
             {picks[at] !== undefined ? (
               <div className="iui-quiz-foot">
-                <p>{current.why ? rich(current.why) : null}</p>
+                <p>{answerIndex(current.answer, current.options) < 0 ? tr('quiz.unscored') : current.why ? rich(current.why) : null}</p>
                 <button type="button" className="iui-button iui-button-solid iui-button-sm" onClick={() => { setAt(at + 1) }}>{at + 1 < total ? tr('quiz.next') : tr('quiz.finish')}</button>
               </div>
             ) : null}

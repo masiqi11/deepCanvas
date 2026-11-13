@@ -4,8 +4,9 @@ import { z } from 'zod/v4'
 import { cx } from './style.ts'
 import { useCopy } from '../copy.ts'
 import { COMPONENT_NOTES } from './notes.ts'
+import { amount, label, numberOf, textOf } from './scene-values.ts'
 
-const criterion = z.object({ name: z.string(), weight: z.number(), scores: z.array(z.number()) })
+const criterion = z.object({ name: label, weight: amount, scores: z.array(amount) })
 
 /**
  * Weighted score of each option, scaled to 0 to 100.
@@ -13,9 +14,9 @@ const criterion = z.object({ name: z.string(), weight: z.number(), scores: z.arr
  * @param criteria - weights and per-option scores from 1 to 5.
  * @returns one score per option; all zero when every weight is zero.
  */
-export function weighted(count: number, criteria: { weight: number; scores: number[] }[]): number[] {
+export function weighted(count: number, criteria: { weight: number; scores: (number | null)[] }[]): number[] {
   const weightOf = (c: { weight: number }) => Math.max(0, Number(c.weight) || 0)
-  const scoreOf = (c: { scores: number[] }, option: number) => Math.min(5, Math.max(0, Number(c.scores[option]) || 0))
+  const scoreOf = (c: { scores: (number | null)[] }, option: number) => Math.min(5, Math.max(0, c.scores[option] ?? 0))
   const sum = criteria.reduce((n, c) => n + weightOf(c), 0)
   return Array.from({ length: count }, (_, o) => (sum === 0 ? 0
     : Math.round(criteria.reduce((n, c) => n + weightOf(c) * scoreOf(c, o), 0) / (sum * 5) * 100)))
@@ -23,14 +24,16 @@ export function weighted(count: number, criteria: { weight: number; scores: numb
 
 export const Decision = defineComponent({
   name: 'Decision',
-  props: z.object({ options: z.array(z.string()), criteria: z.array(criterion), title: z.string().optional() }),
+  props: z.object({ options: z.array(label), criteria: z.array(criterion), title: z.string().optional() }),
   description: COMPONENT_NOTES.Decision,
   component: function DecisionView({ props }) {
     const tr = useCopy()
-    const options = Array.isArray(props.options) ? props.options : []
+    const options = (Array.isArray(props.options) ? props.options : []).map(textOf)
+    // Scores pair with options by position, so an unreadable score stays in its slot as null instead of shifting the rest.
     const criteria = (Array.isArray(props.criteria) ? props.criteria : []).filter(c => c != null && Array.isArray(c.scores))
+      .map(c => ({ name: textOf(c.name), weight: numberOf(c.weight) ?? 0, scores: c.scores.map(numberOf) }))
     const [weights, setWeights] = useState<Record<number, number>>({})
-    const live = criteria.map((c, i) => ({ ...c, weight: weights[i] ?? (Number(c.weight) || 0) }))
+    const live = criteria.map((c, i) => ({ ...c, weight: weights[i] ?? c.weight }))
     const totals = weighted(options.length, live)
     const best = totals.indexOf(Math.max(...totals))
     return (
@@ -62,7 +65,7 @@ export const Decision = defineComponent({
             </div>
           ))}
         </div>
-        <p className="iui-scene-hint">{tr('decide.hint')}</p>
+        <p className="iui-scene-hint">{live.every(c => c.weight <= 0) ? tr('decide.noWeight') : tr('decide.hint')}</p>
       </section>
     )
   },

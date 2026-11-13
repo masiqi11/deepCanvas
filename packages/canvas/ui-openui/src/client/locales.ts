@@ -54,6 +54,11 @@ export type OpenUIKey =
   | 'decide.weight'
   | 'decide.best'
   | 'decide.hint'
+  | 'week.outside'
+  | 'week.empty'
+  | 'quiz.unscored'
+  | 'decide.noWeight'
+  | 'scene.empty'
   | 'action.values' | 'copied'
 
 /** Simplified Chinese copy. */
@@ -137,6 +142,11 @@ export const zh: Record<OpenUIKey, string> = {
   'decide.weight': '权重',
   'decide.best': '目前最适合：{name}',
   'decide.hint': '拖动权重，排名会立刻变化；格子里是 1 到 5 的评分。',
+  'week.outside': '还有 {n} 项不在这七天内，没有显示。',
+  'week.empty': '这七天还没有安排。',
+  'quiz.unscored': '这题没有给出正确答案，不计分。',
+  'decide.noWeight': '所有权重都是 0：至少给一项标准加上权重，才能排出名次。',
+  'scene.empty': '还没有内容。',
   'action.values': '当前界面数值：',
   'copied': '已复制',
 }
@@ -222,6 +232,11 @@ export const en: Record<OpenUIKey, string> = {
   'decide.weight': 'Weight',
   'decide.best': 'Best fit: {name}',
   'decide.hint': 'Drag a weight and the ranking updates; cells are scores from 1 to 5.',
+  'week.outside': '{n} more items fall outside these seven days and are not shown.',
+  'week.empty': 'Nothing is planned for these seven days yet.',
+  'quiz.unscored': 'This question has no correct answer marked, so it is not scored.',
+  'decide.noWeight': 'Every weight is 0: give at least one criterion a weight to rank the options.',
+  'scene.empty': 'Nothing here yet.',
   'action.values': 'Values on the page: ',
   'copied': 'Copied',
 }

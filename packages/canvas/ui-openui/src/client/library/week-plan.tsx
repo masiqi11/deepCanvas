@@ -7,13 +7,14 @@ import type { OpenUIKey } from '../locales.ts'
 import { Glyph } from '../glyph.tsx'
 import { addDays, daysBetween, mondayIndex, readDate, startOfDay, weekdayIndex } from './dates.ts'
 import { COMPONENT_NOTES } from './notes.ts'
+import { label, textOf } from './scene-values.ts'
 
 const DAY_KEYS: OpenUIKey[] = ['week.day1', 'week.day2', 'week.day3', 'week.day4', 'week.day5', 'week.day6', 'week.day7']
 const TONES = new Set(['info', 'success', 'warning', 'danger', 'purple'])
 
 const item = z.object({
   day: z.union([z.number(), z.string()]),
-  title: z.string(),
+  title: label,
   time: z.string().optional(),
   note: z.string().optional(),
   deadline: z.boolean().optional(),
@@ -47,7 +48,9 @@ export const WeekPlan = defineComponent({
     const tr = useCopy()
     const now = startOfDay(new Date())
     const start = readDate(props.start, now)
-    const items = (Array.isArray(props.items) ? props.items : []).filter(it => it != null && rowOf(it.day, start, now) >= 0)
+    const written = (Array.isArray(props.items) ? props.items : []).filter(it => it != null).map(it => ({ ...it, title: textOf(it.title) }))
+    const items = written.filter(it => rowOf(it.day, start, now) >= 0)
+    const outside = written.length - items.length
     const [moved, setMoved] = useState<Record<number, number>>({})
     const [done, setDone] = useState<Record<number, boolean>>({})
     const [picked, setPicked] = useState<number | null>(null)
@@ -97,7 +100,8 @@ export const WeekPlan = defineComponent({
             )
           })}
         </div>
-        <p className="iui-scene-hint">{tr('week.hint')}</p>
+        {outside > 0 ? <p className="iui-scene-hint">{tr('week.outside', { n: outside })}</p> : null}
+        <p className="iui-scene-hint">{items.length === 0 ? tr('week.empty') : tr('week.hint')}</p>
       </section>
     )
   },

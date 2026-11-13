@@ -7,6 +7,7 @@ import { useCopy } from '../copy.ts'
 import { Glyph } from '../glyph.tsx'
 import { daysBetween, readDate, startOfDay } from './dates.ts'
 import { COMPONENT_NOTES } from './notes.ts'
+import { label, textOf } from './scene-values.ts'
 
 const list = <T,>(value: T[] | undefined): T[] => (Array.isArray(value) ? value.filter(v => v != null) : [])
 /** Inline Markdown of a model-written value that may still be streaming in. */
@@ -29,14 +30,14 @@ export const Roadmap = defineComponent({
   name: 'Roadmap',
   props: z.object({
     phases: z.array(z.object({
-      name: z.string(), span: z.string().optional(), goal: z.string().optional(), tasks: z.array(z.string()).optional(),
+      name: label, span: z.string().optional(), goal: z.string().optional(), tasks: z.array(label).optional(),
     })),
     title: z.string().optional(),
   }),
   description: COMPONENT_NOTES.Roadmap,
   component: function RoadmapView({ props }) {
     const tr = useCopy()
-    const phases = list(props.phases)
+    const phases = list(props.phases).map(phase => ({ ...phase, name: textOf(phase.name), tasks: list(phase.tasks).map(textOf) }))
     const [done, setDone] = useState<Record<string, boolean>>({})
     const total = phases.reduce((n, p) => n + list(p.tasks).length, 0)
     const finished = Object.values(done).filter(Boolean).length
@@ -47,9 +48,10 @@ export const Roadmap = defineComponent({
           <span className="iui-chip">{tr('road.progress', { done: finished, total })}</span>
         </header>
         <Progress done={finished} total={total} />
+        {phases.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
         <ol className="iui-road">
           {phases.map((phase, p) => {
-            const tasks = list(phase.tasks)
+            const tasks = phase.tasks
             const phaseDone = tasks.length > 0 && tasks.every((_, t) => done[`${p}.${t}`])
             return (
               <li key={p} className={cx('iui-road-phase', phaseDone && 'is-done')}>
@@ -77,7 +79,7 @@ export const Roadmap = defineComponent({
 export const Countdown = defineComponent({
   name: 'Countdown',
   props: z.object({
-    items: z.array(z.object({ title: z.string(), date: z.string(), note: z.string().optional() })),
+    items: z.array(z.object({ title: label, date: z.string(), note: z.string().optional() })),
     title: z.string().optional(),
   }),
   description: COMPONENT_NOTES.Countdown,
@@ -91,6 +93,7 @@ export const Countdown = defineComponent({
     return (
       <section className="iui-scene" data-scene="Countdown" aria-label={props.title ?? tr('count.title')}>
         <header className="iui-scene-head"><strong>{props.title ?? tr('count.title')}</strong></header>
+        {rows.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
         <div className="iui-count">
           {rows.map((row, i) => {
             const left = row.left
@@ -114,17 +117,19 @@ export const Countdown = defineComponent({
 export const Timeline = defineComponent({
   name: 'Timeline',
   props: z.object({
-    events: z.array(z.object({ when: z.string(), title: z.string(), text: z.string().optional(), highlight: z.boolean().optional() })),
+    events: z.array(z.object({ when: label, title: label, text: z.string().optional(), highlight: z.boolean().optional() })),
     title: z.string().optional(),
   }),
   description: COMPONENT_NOTES.Timeline,
   component: function TimelineView({ props }) {
     const tr = useCopy()
+    const events = list(props.events)
     return (
       <section className="iui-scene" data-scene="Timeline" aria-label={props.title ?? tr('time.title')}>
         <header className="iui-scene-head"><strong>{props.title ?? tr('time.title')}</strong></header>
+        {events.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
         <ol className="iui-time">
-          {list(props.events).map((event, i) => (
+          {events.map((event, i) => (
             <li key={i} className={cx('iui-time-event', event.highlight === true && 'is-key')}>
               <span className="iui-time-when">{event.when}</span>
               <span className="iui-time-dot" />
@@ -142,14 +147,14 @@ export const ReadingList = defineComponent({
   name: 'ReadingList',
   props: z.object({
     items: z.array(z.object({
-      title: z.string(), meta: z.string().optional(), tag: z.string().optional(), url: z.string().optional(), why: z.string().optional(),
+      title: label, meta: z.string().optional(), tag: z.string().optional(), url: z.string().optional(), why: z.string().optional(),
     })),
     title: z.string().optional(),
   }),
   description: COMPONENT_NOTES.ReadingList,
   component: function ReadingListView({ props }) {
     const tr = useCopy()
-    const items = list(props.items)
+    const items = list(props.items).map(it => ({ ...it, title: textOf(it.title) }))
     const [done, setDone] = useState<Record<number, boolean>>({})
     const finished = Object.values(done).filter(Boolean).length
     return (
@@ -159,6 +164,7 @@ export const ReadingList = defineComponent({
           <span className="iui-chip">{tr('read.progress', { done: finished, total: items.length })}</span>
         </header>
         <Progress done={finished} total={items.length} />
+        {items.length === 0 ? <p className="iui-scene-hint">{tr('scene.empty')}</p> : null}
         <ol className="iui-read">
           {items.map((it, i) => {
             const url = webUrl(it.url)
