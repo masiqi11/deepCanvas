@@ -21,4 +21,10 @@ describe('OpenUI prompt reference', () => {
     if (process.env.DSH_WRITE_OPENUI_PROMPT === '1') writeFileSync(REFERENCE_FILE, moduleText(generated))
     expect(OPENUI_REFERENCE).toBe(generated)
   })
+
+  // Every turn sends this reference; a longer one delays the first token and costs input tokens.
+  // Raising the cap is a deliberate change: say in the commit what the extra text buys.
+  it('stays within its length cap', () => {
+    expect(OPENUI_REFERENCE.length).toBeLessThanOrEqual(46_000)
+  })
 })
