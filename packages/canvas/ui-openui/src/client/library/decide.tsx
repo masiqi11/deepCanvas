@@ -1,5 +1,5 @@
 import { defineComponent } from '@openuidev/react-lang'
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { z } from 'zod/v4'
 import { cx } from './style.ts'
 import { useCopy } from '../copy.ts'
@@ -48,15 +48,19 @@ export const Decision = defineComponent({
             </div>
           ))}
         </div>
-        <div className="iui-decide-table" style={{ gridTemplateColumns: `minmax(120px, 1.4fr) minmax(110px, 1fr) repeat(${options.length}, minmax(48px, .6fr))` }}>
-          <span className="iui-decide-th" /><span className="iui-decide-th">{tr('decide.weight')}</span>
-          {options.map((option, o) => <span key={o} className="iui-decide-th">{option}</span>)}
-          {live.map((c, i) => [
-            <span key={`n${i}`} className="iui-decide-crit">{c.name}</span>,
-            <input key={`w${i}`} type="range" min={0} max={5} step={1} value={c.weight} aria-label={`${c.name} ${tr('decide.weight')}`} className="iui-decide-range"
-              onChange={(event) => { setWeights({ ...weights, [i]: Number(event.target.value) }) }} />,
-            ...options.map((_, o) => <span key={`s${i}.${o}`} className={cx('iui-decide-cell', o === best && 'is-best')}>{c.scores[o] ?? '–'}</span>),
-          ])}
+        <div className="iui-decide-table" style={{ '--options': options.length } as CSSProperties}>
+          <div className="iui-decide-row is-head">
+            <span className="iui-decide-th" /><span className="iui-decide-th is-weight">{tr('decide.weight')}</span>
+            {options.map((option, o) => <span key={o} className="iui-decide-th">{option}</span>)}
+          </div>
+          {live.map((c, i) => (
+            <div key={i} className="iui-decide-row">
+              <span className="iui-decide-crit">{c.name}</span>
+              <input type="range" min={0} max={5} step={1} value={c.weight} aria-label={`${c.name} ${tr('decide.weight')}`} className="iui-decide-range"
+                onChange={(event) => { setWeights({ ...weights, [i]: Number(event.target.value) }) }} />
+              {options.map((_, o) => <span key={o} className={cx('iui-decide-cell', o === best && 'is-best')}>{c.scores[o] ?? '–'}</span>)}
+            </div>
+          ))}
         </div>
         <p className="iui-scene-hint">{tr('decide.hint')}</p>
       </section>

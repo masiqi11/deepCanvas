@@ -6,6 +6,7 @@
 //
 // Usage: node deepcanvas/demo/mock-model.mjs [port]
 // Then:  DEEPSEEK_BASE_URL=http://127.0.0.1:<port>/v1 DEEPSEEK_API_KEY=mock pnpm deepcanvas
+import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 
 const port = Number(process.argv[2] ?? 8790)
@@ -143,6 +144,34 @@ const compareUi = {
   ],
 }
 
+// Scene answers shared with the ui-openui scene tests. {{D+n}} is the date n days after today.
+const SCENES = JSON.parse(readFileSync(new URL('../../packages/canvas/ui-openui/tests/fixtures/scene-programs.json', import.meta.url), 'utf8'))
+// Checked in this order, so a prompt that names both a paper and a week plan gets the week plan.
+const SCENE_ORDER = ['scene-field-map', 'scene-quiz', 'scene-decision', 'scene-countdown', 'scene-roadmap', 'scene-week-rolling', 'scene-week-fixed', 'scene-paper']
+
+/** @returns the program text with every {{D+n}} replaced by the date n days after today. */
+export function datedScene(code, today = new Date()) {
+  return code.replace(/\{\{D([+-]\d+)\}\}/g, (_, offset) => {
+    const day = new Date(today.getFullYear(), today.getMonth(), today.getDate() + Number(offset))
+    return `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`
+  })
+}
+
+/** @returns the scene whose keywords the prompt contains, or undefined. */
+export function sceneFor(prompt) {
+  const lower = prompt.toLowerCase()
+  for (const id of SCENE_ORDER) {
+    const scene = SCENES.find(s => s.id === id)
+    if (scene?.keywords.some(word => lower.includes(word.toLowerCase()))) return scene
+  }
+  return undefined
+}
+
+/** @returns the reply steps for a scene: an intro sentence, the fence, and the demo-data note. */
+export function sceneReply(scene, today = new Date()) {
+  return [{ text: `${scene.intro}\n\n\`\`\`openui\n${datedScene(scene.code, today)}\n\`\`\`\n\n（${DEMO_NOTE}）` }]
+}
+
 function lastUser(messages) {
   for (let i = messages.length - 1; i >= 0; i--) if (messages[i].role === 'user') return messages[i]
   return undefined
@@ -179,6 +208,8 @@ function plan(body) {
     return [{ text: `以上对比中，示例产品 B 功能最完整，示例产品 C 价格最低。（${DEMO_NOTE}）` }]
   }
   const prompt = textOf(user)
+  const scene = sceneFor(prompt)
+  if (scene !== undefined) return sceneReply(scene)
   if (prompt.includes('深入')) {
     const boardId = previousBoardId(messages)
     return [{ text: '我在原看板上补充了课程场景助手的深度分析，生成新版本。' }, { tool: 'canvas_board', input: deepDiveBoard(boardId) }]
@@ -222,7 +253,7 @@ async function respond(response, steps) {
   response.end()
 }
 
-createServer((request, response) => {
+const server = createServer((request, response) => {
   if (request.method !== 'POST' || !request.url?.endsWith('/v1/messages')) {
     response.writeHead(404, { 'content-type': 'application/json' })
     response.end(JSON.stringify({ type: 'error', error: { type: 'not_found_error', message: 'not found' } }))
@@ -243,6 +274,9 @@ createServer((request, response) => {
     const steps = tools.includes('canvas_board') ? plan(body) : [{ text: '大学生 AI 学习助手市场调研' }]
     void respond(response, steps)
   })
-}).listen(port, '127.0.0.1', () => {
-  console.log(`deepcanvas demo model: http://127.0.0.1:${port}/v1`)
 })
+if (import.meta.url === new URL(process.argv[1] ?? '', 'file://').href) {
+  server.listen(port, '127.0.0.1', () => {
+    console.log(`deepcanvas demo model: http://127.0.0.1:${port}/v1`)
+  })
+}

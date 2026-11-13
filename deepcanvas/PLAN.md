@@ -863,3 +863,9 @@ Draft(variants: {label, text}[], title?)
 - M0-2(b) 存储与远程调用，**读代码验证**：`ScheduleService` 写入后调用 `ctx.emit('schedule/changed')`，客户端用 `ctx.remote.$on('schedule/changed', ...)` 订阅变化（`packages/client/ui-schedule/src/client/index.ts`）。照抄即可。
 - M0-2(c) 上下文注入，**读代码验证**：`ctx.systemPrompt.context` 可用；但 `getContextOrder` 只接受封闭表 `CONTEXT_ORDERS` 里的名字，M3-4 需要在 `packages/core/system-prompt/src/index.ts` 加一行（上游改动，记入 DESIGN.md）。对缓存命中率的影响要等真实模型。
 - M0-2(a) 页面与落地，**读代码验证**：`ctx.layout.selectPanel(id)`（`packages/client/ui-layout/src/client/service.ts`）可以选中任意已注册的 `main` 页面，`null` 回到对话。落地方案因此改为启动时调用它，不改上游（已更新 3.2 第 10 条）。未在运行中的应用里试。
+
+### 2026-11-13 M1-1、M1-2（第一轮）
+
+- M1-1：场景的模拟数据移到 `packages/canvas/ui-openui/tests/fixtures/scene-programs.json`，测试和 `demo/mock-model.mjs` 共用；日期写成 `{{D+n}}`，测试固定在 2026-11-12，模拟模型按当天计算。模拟模型按关键词回答八组场景（十个组件）。`node --test deepcanvas/demo/mock-model.test.mjs` 5 项通过；场景测试 33 项仍通过。
+- M1-2：用模拟模型在真实应用里截图，三种视图（聊天栏约 740 像素浅色、深色、手机 390）。发现并修复：聊天区 Markdown 的 `p { margin: 16px 0 }` 渗进场景，造成大空隙（加了更高优先级的重置）；论文速读四格排成 3+1（改为固定两列）；窄屏下一周计划、倒计时太挤，做决定的评分表被截断（改为容器查询，窄时日期标签上置、进度条换行、评分表每条标准一行、滑块单独一行）；概念地图原来按视口宽度切换（改为容器查询）。深色模式下各场景文字可读，没有发现写死的浅色。
+- 还没做：宽屏（1100 以上）的版式，要等 M4 的页面；负责人尚未看过截图；流式生成过程中的布局跳动没有专门检查。截图在会话临时目录，没有入库。
