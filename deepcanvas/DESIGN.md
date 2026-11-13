@@ -2,6 +2,8 @@
 
 DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent 客户端。它的核心能力是把 Agent 的回答与任务成果交付为可视、可交互的界面，而不是大段文字。
 
+当前定位是研究生的个人研究助理：回答是可以直接操作的界面，长期记住学生的任务、论文和学习进度，并根据这些记录主动提醒。后续开发规划见 [PLAN.md](PLAN.md)，设计决定与取舍见 [Agent Note](../.agents/notes/proposed/feature/2026-11-13-deepcanvas-research-assistant.md)。
+
 ## 基线
 
 - 上游：dsh `0.2.1-rc.2`，提交 `687f282e8625c6b8d11ff58211a90524be2e4317`（2026-10-17）。
@@ -78,6 +80,7 @@ DeepCanvas 是基于 DeepSeek Harness（dsh）二次开发的本地 Web Agent �
 3. 看板：`canvas_board`、右侧工作区、版本、导出、继续追问。
 4. 研究流程：澄清、任务清单、检索与来源，产出看板。
 5. 呈现策略评测：固定题集，评估形式选择、渲染与交互成功率。
+6. 研究助理：场景组件、个人数据与记忆、空间与首页、主动提醒（按 [PLAN.md](PLAN.md) 的 M0–M8 推进）。
 
 ## 上游修改记录
 

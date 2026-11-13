@@ -1,0 +1,34 @@
+# Bilingual-pair consistency record for 2026-11-13-deepcanvas-research-assistant.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/feature/2026-11-13-deepcanvas-research-assistant.md
+/agent-note-deepcanvas-research-assistant:
+  en: 005889e07c4b05ca
+  zh: 518f1a81499d2927
+/agent-note-deepcanvas-research-assistant/problem:
+  en: 197417cb6986c7f0
+  zh: 64ae425c50a8aef8
+/agent-note-deepcanvas-research-assistant/proposal:
+  en: 986dd8097aac4d3d
+  zh: 2c89af85628555c5
+/agent-note-deepcanvas-research-assistant/proposal/scene-components:
+  en: 87a819c12fcaa97f
+  zh: 0af68f8065f9b9d1
+/agent-note-deepcanvas-research-assistant/proposal/one-record-of-the-student-s-data:
+  en: 5dcc1179e2ebc4be
+  zh: 2f85e8f7ee43e935
+/agent-note-deepcanvas-research-assistant/proposal/what-the-model-sees:
+  en: d50a877f77af8527
+  zh: c1919f9357879f2f
+/agent-note-deepcanvas-research-assistant/proposal/pages-and-reminders:
+  en: c4d0fa0dae94c8fa
+  zh: 1f7b04e75916e6d6
+/agent-note-deepcanvas-research-assistant/alternatives-considered:
+  en: 2c38fdb24ac01b33
+  zh: cf1a22c2d7379bf6
+/agent-note-deepcanvas-research-assistant/acceptance-criteria:
+  en: 57c7f62a7ac58a07
+  zh: d5c13b1fd1efb557
+/agent-note-deepcanvas-research-assistant/risks:
+  en: b3e89342a0b67800
+  zh: 6a0b61b69cb15dde
