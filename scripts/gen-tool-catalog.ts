@@ -67,6 +67,8 @@ import BrowserUseRegistry from '@deepseek-ai/dsh-browser-use'
 import * as StagehandBrowserTools from '@deepseek-ai/dsh-experimental-browser-use-stagehand-native'
 import type TeamService from '@deepseek-ai/dsh-experimental-agent-team'
 import * as ToolTeam from '@deepseek-ai/dsh-experimental-tool-agent-team'
+import { DEFAULT_LIMITS } from '@deepseek-ai/dsh-canvas-spec'
+import * as ToolCanvas from '@deepseek-ai/dsh-tool-canvas'
 import * as ToolTodo from '@deepseek-ai/dsh-tool-todo'
 import type PluginManager from '@deepseek-ai/dsh-plugin-manager'
 import * as PluginManagerTools from '@deepseek-ai/dsh-plugin-manager/tools'
@@ -609,6 +611,18 @@ const TOOL_PACKAGES: ToolPackage[] = [
     scope: ctx => catalogChildScopes.get(ctx) as Agent,
     note:
       'All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.',
+  },
+  {
+    pkg: '@deepseek-ai/dsh-tool-canvas',
+    dir: 'tool-canvas',
+    source: 'packages/canvas/tool-canvas/src/index.ts',
+    requires: ['ctx.tools', 'ctx.sessionProjections', 'ctx.systemPrompt'],
+    writes: ['tool/call', 'tool/result', 'canvas/board'],
+    async mount(ctx) {
+      await ctx.plugin(ToolCanvas, { showUi: true, limits: DEFAULT_LIMITS })
+    },
+    note:
+      'show_ui renders validated components in the reply; canvas_board publishes an immutable board version recorded as canvas/board. The "Presenting results" prompt section carries the component reference both schemas point to.',
   },
   {
     pkg: '@deepseek-ai/dsh-tool-todo',

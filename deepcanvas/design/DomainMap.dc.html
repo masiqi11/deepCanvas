@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>领域地图</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+body{margin:0;font-family:Inter,"Noto Sans SC",system-ui,sans-serif;color:#1d1d1f;background:#fff}
+a{color:#2456e6;text-decoration:none}a:hover{color:#1a3fb0}
+button{font:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 1040px; font-size: 14px; line-height: 1.5">
+<nav aria-label="我的空间" style="flex: 1 1 220px; background: #f5f5f7; padding: 22px 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 14px">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><rect width="26" height="26" rx="7" fill="#2456e6"/><rect x="6" y="14" width="3.4" height="7" rx="1.5" fill="#fff"/><rect x="11.3" y="10" width="3.4" height="11" rx="1.5" fill="#fff"/><rect x="16.6" y="6" width="3.4" height="15" rx="1.5" fill="#fff"/></svg>
+<span style="font-weight: 700; font-size: 15px">DeepCanvas</span>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #5f5f66; padding: 6px 8px 4px">我的空间</div>
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+<a href="{{n.href}}" style="display: flex; gap: 10px; align-items: center; min-height: 48px; padding: 4px 10px; border-radius: 10px; color: #1d1d1f; background: {{n.bg}}; box-shadow: {{n.shadow}}"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{n.dot}}"></span><span><span style="display: block; font-weight: {{n.weight}}">{{n.name}}</span><span style="display: block; font-size: 12px; color: #5f5f66">{{n.meta}}</span></span></a>
+</sc-for>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 30px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="align-self: flex-end; max-width: 560px; background: #f5f5f7; border-radius: 16px; padding: 12px 16px">导师让我下周开始做扩散模型，我完全没基础，从哪开始？</div>
+<p style="margin: 0">给你画了一张入门地图：先看懂 4 个核心概念，再按顺序读 5 篇论文。点任何一个概念可以展开。</p>
+<section aria-label="扩散模型入门地图" style="border: 1px solid #e3e3e8; border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.06); padding: 20px 22px; display: flex; flex-direction: column; gap: 16px">
+<header style="display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline">
+<h1 style="margin: 0; font-size: 18px; font-weight: 700">扩散模型</h1>
+<span style="color: #5f5f66">入门地图 · 检索了 14 个来源</span>
+<span style="flex: 1"></span>
+<a href="#" style="font-size: 13px; font-weight: 600">查看全部来源</a>
+</header>
+<div role="tablist" aria-label="视图" style="display: flex; flex-wrap: wrap; gap: 6px">
+<button role="tab" aria-selected="true" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #1d1d1f; color: #fff; font-weight: 600">概念图</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #f5f5f7; color: #1d1d1f">术语卡 12</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #f5f5f7; color: #1d1d1f">自测</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="overflow-x: auto">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; min-width: 600px">
+<sc-for list="{{layers}}" as="l" hint-placeholder-count="4">
+<div style="background: #fafafb; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 700; color: {{l.color}}"><span>{{l.name}}</span><span aria-hidden="true" style="color: #5f5f66; font-weight: 400">{{l.arrow}}</span></div>
+<sc-for list="{{l.nodes}}" as="n" hint-placeholder-count="3">
+<button aria-pressed="{{n.sel}}" style="min-height: 52px; text-align: left; padding: 8px 12px; border-radius: 10px; background: {{n.bg}}; border: 2px solid {{n.border}}; color: #1d1d1f; display: flex; justify-content: space-between; align-items: center; gap: 6px"><span style="font-weight: 600">{{n.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: {{n.stateColor}}">{{n.state}}</span></button>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="border: 1px solid #2456e6; border-radius: 14px; padding: 16px 18px; background: #f5f7ff; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 10px; align-items: center"><h2 style="margin: 0; font-size: 16px; font-weight: 700">反向去噪</h2><span style="padding: 2px 10px; border-radius: 10px; background: #dfe7ff; color: #1a3fb0; font-size: 12px; font-weight: 600">核心 2 / 4</span></div>
+<p style="margin: 0">训练一个网络，学会把加了噪声的图片一步步还原。</p>
+<p style="margin: 0; color: #5f5f66">类比：看过上千次“墨水在水里散开”，就能把这个过程倒着放。</p>
+<p style="margin: 0; font-size: 13px; color: #5f5f66">先懂：前向加噪 · 该读：DDPM 第 3 节 · 约 20 分钟</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px">
+<button style="min-height: 44px; padding: 0 16px; border: 1px solid #e3e3e8; border-radius: 22px; background: #fff; color: #1d1d1f">再讲简单点</button>
+<button style="min-height: 44px; padding: 0 16px; border: 1px solid #e3e3e8; border-radius: 22px; background: #fff; color: #1d1d1f">给我看公式</button>
+<button style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #2456e6; color: #fff; font-weight: 600">考考我</button>
+</div>
+</div>
+</div>
+<aside aria-label="阅读路径" style="flex: 1.4 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-size: 15px; font-weight: 700">阅读路径</h2><span style="font-size: 12.5px; color: #5f5f66">已读 2 / 5</span></div>
+<sc-for list="{{papers}}" as="p" hint-placeholder-count="5">
+<label style="display: flex; gap: 12px; align-items: center; min-height: 56px; padding: 6px 14px; border-radius: 10px; border: 1px solid {{p.border}}; background: {{p.bg}}">
+<input type="checkbox" checked="{{p.done}}" style="width: 18px; height: 18px; accent-color: #2456e6">
+<span style="flex: 1; min-width: 0"><span style="display: block; font-weight: 600; color: {{p.ink}}">{{p.name}}</span><span style="display: block; font-size: 12px; color: #5f5f66">{{p.meta}}</span></span>
+<span style="padding: 2px 9px; border-radius: 10px; font-size: 11.5px; font-weight: 600; background: {{p.tagBg}}; color: {{p.tagColor}}">{{p.tag}}</span>
+</label>
+</sc-for>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<a href="PaperBrief.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 22px; background: #eef2ff; font-weight: 600">速读这篇</a>
+<a href="WeekPlan.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 22px; background: #f5f5f7; color: #1d1d1f">排进本周计划</a>
+</div>
+</aside>
+</div>
+<div>
+<h2 style="margin: 0 0 10px; font-size: 15px; font-weight: 700">发展时间线</h2>
+<div style="overflow-x: auto">
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; min-width: 720px">
+<sc-for list="{{timeline}}" as="t" hint-placeholder-count="6">
+<li style="border-top: 3px solid {{t.bar}}; padding-top: 8px"><div style="font-weight: 700; font-size: 13px; color: {{t.color}}">{{t.year}}</div><div style="font-size: 12.5px; color: {{t.ink}}">{{t.what}}</div></li>
+</sc-for>
+</ol>
+</div>
+</div>
+<p style="margin: 0; font-size: 12.5px; color: #5f5f66">“已掌握”来自你的自测结果。每篇论文和每个年份都带来源，可以点开核对。</p>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1040}}'>
+class Component extends DCLogic {
+renderVals() {
+const B = '#2456e6', O = '#c2410c', P = '#6d3fd6', G = '#15803d', S = '#5f5f66';
+const nav = (name, meta, dot, href, on) => ({ name, meta, dot, href, bg: on ? '#fff' : 'transparent', shadow: on ? '0 1px 4px rgba(0,0,0,.08)' : 'none', weight: on ? 600 : 500 });
+const node = (name, state) => ({ name, sel: state === 'sel', state: state === 'done' ? '已掌握' : state === 'sel' ? '正在学' : '', stateColor: state === 'done' ? G : B, bg: state === 'sel' ? '#eef2ff' : '#fff', border: state === 'sel' ? B : '#e3e3e8' });
+const paper = (name, meta, tag, done, cur) => ({ name, meta, tag, done, ink: done ? S : '#1d1d1f', border: cur ? B : '#e3e3e8', bg: cur ? '#f5f7ff' : '#fff', tagBg: tag === '先读' ? '#fff1e6' : tag === '再读' ? '#eef2ff' : '#f5f5f7', tagColor: tag === '先读' ? '#b23b0a' : tag === '再读' ? '#1a3fb0' : S });
+const tl = (year, what, on) => ({ year, what, bar: on ? B : '#d8d8de', color: on ? B : S, ink: on ? '#1d1d1f' : S });
+return {
+nav: [nav('今天', '周四 · 3 件事', B, 'Main.dc.html'), nav('本周计划', '7 件事 · 2 个截止', O, 'WeekPlan.dc.html'), nav('扩散模型入门', '已掌握 3 / 10 个概念', P, 'DomainMap.dc.html', true), nav('论文库', '5 篇 · 2 篇已读', G, 'PaperBrief.dc.html')],
+layers: [
+{ name: '先修', arrow: '→', color: S, nodes: [node('生成模型', 'done'), node('VAE', 'done'), node('分数匹配')] },
+{ name: '核心', arrow: '→', color: B, nodes: [node('前向加噪', 'done'), node('反向去噪', 'sel'), node('训练目标'), node('采样加速')] },
+{ name: '进阶', arrow: '→', color: P, nodes: [node('条件引导'), node('潜空间扩散')] },
+{ name: '应用', arrow: '', color: G, nodes: [node('文生图 / 视频')] }
+],
+papers: [paper('DDPM', 'Ho 等 · 2020 · 奠基之作', '先读', true), paper('DDIM', 'Song 等 · 2020 · 更快采样', '先读', true), paper('Score SDE', 'Song 等 · 2021 · 统一视角', '再读', false, true), paper('Classifier-Free Guidance', 'Ho, Salimans · 2022', '再读', false), paper('Latent Diffusion', 'Rombach 等 · 2022', '选读', false)],
+timeline: [tl('2015', '扩散思想提出'), tl('2019', '分数匹配用于生成'), tl('2020', 'DDPM · DDIM', true), tl('2021', 'Score SDE · 质量超过 GAN'), tl('2022', '潜空间扩散 · 文生图爆发'), tl('2023 起', '视频生成 · 一致性模型')]
+};
+}
+}
+</script>
+</body>
+</html>

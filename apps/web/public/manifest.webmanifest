@@ -1,6 +1,6 @@
 {
-  "name": "DeepSeek Harness",
-  "short_name": "DSH",
+  "name": "DeepCanvas",
+  "short_name": "DeepCanvas",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

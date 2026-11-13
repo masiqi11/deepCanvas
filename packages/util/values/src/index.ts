@@ -306,3 +306,4 @@ export class WeakMapWithValues<Key extends object, Value> {
 }
 
 export { PartialArguments, type LengthReadOptions } from './partial-json.ts'
+export { parseJsonPrefix } from './json-prefix.ts'

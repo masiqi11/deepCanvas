@@ -1,4 +1,4 @@
-// Web e2e scenario: a turn closed because DSH stopped mid-turn. Borrow the
+// Web e2e scenario: a turn closed because DeepCanvas stopped mid-turn. Borrow the
 // seeded-history recording, end its turn with the `interrupted` reason that
 // restart recovery writes, and pin the stopped summary and notice without any
 // model call.
@@ -23,7 +23,7 @@ const PROMPT = 'Use the read tool twice in one assistant message: read a.txt and
 const COMPLETED_END = '{"type":"turn/end","data":{"turn":1,"reason":{"kind":"completed"}}}'
 const INTERRUPTED_END = '{"type":"turn/end","data":{"turn":1,"reason":{"kind":"interrupted"}}}'
 
-describe.skipIf(MODE === 'record')('web e2e: turn interrupted by a DSH stop', () => {
+describe.skipIf(MODE === 'record')('web e2e: turn interrupted by a DeepCanvas stop', () => {
   let scaffold: WebScaffold
   let browser: Browser
   let page: Page
@@ -60,7 +60,7 @@ describe.skipIf(MODE === 'record')('web e2e: turn interrupted by a DSH stop', ()
     onTestFailed(() => saveFailureShot(page, 'web-e2e-interrupted-turn'))
     const notice = page.getByRole('status').filter({ hasText: 'Task stopped' })
     await notice.waitFor({ timeout: 15_000 })
-    expect(await notice.textContent()).toContain('The DSH process exited before this turn finished')
+    expect(await notice.textContent()).toContain('The DeepCanvas process exited before this turn finished')
     expect(await notice.textContent()).not.toContain('INTERRUPTED')
     expect(await page.locator('[data-turn-process="1"]').textContent()).toBe('Stopped')
 

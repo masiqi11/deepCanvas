@@ -46,6 +46,7 @@ harness 由 `packages/` 下的 npm 包组装而成，按能力系列分组：会
 | [`browser-use/`](browser-use/README.zh.md) | 按名称独占注册浏览器提供方 |
 | [`sandbox/`](sandbox/README.zh.md) | 进程限制 seam；bwrap、Landlock、Seatbelt 后端 |
 | [`deliverables/`](deliverables/README.zh.md) | 轮次交付物：显式文件交付与记录的工作区改动 |
+| [`canvas/`](canvas/README.zh.md) | DeepCanvas 可视化交付：组件词汇、画布工具、Web 界面与产品叠加层 |
 | [`fs/`](fs/README.zh.md) | 文件系统能力系列：seam、本地实现、面向模型的文件工具、发现工具 |
 | [`lsp/`](lsp/README.zh.md) | LSP 能力系列：seam、通用 stdio 提供方和 `lsp` 工具 |
 | [`skill/`](skill/README.zh.md) | skill（技能）能力系列：提供方注册表、本地提供方、面向模型的目录／loader |

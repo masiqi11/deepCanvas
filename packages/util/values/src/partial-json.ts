@@ -8,6 +8,7 @@
  * @module @deepseek-ai/dsh-util-values/src/partial-json
  */
 import { assertNever, type JsonValue } from './index.ts'
+import { parseJsonPrefix } from './json-prefix.ts'
 
 /** Granularity of a length read; a change is reported only when the rounded-up step moves. */
 export interface LengthReadOptions {
@@ -43,7 +44,7 @@ type Entry =
   }
   | { readonly kind: 'value'; readonly start: number; end: number; parsed: JsonValue | undefined; invalid: boolean }
 
-type ReadKind = 'closed' | 'keys' | 'has' | 'complete' | 'text' | 'value'
+type ReadKind = 'closed' | 'keys' | 'has' | 'complete' | 'text' | 'value' | `partial:${number}`
   | `length:${number}:${number}` | `prefix:${number}` | `exceeds:${number}`
 
 /** One answered question, kept to detect whether later text changes the answer. */
@@ -290,6 +291,18 @@ export class PartialArguments {
     return this.remember('value', key, () => this.valueNow(key))
   }
 
+  /**
+   * Read a non-string argument while it streams, closing its received prefix.
+   * @param key - argument name.
+   * @param step - received characters per change step; a streaming answer changes only when the rounded-up step moves.
+   * @returns the closed value, or a best-effort parse of the open prefix; undefined while absent, a string, or malformed.
+   */
+  partialValue(key: string, step = 1): JsonValue | undefined {
+    const size = Math.max(1, Math.floor(step))
+    return this.remember(`partial:${size}`, key, () => this.partialValueNow(key),
+      () => this.partialProgress(key, size))
+  }
+
   /** Answer a question and, on a streaming view, remember it for change detection. */
   private remember<T>(
     kind: ReadKind,
@@ -400,6 +413,21 @@ export class PartialArguments {
       }
     }
     return entry.parsed
+  }
+
+  private partialValueNow(key: string): JsonValue | undefined {
+    const entry = this.object === undefined ? this.#entries.get(key) : undefined
+    if (entry === undefined || entry.kind !== 'value' || entry.end >= 0) return this.valueNow(key)
+    return parseJsonPrefix(this.slice(entry.start, this.#consumed))
+  }
+
+  /** Change token for a partial read: the received length step, or the closed state. */
+  private partialProgress(key: string, step: number): string {
+    // Only streaming views remember reads, so the parsed-object source never reaches here.
+    const entry = this.#entries.get(key)
+    if (entry === undefined || entry.kind !== 'value') return this.hasNow(key) ? 'present' : 'absent'
+    if (entry.end >= 0) return 'closed'
+    return `open:${Math.ceil((this.#consumed - entry.start) / step)}`
   }
 
   private chunkAt(at: number): number {

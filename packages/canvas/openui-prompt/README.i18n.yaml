@@ -1,0 +1,46 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/canvas/openui-prompt/README.md
+/:
+  en: d7a8d73b51347d2c
+  zh: f444f9ac1d0e3472
+/deepseek-ai-dsh-openui-prompt:
+  en: 47b962f6b663c883
+  zh: dcccc0a97890e39d
+/deepseek-ai-dsh-openui-prompt/summary:
+  en: d9834a6ffd1def4c
+  zh: 591c201f6ddcde7c
+/deepseek-ai-dsh-openui-prompt/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-openui-prompt/use-this-package:
+  en: 41567a5d5dbd5ccd
+  zh: 90539926fea3416f
+/deepseek-ai-dsh-openui-prompt/understand-the-implementation:
+  en: 2872e65ae63f40e7
+  zh: ee212ce535d41cf2
+/deepseek-ai-dsh-openui-prompt/further-exploration:
+  en: 99e827a879704561
+  zh: 5a6d9b57c3856142
+/deepseek-ai-dsh-openui-prompt/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-openui-prompt/model-experience/openui-reference:
+  en: 42e86054aa3a0590
+  zh: 42e86054aa3a0590
+/deepseek-ai-dsh-openui-prompt/model-experience/openui-reference/what-the-model-sees:
+  en: 3ec592d2fd10ddf5
+  zh: d626bdec9f4d280a
+/deepseek-ai-dsh-openui-prompt/model-experience/openui-reference/token-effect:
+  en: 2525f3f7e8398cf9
+  zh: d81b50a6cdd391c6
+/deepseek-ai-dsh-openui-prompt/model-experience/openui-reference/kv-cache-effect:
+  en: 7e0330d05899926e
+  zh: ef020632f9acd791
+/deepseek-ai-dsh-openui-prompt/known-limitations-and-deferred-work:
+  en: 6b149858c20a1ead
+  zh: 5e61e015ac509ba1
+/deepseek-ai-dsh-openui-prompt/known-limitations-and-deferred-work/dev-note:
+  en: 002f927a45383c9d
+  zh: d328a14bbb014adf

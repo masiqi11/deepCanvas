@@ -353,6 +353,27 @@
       "plugins": [
         "typescript"
       ]
+    },
+    {
+      // Components and functions ported from Open Intelligent UI. Their props and
+      // arguments are model-written values the OpenUI parser validates loosely
+      // (children are `z.any()` nodes), so runtime checks on statically typed
+      // values are the intended defense; the code stays close to upstream.
+      "files": [
+        "packages/canvas/ui-openui/src/client/library/**/*.{ts,tsx}",
+        "packages/canvas/ui-openui/src/client/functions/**/*.ts"
+      ],
+      "rules": {
+        "typescript/no-unnecessary-condition": "off",
+        "typescript/no-unnecessary-type-conversion": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-return": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-base-to-string": "off"
+      },
+      "plugins": [
+        "typescript"
+      ]
     }
   ]
 }

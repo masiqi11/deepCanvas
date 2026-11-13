@@ -1,0 +1,172 @@
+# The DeepCanvas product layer, applied after dsh-base and dsh-web-app.
+# It swaps the brand occupants, replaces the shipped agent presets with the
+# DeepCanvas preset, and removes Harness development surfaces from the
+# product roster. Rows here override earlier rows by id.
+
+# The persona names the product; the Harness identity line is replaced by it.
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    personaPrefix: >-
+      You are DeepCanvas, a general-purpose assistant powered by the {{model}} model.
+
+# Development context about the serving checkout is not part of the product.
+- id: harness-dev-context
+  disabled: true
+
+- id: ui-brand-official
+  disabled: true
+
+# Plugin installation and composition stay out of the product surface.
+- id: ui-plugin-manager
+  disabled: true
+
+- id: ui-settings-plugin-inventory
+  disabled: true
+
+# The product has one agent mode, so the mode switch and its settings row go.
+- id: ui-agent-preset
+  disabled: true
+
+# The built-in plugin settings section and the configuration pages it hosts.
+- id: ui-settings-plugins
+  disabled: true
+
+- id: ui-settings-shell
+  disabled: true
+
+- id: ui-settings-agent-loop
+  disabled: true
+
+- id: ui-settings-subagent
+  disabled: true
+
+- id: ui-settings-web-search
+  disabled: true
+
+# The model-release badge in the composer.
+- id: ui-deepseek-model-label-1017
+  disabled: true
+
+# The shipped presets are replaced by the single DeepCanvas preset below.
+- id: preset-standard
+  disabled: true
+
+- id: preset-ptc
+  disabled: true
+
+- id: preset-minimal
+  disabled: true
+
+- id: preset-cordis
+  disabled: true
+
+- id: agent-preset-registry
+  config:
+    default: deepcanvas
+
+- insert:
+    - id: ui-brand-deepcanvas
+      name: '@deepseek-ai/dsh-client-ui-brand-deepcanvas'
+
+    # Inline visual components, board cards, and the board workspace tab.
+    - id: ui-canvas
+      name: '@deepseek-ai/dsh-client-ui-canvas'
+
+    - id: ui-openui
+      name: '@deepseek-ai/dsh-client-ui-openui'
+
+    - id: preset-deepcanvas
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: deepcanvas
+        name: DeepCanvas
+        description: 研究、分析与规划，并以可视化看板交付成果。
+        order: 0
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: >-
+                You are DeepCanvas, a general-purpose assistant powered by the {{model}} model.
+                You help people research, analyze, plan, and understand topics, and you deliver
+                results in the form that is easiest to grasp. Reply in the language the user writes in.
+          - id: agent-instructions
+            name: '@deepseek-ai/dsh-agent-instructions'
+            config:
+              maxBytes: 65536
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-bash
+            name: '@deepseek-ai/dsh-tool-bash'
+            disabled: !!js process.platform === 'win32'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: command-compact
+                name: '@deepseek-ai/dsh-command-compact'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+          - id: tool-ask-user
+            name: '@deepseek-ai/dsh-tool-ask-user'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: openui-prompt
+            name: '@deepseek-ai/dsh-openui-prompt'
+          - id: tool-canvas
+            name: '@deepseek-ai/dsh-tool-canvas'
+            config:
+              # Inline answers are openui fences in the reply; boards stay a tool.
+              showUi: false
+              limits:
+                blocks: 60
+                sections: 24
+                items: 200
+                series: 12
+                depth: 3
+                text: 20000
+                html: 200000
+
+# Same values as the Web surface row, with the product name on console lines.
+# Agents do not need the GUI URL in their shell environment.
+- id: web-runtime
+  config:
+    openBrowser: !!js ctx.webStartup.openBrowser
+    printUrl: true
+    publicUrl: !!js ctx.webStartup.publicUrl
+    surfaceContext: false
+    consoleLabel: DeepCanvas

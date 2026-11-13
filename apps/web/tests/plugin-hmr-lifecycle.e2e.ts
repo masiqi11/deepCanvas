@@ -240,7 +240,7 @@ describe('web e2e: plugin installation without HMR', () => {
       const dialog = page.getByRole('dialog')
       await dialog.getByRole('textbox', { name: '包名或地址' }).fill(`file:${dir}`)
       await dialog.getByRole('button', { name: '安装', exact: true }).click()
-      await dialog.getByText('已安装，请重启 DSH 加载它。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 30_000 })
+      await dialog.getByText('已安装，请重启 DeepCanvas 加载它。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 30_000 })
     } finally {
       await browser?.close()
       await scaffold?.close()

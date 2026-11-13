@@ -1,0 +1,602 @@
+[
+ {
+  "id": "T01",
+  "cat": "工具计算",
+  "ms": 3366,
+  "chars": 289,
+  "usage": {
+   "prompt_tokens": 58,
+   "completion_tokens": 505,
+   "total_tokens": 563,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 339
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 58
+  },
+  "content": "账单：386 元  \n加 10% 服务费：386 × 10% = 38.60 元  \n含服务费总额：386 + 38.60 = **424.60 元**  \n4 人平分：424.60 ÷ 4 = **106.15 元/人**\n\n所以现在每人应付 **106.15 元**。\n\n通用公式：  \n**每人应付 = 账单金额 ×（1 + 服务费率）÷ 人数**\n\n例如人数是 \\(n\\)、服务费率是 \\(r\\)，则：  \n\\[\n每人应付 = \\frac{386 \\times (1+r)}{n}\n\\]\n\n如果按整数元收，可以每人先收 **107 元**，再根据实际多收的金额退或抵扣。"
+ },
+ {
+  "id": "T02",
+  "cat": "工具计算",
+  "ms": 30793,
+  "chars": 1129,
+  "usage": {
+   "prompt_tokens": 65,
+   "completion_tokens": 8031,
+   "total_tokens": 8096,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 7348
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 65
+  },
+  "content": "按 **贷款本金 100 万元、期限 30 年（360 期）、年利率 3.5%**，按月计息且利率不变计算：\n\n| 还款方式 | 月供情况 | 总利息 | 总还款 |\n|---|---:|---:|---:|\n| 等额本息 | 每月约 **4,490.45 元**，固定 | 约 **616,560.88 元** | 约 **1,616,560.88 元** |\n| 等额本金 | 首月约 **5,694.44 元**；之后每月约少 **8.10 元**；末月约 **2,785.88 元** | 约 **526,458.33 元** | 约 **1,526,458.33 元** |\n\n**对比结论：**  \n等额本金比等额本息少付利息约 **90,102.54 元**，但前期月供压力更高；等额本息月供固定，前期压力较小。\n\n---\n\n### 可调参数公式\n\n设：  \n- 贷款本金 = \\(P\\)  \n- 年利率 = \\(R\\)  \n- 贷款年限 = \\(Y\\)  \n- 月利率 \\(r = R/12\\)  \n- 总期数 \\(n = Y \\times 12\\)\n\n**等额本息月供：**\n\n\\[\nM=P\\times \\frac{r(1+r)^n}{(1+r)^n-1}\n\\]\n\n**等额本金：**\n\n\\[\n首月月供=\\frac{P}{n}+P\\times r\n\\]\n\n\\[\n每月递减额=\\frac{P}{n}\\times r\n\\]\n\n\\[\n第k月月供=\\frac{P}{n}+\\left[P-(k-1)\\frac{P}{n}\\right]\\times r\n\\]\n\n---\n\n### Excel 可复制的对比表公式\n\n假设：\n\n- `B2` = 贷款本金，例如 `1000000`\n- `B3` = 年利率，例如 `3.5%`\n- `B4` = 贷款年限，例如 `30`\n- `B5 = B3/12` 月利率\n- `B6 = B4*12` 总期数\n\n| 项目 | 公式 |\n|---|---|\n| 等额本息月供 | `=PMT(B3/12,B4*12,-B2)` |\n| 等额本息总利息 | `=PMT(B3/12,B4*12,-B2)*B4*12-B2` |\n| 等额本金首月 | `=B2/(B4*12)+B2*B3/12` |\n| 等额本金每月递减 | `=B2/(B4*12)*B3/12` |\n| 等额本金末月 | `=B2/(B4*12)*(1+B3/12)` |\n| 等额本金总利息 | `=B2*(B3/12)*((B4*12)+1)/2` |\n\n如果你把新的 **贷款金额、年利率、年限** 发给我，我可以直接帮你重新算一版并做对比表。"
+ },
+ {
+  "id": "T03",
+  "cat": "工具计算",
+  "ms": 1892,
+  "chars": 170,
+  "usage": {
+   "prompt_tokens": 48,
+   "completion_tokens": 236,
+   "total_tokens": 284,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 128
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 48
+  },
+  "content": "你的 BMI 为：\n\n**BMI = 72 ÷ (1.75²) ≈ 23.5**\n\n按照中国成人 BMI 标准：\n- 偏瘦：< 18.5\n- 正常：18.5–23.9\n- 超重：24.0–27.9\n- 肥胖：≥ 28.0\n\n所以你的 BMI **23.5 属于正常区间**，但比较接近正常范围的上限（24）。建议继续保持均衡饮食和规律运动。"
+ },
+ {
+  "id": "T04",
+  "cat": "工具计算",
+  "ms": 15337,
+  "chars": 5645,
+  "usage": {
+   "prompt_tokens": 45,
+   "completion_tokens": 4789,
+   "total_tokens": 4834,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 3000
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 45
+  },
+  "content": "下面是一个可直接使用的网页版温度换算小工具。把代码保存为 `temperature.html`，双击用浏览器打开即可。\n\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>温度换算小工具</title>\n  <style>\n    :root {\n      color-scheme: light dark;\n      --bg: #f4f6fb;\n      --card: #ffffff;\n      --text: #1f2937;\n      --muted: #6b7280;\n      --border: #d1d5db;\n      --primary: #2563eb;\n      --danger: #dc2626;\n    }\n\n    @media (prefers-color-scheme: dark) {\n      :root {\n        --bg: #0f172a;\n        --card: #111827;\n        --text: #e5e7eb;\n        --muted: #9ca3af;\n        --border: #374151;\n        --primary: #60a5fa;\n        --danger: #f87171;\n      }\n    }\n\n    * {\n      box-sizing: border-box;\n    }\n\n    body {\n      margin: 0;\n      min-height: 100vh;\n      display: grid;\n      place-items: center;\n      padding: 20px;\n      background: var(--bg);\n      color: var(--text);\n      font-family: system-ui, -apple-system, \"Segoe UI\", Roboto,\n        \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n    }\n\n    .card {\n      width: min(100%, 460px);\n      background: var(--card);\n      border-radius: 18px;\n      padding: 24px;\n      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);\n    }\n\n    h1 {\n      margin: 0 0 6px;\n      font-size: 1.45rem;\n    }\n\n    .hint {\n      margin: 0 0 20px;\n      color: var(--muted);\n      font-size: 0.92rem;\n    }\n\n    .field {\n      margin-bottom: 14px;\n    }\n\n    label {\n      display: block;\n      margin-bottom: 6px;\n      font-weight: 600;\n      font-size: 0.92rem;\n    }\n\n    input {\n      width: 100%;\n      padding: 12px 14px;\n      border: 1px solid var(--border);\n      border-radius: 12px;\n      background: transparent;\n      color: var(--text);\n      font-size: 1.05rem;\n      outline: none;\n    }\n\n    input:focus {\n      border-color: var(--primary);\n      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);\n    }\n\n    .error {\n      min-height: 1.3em;\n      margin: 4px 0 12px;\n      color: var(--danger);\n      font-size: 0.9rem;\n    }\n\n    button {\n      width: 100%;\n      padding: 11px 14px;\n      border: 0;\n      border-radius: 12px;\n      background: var(--primary);\n      color: #fff;\n      font-size: 1rem;\n      font-weight: 600;\n      cursor: pointer;\n    }\n\n    button:hover {\n      filter: brightness(1.05);\n    }\n\n    button:active {\n      transform: translateY(1px);\n    }\n  </style>\n</head>\n<body>\n  <main class=\"card\">\n    <h1>温度换算小工具</h1>\n    <p class=\"hint\">在任意一栏输入温度，其余两栏会自动换算。</p>\n\n    <div class=\"field\">\n      <label for=\"celsius\">摄氏度（°C）</label>\n      <input id=\"celsius\" type=\"number\" step=\"any\" inputmode=\"decimal\" placeholder=\"例如：25\" />\n    </div>\n\n    <div class=\"field\">\n      <label for=\"fahrenheit\">华氏度（°F）</label>\n      <input id=\"fahrenheit\" type=\"number\" step=\"any\" inputmode=\"decimal\" placeholder=\"例如：77\" />\n    </div>\n\n    <div class=\"field\">\n      <label for=\"kelvin\">开尔文（K）</label>\n      <input id=\"kelvin\" type=\"number\" step=\"any\" inputmode=\"decimal\" placeholder=\"例如：298.15\" />\n    </div>\n\n    <div id=\"message\" class=\"error\" role=\"alert\"></div>\n    <button id=\"reset\" type=\"button\">清空</button>\n  </main>\n\n  <script>\n    const inputs = {\n      c: document.getElementById(\"celsius\"),\n      f: document.getElementById(\"fahrenheit\"),\n      k: document.getElementById(\"kelvin\")\n    };\n\n    const message = document.getElementById(\"message\");\n\n    const absoluteZero = {\n      c: -273.15,\n      f: -459.67,\n      k: 0\n    };\n\n    const names = {\n      c: \"摄氏度\",\n      f: \"华氏度\",\n      k: \"开尔文\"\n    };\n\n    function formatNumber(n) {\n      if (!Number.isFinite(n)) return \"\";\n      return String(Number(n.toFixed(8)));\n    }\n\n    function clearOthers(source) {\n      for (const key of Object.keys(inputs)) {\n        if (key !== source) {\n          inputs[key].value = \"\";\n        }\n      }\n    }\n\n    function convert(source) {\n      const raw = inputs[source].value.trim();\n      message.textContent = \"\";\n\n      if (raw === \"\") {\n        clearOthers(source);\n        return;\n      }\n\n      const value = Number(raw);\n\n      if (!Number.isFinite(value)) {\n        message.textContent = \"请输入有效数字。\";\n        clearOthers(source);\n        return;\n      }\n\n      if (value < absoluteZero[source]) {\n        message.textContent =\n          `${names[source]}不能低于绝对零度（${absoluteZero[source]}）。`;\n        clearOthers(source);\n        return;\n      }\n\n      let c, f, k;\n\n      if (source === \"c\") {\n        c = value;\n        f = c * 9 / 5 + 32;\n        k = c + 273.15;\n      } else if (source === \"f\") {\n        c = (value - 32) * 5 / 9;\n        f = value;\n        k = c + 273.15;\n      } else {\n        k = value;\n        c = k - 273.15;\n        f = c * 9 / 5 + 32;\n      }\n\n      if (c < -273.15 - 1e-9 || f < -459.67 - 1e-9 || k < -1e-9) {\n        message.textContent = \"温度不能低于绝对零度。\";\n        clearOthers(source);\n        return;\n      }\n\n      if (source !== \"c\") inputs.c.value = formatNumber(c);\n      if (source !== \"f\") inputs.f.value = formatNumber(f);\n      if (source !== \"k\") inputs.k.value = formatNumber(k);\n    }\n\n    inputs.c.addEventListener(\"input\", () => convert(\"c\"));\n    inputs.f.addEventListener(\"input\", () => convert(\"f\"));\n    inputs.k.addEventListener(\"input\", () => convert(\"k\"));\n\n    document.getElementById(\"reset\").addEventListener(\"click\", () => {\n      inputs.c.value = \"\";\n      inputs.f.value = \"\";\n      inputs.k.value = \"\";\n      message.textContent = \"\";\n      inputs.c.focus();\n    });\n  </script>\n</body>\n</html>\n```\n\n换算公式：\n\n- 摄氏度转华氏度：`°F = °C × 9 / 5 + 32`\n- 华氏度转摄氏度：`°C = (°F - 32) × 5 / 9`\n- 摄氏度转开尔文：`K = °C + 273.15`\n- 开尔文转摄氏度：`°C = K - 273.15`\n\n还加入了绝对零度校验，低于绝对零度会提示错误。"
+ },
+ {
+  "id": "T05",
+  "cat": "工具计算",
+  "ms": 14275,
+  "chars": 933,
+  "usage": {
+   "prompt_tokens": 58,
+   "completion_tokens": 3261,
+   "total_tokens": 3319,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 2706
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 58
+  },
+  "content": "按常见假设：**每月月末存入、按月复利、年化 4% 折算月利率 = 4% / 12**。\n\n### 你的情况：每月 2000 元，存 10 年\n\\[\nFV=2000\\times\\frac{(1+4\\%/12)^{120}-1}{4\\%/12}\n\\]\n结果约为：\n\n**294,500 元**\n\n其中：\n- 你总共投入：2000 × 12 × 10 = **240,000 元**\n- 复利收益约：**54,500 元**\n\n> 如果是每月月初存，结果约为 **295,481 元**，比月末存多约 981 元。\n\n---\n\n### 不同金额、不同年限参考表\n\n以下均按“每月月末存、年化 4%、按月复利”计算：\n\n| 每月存入 | 5年 | 10年 | 20年 | 30年 |\n|---:|---:|---:|---:|---:|\n| 1000元 | 约 66,300 | 约 147,250 | 约 366,775 | 约 694,050 |\n| 2000元 | 约 132,600 | 约 294,500 | 约 733,550 | 约 1,388,100 |\n| 3000元 | 约 198,900 | 约 441,750 | 约 1,100,320 | 约 2,082,150 |\n| 5000元 | 约 331,500 | 约 736,250 | 约 1,833,870 | 约 3,470,250 |\n\n---\n\n### 用 Excel 自己试\n公式：\n\n```excel\n=FV(4%/12, 10*12, -2000, 0, 0)\n```\n\n解释：\n- `4%/12`：月利率\n- `10*12`：10年共120个月\n- `-2000`：每月存入2000元，Excel里用负数表示支出\n- 最后的 `0`：表示月末存入；如果是月初存入，把 `0` 改成 `1`\n\n比如：\n- 每月3000，存20年：\n```excel\n=FV(4%/12, 20*12, -3000, 0, 0)\n```\n- 每月5000，存30年：\n```excel\n=FV(4%/12, 30*12, -5000, 0, 0)\n```\n\n以上未考虑税费、手续费、收益波动和通胀。"
+ },
+ {
+  "id": "T06",
+  "cat": "工具计算",
+  "ms": 33994,
+  "chars": 10371,
+  "usage": {
+   "prompt_tokens": 43,
+   "completion_tokens": 10261,
+   "total_tokens": 10304,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 6928
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 43
+  },
+  "content": "这是可直接运行的番茄钟HTML代码，默认25分钟专注、5分钟休息，支持自动切换和声音提醒。\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>番茄钟</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n\n  body {\n    --accent: #ff6b6b;\n    --accent-soft: rgba(255, 107, 107, 0.14);\n    min-height: 100vh;\n    display: grid;\n    place-items: center;\n    padding: 24px;\n    background: radial-gradient(circle at 50% 0%, #1d2029 0%, #101217 70%);\n    color: #e8eaf0;\n    font-family: system-ui, -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n    -webkit-font-smoothing: antialiased;\n    transition: background 0.4s;\n  }\n\n  /* 休息模式换配色 */\n  body.break {\n    --accent: #4ecdc4;\n    --accent-soft: rgba(78, 205, 196, 0.14);\n  }\n\n  .app { width: min(100%, 400px); }\n\n  /* ---------- 顶部模式切换 ---------- */\n  .tabs {\n    display: flex;\n    gap: 6px;\n    padding: 6px;\n    margin-bottom: 28px;\n    border-radius: 16px;\n    background: rgba(255, 255, 255, 0.045);\n    border: 1px solid rgba(255, 255, 255, 0.06);\n  }\n\n  .tab {\n    flex: 1;\n    padding: 11px 8px;\n    border: 0;\n    border-radius: 11px;\n    background: transparent;\n    color: #8b91a0;\n    font: 500 14px/1 inherit;\n    font-family: inherit;\n    cursor: pointer;\n    transition: background 0.25s, color 0.25s;\n  }\n\n  .tab.active {\n    background: var(--accent-soft);\n    color: var(--accent);\n    font-weight: 600;\n  }\n\n  /* ---------- 圆环计时器 ---------- */\n  .dial {\n    position: relative;\n    width: 100%;\n    aspect-ratio: 1 / 1;\n  }\n\n  .dial svg { width: 100%; height: 100%; display: block; }\n\n  .track { fill: none; stroke: rgba(255, 255, 255, 0.07); stroke-width: 10; }\n\n  .progress {\n    fill: none;\n    stroke: var(--accent);\n    stroke-width: 10;\n    stroke-linecap: round;\n    transform: rotate(-90deg);\n    transform-origin: 120px 120px;\n    transition: stroke-dashoffset 0.1s linear, stroke 0.4s;\n    filter: drop-shadow(0 0 10px var(--accent-soft));\n  }\n\n  .readout {\n    position: absolute;\n    inset: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n    pointer-events: none;\n  }\n\n  .time {\n    font-size: clamp(46px, 15vw, 66px);\n    font-weight: 600;\n    line-height: 1;\n    letter-spacing: 0.01em;\n    font-variant-numeric: tabular-nums;\n    font-feature-settings: \"tnum\";\n  }\n\n  .label {\n    font-size: 13px;\n    letter-spacing: 0.28em;\n    text-indent: 0.28em;\n    color: var(--accent);\n    transition: color 0.4s;\n  }\n\n  /* ---------- 按钮 ---------- */\n  .controls { display: flex; gap: 12px; margin-top: 30px; }\n\n  .btn {\n    flex: 1;\n    padding: 15px 20px;\n    border: 1px solid transparent;\n    border-radius: 15px;\n    font: 600 16px/1 inherit;\n    font-family: inherit;\n    cursor: pointer;\n    transition: transform 0.12s, background 0.25s, box-shadow 0.25s, border-color 0.25s;\n  }\n\n  .btn:active { transform: scale(0.97); }\n\n  .btn.primary {\n    background: var(--accent);\n    color: #14161d;\n    box-shadow: 0 10px 28px -10px var(--accent);\n  }\n\n  .btn.ghost {\n    flex: 0 0 96px;\n    background: transparent;\n    border-color: rgba(255, 255, 255, 0.14);\n    color: #b9bec9;\n  }\n\n  .btn.ghost:hover { background: rgba(255, 255, 255, 0.06); }\n\n  /* ---------- 底部信息 ---------- */\n  .meta {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-top: 26px;\n    font-size: 13px;\n    color: #858b99;\n  }\n\n  .switch {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    cursor: pointer;\n    user-select: none;\n  }\n\n  .switch input {\n    width: 15px;\n    height: 15px;\n    accent-color: var(--accent);\n    cursor: pointer;\n  }\n\n  @media (max-width: 340px) {\n    .btn.ghost { flex: 0 0 76px; }\n  }\n</style>\n</head>\n<body>\n\n<main class=\"app\">\n  <header class=\"tabs\">\n    <button class=\"tab active\" data-mode=\"focus\">专注 25 分钟</button>\n    <button class=\"tab\" data-mode=\"break\">休息 5 分钟</button>\n  </header>\n\n  <div class=\"dial\">\n    <svg viewBox=\"0 0 240 240\" aria-hidden=\"true\">\n      <circle class=\"track\" cx=\"120\" cy=\"120\" r=\"104\"></circle>\n      <circle class=\"progress\" id=\"progress\" cx=\"120\" cy=\"120\" r=\"104\"></circle>\n    </svg>\n    <div class=\"readout\">\n      <div class=\"time\" id=\"time\">25:00</div>\n      <div class=\"label\" id=\"label\">专注</div>\n    </div>\n  </div>\n\n  <div class=\"controls\">\n    <button class=\"btn primary\" id=\"startBtn\">开始</button>\n    <button class=\"btn ghost\" id=\"resetBtn\">重置</button>\n  </div>\n\n  <footer class=\"meta\">\n    <span id=\"stats\">已完成 0 个番茄</span>\n    <label class=\"switch\">\n      <input type=\"checkbox\" id=\"autoStart\">\n      <span>自动开始下一段</span>\n    </label>\n  </footer>\n</main>\n\n<script>\n(() => {\n  'use strict';\n\n  /* ---------------- 配置 ---------------- */\n  const DURATIONS = { focus: 25 * 60, break: 5 * 60 };  // 秒\n  const LABELS    = { focus: '专注',   break: '休息'   };\n  const R    = 104;\n  const CIRC = 2 * Math.PI * R;\n\n  /* ---------------- 元素 ---------------- */\n  const timeEl     = document.getElementById('time');\n  const labelEl    = document.getElementById('label');\n  const progressEl = document.getElementById('progress');\n  const startBtn   = document.getElementById('startBtn');\n  const resetBtn   = document.getElementById('resetBtn');\n  const autoStartEl= document.getElementById('autoStart');\n  const statsEl    = document.getElementById('stats');\n  const tabs       = Array.from(document.querySelectorAll('.tab'));\n\n  progressEl.style.strokeDasharray = CIRC;\n\n  /* ---------------- 状态 ---------------- */\n  let mode      = 'focus';\n  let duration  = DURATIONS[mode];\n  let remaining = duration;   // 剩余秒数（浮点）\n  let endTime   = 0;          // 结束时间戳\n  let running   = false;\n  let tickId    = null;\n  let completed = 0;\n\n  /* ---------------- 渲染 ---------------- */\n  function render() {\n    const total = Math.max(0, Math.ceil(remaining));\n    const mm = String(Math.floor(total / 60)).padStart(2, '0');\n    const ss = String(total % 60).padStart(2, '0');\n    const text = `${mm}:${ss}`;\n\n    timeEl.textContent  = text;\n    labelEl.textContent = LABELS[mode];\n    document.title      = `${text} · ${LABELS[mode]} | 番茄钟`;\n\n    progressEl.style.strokeDashoffset = CIRC * (1 - remaining / duration);\n\n    if (running) {\n      startBtn.textContent = '暂停';\n    } else {\n      startBtn.textContent = (remaining >= duration - 0.01) ? '开始' : '继续';\n    }\n  }\n\n  /* ---------------- 计时控制 ---------------- */\n  function start() {\n    if (running) return;\n    if (remaining <= 0) remaining = duration;\n\n    unlockAudio();                       // 用户手势中解锁音频\n    endTime = Date.now() + remaining * 1000;\n    running = true;\n    tickId = setInterval(tick, 100);\n    render();\n  }\n\n  function pause() {\n    if (!running) return;\n    remaining = Math.max(0, (endTime - Date.now()) / 1000);\n    running = false;\n    clearInterval(tickId);\n    tickId = null;\n    render();\n  }\n\n  function tick() {\n    const left = (endTime - Date.now()) / 1000;\n    if (left <= 0) {\n      remaining = 0;\n      running = false;\n      clearInterval(tickId);\n      tickId = null;\n      render();\n      finish();\n      return;\n    }\n    remaining = left;\n    render();\n  }\n\n  function finish() {\n    playChime();\n    if (mode === 'focus') {\n      completed += 1;\n      statsEl.textContent = `已完成 ${completed} 个番茄`;\n    }\n    switchMode(mode === 'focus' ? 'break' : 'focus', autoStartEl.checked);\n  }\n\n  function switchMode(next, autoStart = false) {\n    clearInterval(tickId);\n    tickId = null;\n    running = false;\n\n    mode = next;\n    duration = DURATIONS[mode];\n    remaining = duration;\n\n    document.body.classList.toggle('break', mode === 'break');\n    tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === mode));\n\n    render();\n    if (autoStart) start();\n  }\n\n  function reset() {\n    clearInterval(tickId);\n    tickId = null;\n    running = false;\n    remaining = duration;\n    render();\n  }\n\n  /* ---------------- 提示音 ---------------- */\n  let audioCtx = null;\n\n  function unlockAudio() {\n    try {\n      const AC = window.AudioContext || window.webkitAudioContext;\n      if (!AC) return;\n      if (!audioCtx) audioCtx = new AC();\n      if (audioCtx.state === 'suspended') audioCtx.resume();\n    } catch (_) { /* 忽略 */ }\n  }\n\n  function playChime() {\n    unlockAudio();\n    if (!audioCtx) return;\n\n    const notes = [880, 1108.73, 1318.51];   // A5 - C#6 - E6\n    notes.forEach((freq, i) => {\n      const t = audioCtx.currentTime + i * 0.17;\n      const osc  = audioCtx.createOscillator();\n      const gain = audioCtx.createGain();\n\n      osc.type = 'sine';\n      osc.frequency.value = freq;\n\n      gain.gain.setValueAtTime(0.0001, t);\n      gain.gain.exponentialRampToValueAtTime(0.28, t + 0.02);\n      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);\n\n      osc.connect(gain);\n      gain.connect(audioCtx.destination);\n      osc.start(t);\n      osc.stop(t + 0.6);\n    });\n  }\n\n  /* ---------------- 事件绑定 ---------------- */\n  startBtn.addEventListener('click', () => {\n    running ? pause() : start();\n  });\n\n  resetBtn.addEventListener('click', reset);\n\n  tabs.forEach(tab => {\n    tab.addEventListener('click', () => {\n      if (tab.dataset.mode === mode) {\n        reset();               // 点击当前模式 → 重置\n      } else {\n        switchMode(tab.dataset.mode, false);\n      }\n    });\n  });\n\n  // 空格开始/暂停，R 重置\n  window.addEventListener('keydown', (e) => {\n    const tag = document.activeElement && document.activeElement.tagName;\n    if (tag === 'INPUT' || tag === 'BUTTON') return;\n\n    if (e.code === 'Space') {\n      e.preventDefault();\n      running ? pause() : start();\n    } else if (e.key === 'r' || e.key === 'R') {\n      reset();\n    }\n  });\n\n  // 标签页切回时立即校准显示（后台定时器会被浏览器节流）\n  document.addEventListener('visibilitychange', () => {\n    if (!document.hidden && running) tick();\n  });\n\n  /* ---------------- 初始化 ---------------- */\n  render();\n})();\n</script>\n</body>\n</html>\n```\n### 计时工具的核心操作与反馈\n\n打开就能用的计时器，操作集中在按钮和圆环上。\n\n- **模式切换**：顶部两个标签分别切换“专注 25 分钟”和“休息 5 分钟”，当前模式的配色会跟着变，专注是红色，休息是青色。\n- **开始与暂停**：中央大按钮会根据状态显示“开始/暂停/继续”。按空格键也能快速开始或暂停，重置则用 R 键。\n- **圆环进度**：外圈进度条会随着剩余时间缩短，同时剩余分钟秒数显示在圆环中央，页面标题也会同步更新。\n- **自动衔接**：勾选“自动开始下一段”后，当前模式结束后会自动切换到另一模式并立即计时；每次专注结束会累计完成番茄数。\n- **声音提示**：一段计时结束时，会用 Web Audio 发出三声渐弱提示音，不需要额外音频文件。\n---\n\n**优化建议：** 您可以在代码开头的 `DURATIONS` 对象里修改专注和休息时长（单位是秒），比如改成 30 分钟就写 `30 * 60`。"
+ },
+ {
+  "id": "C01",
+  "cat": "对比决策",
+  "ms": 11227,
+  "chars": 1777,
+  "usage": {
+   "prompt_tokens": 45,
+   "completion_tokens": 1782,
+   "total_tokens": 1827,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 830
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 45
+  },
+  "content": "一句话定位：\n\n- **MySQL**：关系型数据库（RDBMS），强事务、强关系、SQL 查询，适合作为核心业务主库。\n- **MongoDB**：文档型 NoSQL 数据库，灵活 Schema、嵌套文档、水平扩展，适合半结构化/快速迭代数据。\n- **Redis**：内存数据结构存储，极高性能，通常做缓存、会话、计数、排行榜、锁、轻量队列等，不是替代核心数据库的首选。\n\n## 核心对比\n\n| 维度 | MySQL | MongoDB | Redis |\n|---|---|---|---|\n| 类型 | 关系型数据库 | 文档型 NoSQL | 内存键值/数据结构存储 |\n| 数据模型 | 表、行、列，关系/外键 | BSON 文档，可嵌套、数组 | Key-Value，支持 String/Hash/List/Set/ZSet/Stream 等 |\n| Schema | 强 Schema，需建表设计 | 灵活 Schema，可有校验 | 基本无 Schema |\n| 查询 | SQL，JOIN、聚合、复杂报表 | MQL、聚合管道、索引 | 命令式，按 Key 操作，复杂查询能力弱 |\n| 事务 | 成熟 ACID，多表事务 | 支持多文档事务，但设计上常靠嵌入/冗余 | MULTI/EXEC、Lua 可做原子操作，但非通用事务数据库 |\n| 一致性 | 强一致较成熟 | 可配置读/写关注 | 单节点强，复制异步，集群需注意多 Key 限制 |\n| 扩展 | 垂直扩展 + 读写分离 + 分库分表 | 原生分片、副本集 | Redis Cluster 分片、主从/哨兵 |\n| 持久化 | 磁盘持久化 | 磁盘持久化 | 内存为主，RDB/AOF 持久化，可能丢数据 |\n| 典型优势 | 事务、关系、SQL、生态成熟 | 灵活文档、嵌套查询、水平扩展 | 极低延迟、高并发、丰富数据结构 |\n\n## 各自适合什么场景\n\n### MySQL 适合\n- 订单、支付、账务、库存、用户账户等**强事务、强一致**业务。\n- 关系复杂、需要 **JOIN、外键、复杂 SQL、报表统计** 的系统。\n- ERP、CRM、后台管理系统、传统业务系统。\n- 需要成熟运维体系、备份恢复、审计、生态工具的 core 业务。\n\n**不太适合**：字段频繁变化、超大规模半结构化文档、简单 KV 超高并发缓存。\n\n### MongoDB 适合\n- 数据结构灵活、字段经常变化、对象嵌套明显的业务，如**商品详情、内容管理、用户画像、配置中心、日志/事件类数据**。\n- 文档天然聚合，例如一个订单快照、一篇文章及评论、一个设备上报数据。\n- 需要较快迭代、避免频繁改表结构的场景。\n- 数据量大、需要原生分片水平扩展的读写场景。\n\n**不太适合**：大量多表强关系 JOIN、复杂跨文档强事务、传统财务报表类业务。MongoDB 支持事务，但不要把它当 MySQL 用。\n\n### Redis 适合\n- **缓存**：热点数据、页面缓存、对象缓存。\n- **会话 Session、Token、验证码**。\n- **计数器、限流、去重、签到、排行榜**：ZSet、Bitmap、HyperLogLog。\n- **分布式锁**、简单消息队列、Stream、发布订阅。\n- **地理位置查询**：GEO。\n- 高并发低延迟场景。\n\n**不太适合**：作为唯一核心持久化数据库存储重要交易数据；大数据量冷数据；复杂查询和关系分析。Redis 很快，但内存贵，持久化和一致性要按场景设计。\n\n## 选型原则\n\n1. **核心交易和强关系数据**：优先 MySQL。\n2. **结构灵活、文档嵌套、半结构化、海量扩展**：考虑 MongoDB。\n3. **高性能缓存、会话、计数、排行榜、锁**：用 Redis。\n4. 三者**不是互斥关系**，常见架构是组合使用：\n   - MySQL 存订单/账户等核心数据；\n   - Redis 做缓存、会话、排行榜、限流；\n   - MongoDB 存商品详情、内容、日志、配置、用户行为等半结构化数据。\n\n简单记：**MySQL 管关系与事务，MongoDB 管灵活文档，Redis 管高速缓存与内存数据结构。**"
+ },
+ {
+  "id": "C02",
+  "cat": "对比决策",
+  "ms": 6753,
+  "chars": 1061,
+  "usage": {
+   "prompt_tokens": 46,
+   "completion_tokens": 998,
+   "total_tokens": 1044,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 413
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 46
+  },
+  "content": "建议一句话：**没有明确方向，先学 Python；想走企业后端/校招 Java，直接学 Java；想搞底层、游戏、嵌入式、算法竞赛或高性能，直接学 C++。** 但关键不是选哪个“神语言”，而是**先选一个学扎实，别三天换一个**。\n\n### 按目标选\n\n| 你的目标 | 优先学 | 原因 |\n|---|---|---|\n| 零基础、先入门、做小项目 | **Python** | 语法简单，反馈快，容易建立编程思维 |\n| 人工智能、数据分析、爬虫、自动化 | **Python** | 生态最强，几乎必学 |\n| 国内互联网后端、企业开发、校招就业 | **Java** | 岗位多，工程体系成熟，Spring 生态强 |\n| 游戏开发、嵌入式、操作系统、高性能、竞赛 | **C++** | 贴近底层，性能强，但学习曲线陡 |\n| 计算机专业想打牢基础 | Python 入门 → C++/Java 深入 | 先用 Python 建立思维，再用 C++ 理解内存和系统 |\n| 学校课程要求 | 跟课程走 | 先保证绩点和课程项目 |\n\n### 推荐路线\n\n**如果你现在完全没方向：**\n\n1. **先学 Python 2～4 周**：变量、循环、函数、列表/字典、文件、简单类。\n2. 做 2～3 个小项目：命令行记账、爬虫、数据分析小作业、简单小游戏。\n3. 然后根据兴趣选第二门：\n   - 想就业后端：转 **Java**\n   - 想深入底层/性能：转 **C++**\n   - 想 AI/数据：继续 **Python + 数学 + 数据结构**\n4. 不管选哪门，后面都要补：**数据结构与算法、Git、Linux、数据库、计算机网络**。\n\n### 注意\n\n- **C++ 不建议纯零基础盲目硬啃**，除非你目标明确或课程要求。它容易把人劝退，但学好了对理解计算机很有帮助。\n- **Python 不是“学完就会工作”**，它适合入门和 AI/数据，但后端就业岗位相对 Java 少一些。\n- **Java 语法比 Python 啰嗦**，但工程化强，适合想进企业做后端的人。\n- 大学阶段最重要的是：**一门语言学深 + 数据结构算法 + 项目 + 实习准备**。语言只是工具。\n\n**我的默认建议：**\n> 如果你没有明确职业方向，先学 **Python**；  \n> 如果你想本科就业做后端，先学 **Java**；  \n> 如果你对底层/游戏/嵌入式/竞赛有强烈兴趣，先学 **C++**。"
+ },
+ {
+  "id": "C03",
+  "cat": "对比决策",
+  "ms": 10167,
+  "chars": 2475,
+  "usage": {
+   "prompt_tokens": 43,
+   "completion_tokens": 1717,
+   "total_tokens": 1760,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 328
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 43
+  },
+  "content": "选 Milvus 还是 Faiss，核心不是“谁更强”，而是看你要的是**向量数据库系统**还是**向量检索算法库**。\n\n## 一句话结论\n\n- **Faiss**：Facebook 开源的**向量相似度检索库**，适合做算法内核、离线检索、单机高性能、GPU 加速、嵌入式集成。  \n- **Milvus**：面向生产的**向量数据库**，适合需要持久化、增删改查、标量过滤、多租户、分布式扩展、高可用和运维监控的场景。  \n- 很多生产系统会**用 Faiss 做底层/原型验证，用 Milvus 做服务化数据库**；但通常不需要同时上，先按业务需求选。\n\n---\n\n## 核心差异对比\n\n| 维度 | Faiss | Milvus |\n|---|---|---|\n| 定位 | 向量检索库 | 向量数据库系统 |\n| 部署 | 嵌入到 Python/C++ 应用中 | Standalone / Cluster / Lite 等 |\n| 数据持久化 | 需自己保存索引和原始数据 | 内置持久化、集合、分区 |\n| CRUD | 主要是建索引和查询，动态增删改需自己处理 | 支持 insert/delete/update/query |\n| 标量过滤 | 弱，需要自己组合 | 支持标量字段过滤、混合查询 |\n| 分布式扩展 | 不直接提供 | 原生支持分布式、副本、扩缩容 |\n| 高可用/运维 | 自己实现 | 提供监控、备份、权限、集群运维能力 |\n| 多租户 | 自己设计 | 可用 database/collection/partition 等设计 |\n| 性能调优 | 非常灵活，算法级调优空间大 | 系统级调优，索引选择多，运维成本更高 |\n| GPU | 支持较好，适合 GPU 批量检索 | 部分索引/场景支持 GPU，但系统更重 |\n| 上手成本 | 低，几行代码可跑 | 中等，需要部署服务和理解集合/索引 |\n| 适用规模 | 单机百万到亿级视索引而定 | 单机到大规模集群 |\n| 典型用户 | 算法工程师、离线检索、研究/原型 | 平台/后端团队、生产业务系统 |\n\n---\n\n## 怎么选：按场景\n\n### 优先选 Faiss\n\n适合：\n\n1. **离线向量检索、批量召回、评测**\n2. **单机应用或嵌入式服务**\n3. **算法原型验证**，需要快速试 IVF、PQ、HNSW、GPU 等\n4. **数据更新不频繁**，索引可定期重建\n5. **团队能自己封装服务层**：持久化、API、权限、监控自己搞\n6. **追求极致单机/GPU 检索性能**，愿意做底层调优\n7. 数据量在单机可承载范围内，例如百万到千万级较常见，亿级要看内存、索引和分片设计\n\n不太适合：\n\n- 需要频繁增删改\n- 多业务、多租户、权限隔离\n- 需要强过滤、事务、高可用\n- 没有后端/运维团队维护自研服务\n\n### 优先选 Milvus\n\n适合：\n\n1. **生产级向量检索服务**\n2. **数据持续写入、更新、删除**\n3. **需要标量过滤 + 向量检索的混合查询**\n4. **多租户、多集合、权限隔离**\n5. **需要分布式扩展、高可用、副本、监控、备份**\n6. **团队希望用数据库方式管理向量数据**\n7. **业务增长不确定，希望后续水平扩展**\n8. 需要与 LangChain、LlamaIndex、RAG 平台等生态集成\n\n不太适合：\n\n- 只是离线跑个召回实验\n- 单机小数据、低并发\n- 不想维护额外服务\n- 对资源成本非常敏感\n- 只需要一个库，不需要数据库能力\n\n---\n\n## 一个实用决策树\n\n1. **你只是做实验、离线检索、算法评测？**  \n   → 选 **Faiss**。\n\n2. **你要做成在线服务，且需要增删改、持久化、过滤、权限、高可用？**  \n   → 选 **Milvus**。\n\n3. **数据量单机可控、更新少、团队能自己封装 API？**  \n   → **Faiss + 自己封装** 成本可能更低。\n\n4. **业务会增长，未来可能上集群，且不想重复造数据库轮子？**  \n   → **Milvus**。\n\n5. **强依赖 GPU 批量检索和极致调优？**  \n   → 更偏 **Faiss**，或评估 Milvus 的 GPU 支持是否满足。\n\n6. **需要复杂标量过滤、多租户、在线写入？**  \n   → 更偏 **Milvus**。\n\n---\n\n## 常见误区\n\n- **“Faiss 是向量数据库”**：不准确。Faiss 是检索库，不是数据库。\n- **“Milvus 性能一定比 Faiss 好”**：不一定。Faiss 更贴近算法层，调优空间大；Milvus 优势在系统工程化。\n- **“用了 Milvus 就不需要 Faiss”**：Milvus 是系统，Faiss 是库，定位不同。\n- **“小项目也必须上 Milvus”**：如果只是几千/几万条向量、低并发，Milvus 可能过重。\n- **“Faiss 不能生产”**：可以，但你需要自己补齐持久化、服务化、权限、监控、容灾等数据库能力。\n\n---\n\n## 推荐选择\n\n- **学习/RAG 原型/离线召回/单机高性能**：先用 **Faiss**。\n- **企业知识库、在线 RAG、推荐系统在线召回、多租户 SaaS、生产服务**：优先 **Milvus**。\n- **不确定时**：先用 Faiss 验证效果和规模；如果发现需要动态更新、过滤、服务化、高可用，再迁移到 Milvus。  \n- 另外也可评估 **Milvus Lite/Standalone** 作为轻量起步，避免一上来就上集群。\n\n**最终判断标准：**  \n如果你要的是“一个检索库”，选 Faiss；如果你要的是“一个可运维、可扩展、支持增删改查和过滤的向量数据库”，选 Milvus。"
+ },
+ {
+  "id": "C04",
+  "cat": "对比决策",
+  "ms": 11913,
+  "chars": 1774,
+  "usage": {
+   "prompt_tokens": 43,
+   "completion_tokens": 1762,
+   "total_tokens": 1805,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 686
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 43
+  },
+  "content": "下面按“考研、考公、直接工作”三条路径做一个偏实用的对比。先说明：三者没有绝对优劣，关键看你的**专业、家庭经济、风险偏好、职业目标**。\n\n## 一、总览对比\n\n| 路径 | 主要优点 | 主要缺点 | 更适合的人 |\n|---|---|---|---|\n| **考研** | 提升学历门槛；可换专业/换赛道；延缓就业压力；对科研、高校、部分国企/大厂/技术岗有帮助；多一段校园缓冲期 | 时间成本高（1年备考+2—3年读研）；金钱和机会成本；竞争激烈、结果不确定；研究生就业也卷；若只为逃避就业，收益可能低 | 目标岗位硬性要求硕士；想转专业；想进科研/高校/研发；本科专业就业差；能承受备考失败风险 |\n| **考公** | 稳定性强；福利保障较好；社会认可度高；部分岗位工作节奏相对规律；适合风险厌恶型 | 上岸难度大，岗位竞争比高；专业、地区、基层条件限制多；晋升较慢；收入上限通常低于市场化岗位；备考可能错过秋招/工作机会 | 想进体制、追求稳定；专业对口岗位多；家庭支持备考；能接受基层/异地/重复性事务 |\n| **直接工作** | 尽早经济独立；积累经验和人脉；试错后更清楚方向；市场化成长和收入弹性较大；不用承担备考失败风险 | 初期压力大；稳定性较弱；部分好岗位有学历门槛；第一份工作容易形成路径依赖；可能边工作边迷茫 | 想尽快赚钱；实践型、社交型；已有较明确行业或offer；家庭经济需要你尽快独立 |\n\n## 二、按关键维度对比\n\n| 维度 | 考研 | 考公 | 直接工作 |\n|---|---|---|---|\n| **时间成本** | 高：备考6—12个月+读研2—3年 | 中高：备考3—12个月，可能多战 | 低：毕业后立即进入职场 |\n| **经济成本** | 备考+学费生活费；但读研有奖助学金 | 备考成本相对低，但机会成本高 | 最快有收入 |\n| **确定性** | 中低：初试复试竞争大 | 低：岗位竞争极激烈 | 中：有offer就较确定，但职业发展不确定 |\n| **稳定性** | 中：学历提升后仍需就业 | 高：体制内稳定性强 | 低到中：取决于行业和公司 |\n| **发展上限** | 看专业和学校；技术/研发/选调等有加成 | 稳定但晋升偏慢，收入上限较固定 | 上限弹性大，但风险也大 |\n| **可逆性** | 较高：读完可再考公/工作 | 较低：备考期可能错过招聘季 | 较高：工作后可考研/考公，但精力成本大 |\n| **核心风险** | 考不上、读研后就业仍不理想 | 长时间不上岸、岗位不匹配 | 入错行、低质量就业、被学历门槛卡 |\n\n## 三、怎么选：看四个问题\n\n1. **你的目标岗位是否硬性要求硕士？**  \n   比如高校、科研、部分研发、医院、国企总部、选调等，考研价值更明确。若目标是普通行政、销售、运营、基层技术，考研未必划算。\n\n2. **你是否真的想要体制内生活？**  \n   考公适合追求稳定、能接受规则和层级、对收入上限要求不高的人。不要只因为“父母觉得好”或“就业焦虑”而考。\n\n3. **家庭经济是否支持你备考1—2年？**  \n   如果家庭需要你尽快赚钱，直接工作或“先工作再规划”更稳妥。考研考公都可以在职准备，但难度会上升。\n\n4. **你的专业就业形势如何？**  \n   本科专业就业差、岗位门槛高，考研可能有必要；专业实践性强、行业需求旺，直接工作可能更划算；专业对口公务员岗位多，考公性价比较高。\n\n## 四、简化建议\n\n- **想进体制、风险偏好低、专业有岗位**：优先考虑考公，但建议同时参加秋招保底。\n- **想提升学历、转专业、进研发/高校/门槛岗位**：优先考虑考研，但要接受机会成本。\n- **想尽快独立、实践能力强、已有方向或offer**：优先直接工作，工作1—2年后再判断是否考研/考公。\n- **不确定方向**：先找一份不差的工作保底，同时低成本了解考研/考公信息；不要盲目全职备考。\n\n一句话总结：**考研是投资学历和赛道，考公是投资稳定和保障，直接工作是投资经验和现金流。** 如果你的风险承受能力低、家庭需要收入，直接工作或“工作保底+业余备考”更稳；如果目标明确且能承受失败，再选择全职考研或考公。"
+ },
+ {
+  "id": "C05",
+  "cat": "对比决策",
+  "ms": 11053,
+  "chars": 2058,
+  "usage": {
+   "prompt_tokens": 42,
+   "completion_tokens": 1894,
+   "total_tokens": 1936,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 745
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 42
+  },
+  "content": "下面从**结构机制、并行性、长依赖、计算复杂度、归纳偏置和典型应用**对比 Transformer、RNN、CNN。三者不是完全互斥，现代模型常混合使用，如 Conformer = CNN + Transformer。\n\n## 1. 核心结构对比\n\n| 维度 | RNN | CNN | Transformer |\n|---|---|---|---|\n| 核心思想 | 按时间步递归传递隐藏状态 | 用卷积核提取局部/层次特征 | 用自注意力建模任意位置间关系 |\n| 基本公式/操作 | \\(h_t=f(Wx_t+Uh_{t-1})\\) | \\(y_t=\\sum_{i=0}^{k-1}w_i x_{t+i}\\) | \\( \\mathrm{Attn}(Q,K,V)=\\mathrm{softmax}(QK^T/\\sqrt d)V \\) |\n| 信息传递 | 顺序、逐步传递 | 局部窗口，多层扩大感受野 | 全局 attention，任意两 token 可直接交互 |\n| 位置信息 | 天然有顺序 | 局部相对位置 | 需位置编码/相对位置偏置 |\n| 参数共享 | 时间步共享 | 空间位置共享卷积核 | 各位置共享 attention/FFN 参数 |\n| 并行性 | 训练时时间维难并行 | 位置维高度并行 | 训练时序列维高度并行 |\n| 长距离依赖 | 理论可建模，但易梯度消失/爆炸；LSTM/GRU 缓解 | 需堆叠层或空洞卷积扩大感受野 | 单层即可全局交互，但代价高 |\n| 计算复杂度 | 每层约 \\(O(n d^2)\\)，但串行 | 每层约 \\(O(k n d^2)\\)，可并行 | self-attention 约 \\(O(n^2 d)\\)，FFN 约 \\(O(n d^2)\\) |\n| 内存/推理特点 | 推理可流式，维护隐藏状态 | 可流式，适合局部模式 | 训练并行好；自回归推理需逐 token，通常缓存 K/V |\n| 归纳偏置 | 强：顺序依赖 | 强：局部性、平移等变性 | 弱：依赖数据和位置编码 |\n| 主要缺点 | 难并行、长依赖不稳 | 全局关系需深层/大感受野 | 长序列二次复杂度、数据需求大 |\n\n其中 \\(n\\) 为序列长度，\\(d\\) 为隐藏维度，\\(k\\) 为卷积核大小。\n\n## 2. 结构特点展开\n\n### RNN\n- 结构：输入序列逐步送入循环单元，隐藏状态 \\(h_t\\) 同时依赖当前输入和上一步状态。\n- 优点：\n  - 天然适合变长序列和流式处理；\n  - 参数量相对少；\n  - 对时间顺序有强归纳偏置。\n- 缺点：\n  - 时间步串行，训练难并行；\n  - 长序列中梯度传播路径长，普通 RNN 易梯度消失/爆炸；\n  - LSTM/GRU 缓解但结构更复杂，仍难完全并行。\n- 典型应用：早期机器翻译、语音识别、时间序列、流式序列建模。\n\n### CNN\n- 结构：一维/二维卷积在局部窗口上提取特征，通过堆叠层、池化、空洞卷积扩大感受野。\n- 优点：\n  - 位置维可高度并行；\n  - 局部特征提取强，参数共享，计算效率高；\n  - 平移等变性好，适合图像、音频、局部文本模式。\n- 缺点：\n  - 单层感受野有限，建模长距离依赖需多层或空洞卷积；\n  - 对全局依赖和动态关系不如 attention 灵活。\n- 典型应用：图像分类/检测、语音、文本分类、局部模式抽取；因果卷积可用于自回归生成。\n\n### Transformer\n- 结构：多头自注意力 + 前馈网络 + 残差连接 + LayerNorm；通常加位置编码。Encoder 可双向，Decoder 用因果 mask 自回归。\n- 优点：\n  - 任意位置可直接交互，长依赖建模强；\n  - 训练时序列维高度并行；\n  - 扩展性好，适合大规模预训练和多模态。\n- 缺点：\n  - self-attention 对序列长度是 \\(O(n^2)\\)，长序列成本高；\n  - 归纳偏置弱，通常需要更多数据和位置编码；\n  - 自回归生成时推理仍是逐 token 的。\n- 典型应用：大语言模型、机器翻译、BERT/GPT、视觉 Transformer、多模态模型。\n\n## 3. 一句话总结\n\n- **RNN：顺序建模强、适合流式，但难并行、长依赖弱。**\n- **CNN：局部特征强、并行高效，但全局关系需靠深层/大感受野。**\n- **Transformer：全局建模和并行训练强、扩展性好，但长序列计算成本高、归纳偏置弱。**\n\n选择时：\n- 需要**流式、低延迟、顺序强依赖**：RNN/LSTM/GRU 或因果 CNN；\n- 需要**局部特征、高效并行、图像/音频**：CNN；\n- 需要**大规模训练、全局依赖、长程语义建模**：Transformer；\n- 实际系统常用混合结构，例如 CNN + Transformer、RNN + Attention。"
+ },
+ {
+  "id": "E01",
+  "cat": "讲解演示",
+  "ms": 8152,
+  "chars": 2501,
+  "usage": {
+   "prompt_tokens": 39,
+   "completion_tokens": 1348,
+   "total_tokens": 1387,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 402
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 39
+  },
+  "content": "TCP 三次握手的目标是：**双方确认彼此的发送、接收能力正常，并同步初始序列号（ISN），建立可靠连接。**\n\n## 一、时序图示\n\n```text\n客户端                                             服务端\nCLOSED                                            LISTEN\n  |                                                  |\n  |  ① SYN=1, seq=x                                  |\n  |------------------------------------------------->|\n  |                                          SYN_RCVD |\n  |                                                  |\n  |  ② SYN=1, ACK=1, seq=y, ack=x+1                  |\n  |<-------------------------------------------------|\n  |                                                  |\nSYN_SENT -> ESTABLISHED                             |\n  |  ③ ACK=1, seq=x+1, ack=y+1                       |\n  |------------------------------------------------->|\n  |                                        ESTABLISHED\n  |                                                  |\n  |              连接建立，开始传数据                 |\n```\n\n> 说明：客户端发送第一次 SYN 后进入 `SYN_SENT`；服务端收到后进入 `SYN_RCVD`；客户端收到 SYN-ACK 后进入 `ESTABLISHED`，并发送第三次 ACK；服务端收到 ACK 后也进入 `ESTABLISHED`。\n\n---\n\n## 二、三次握手逐步讲解\n\n### 第一次握手：客户端发送 SYN\n\n```text\n客户端 -------------------- SYN=1, seq=x --------------------> 服务端\n```\n\n客户端对服务端说：\n\n> “我想建立连接，我的初始序列号是 `x`。”\n\n报文关键字段：\n\n```text\nSYN = 1\nseq = x\n```\n\n此时：\n\n- 客户端进入 `SYN_SENT`\n- 服务端处于 `LISTEN`\n- 服务端收到后知道：**客户端发送能力正常**\n\n---\n\n### 第二次握手：服务端回复 SYN + ACK\n\n```text\n客户端 <--------- SYN=1, ACK=1, seq=y, ack=x+1 ------------ 服务端\n```\n\n服务端回复：\n\n> “我收到你的连接请求了，我同意建立连接。我的初始序列号是 `y`，我期待你下一次发送 `x+1`。”\n\n报文关键字段：\n\n```text\nSYN = 1\nACK = 1\nseq = y\nack = x + 1\n```\n\n此时：\n\n- 服务端进入 `SYN_RCVD`\n- 客户端收到后知道：\n  - 服务端接收能力正常\n  - 服务端发送能力正常\n  - 服务端已确认自己的 SYN\n\n---\n\n### 第三次握手：客户端回复 ACK\n\n```text\n客户端 ------------------ ACK=1, seq=x+1, ack=y+1 ----------> 服务端\n```\n\n客户端回复：\n\n> “我收到你的 SYN+ACK 了，我期待你下一次发送 `y+1`。”\n\n报文关键字段：\n\n```text\nACK = 1\nseq = x + 1\nack = y + 1\n```\n\n此时：\n\n- 客户端进入 `ESTABLISHED`\n- 服务端收到 ACK 后进入 `ESTABLISHED`\n- 双方连接建立完成\n\n---\n\n## 三、状态变化简图\n\n```text\n客户端：\nCLOSED\n  |\n  | 发送 SYN\n  v\nSYN_SENT\n  |\n  | 收到 SYN+ACK，发送 ACK\n  v\nESTABLISHED\n\n服务端：\nLISTEN\n  |\n  | 收到 SYN，发送 SYN+ACK\n  v\nSYN_RCVD\n  |\n  | 收到 ACK\n  v\nESTABLISHED\n```\n\n---\n\n## 四、为什么需要三次握手？\n\n简单理解：\n\n1. **第一次**：客户端告诉服务端：“我能发。”\n2. **第二次**：服务端告诉客户端：“我收到了，我也能发。”\n3. **第三次**：客户端告诉服务端：“我收到你的回复了。”\n\n通过三次握手，双方都能确认：\n\n```text\n客户端发送能力 OK\n客户端接收能力 OK\n服务端发送能力 OK\n服务端接收能力 OK\n```\n\n同时完成：\n\n- 同步双方初始序列号 `seq`\n- 确认对方收到了自己的 SYN\n- 防止历史重复连接请求造成错误连接\n\n---\n\n## 五、一句话总结\n\n```text\n第一次：客户端说“我想连接”\n第二次：服务端说“我同意，你听到了吗？”\n第三次：客户端说“我听到了”\n```\n\n三次之后，TCP 连接正式建立，双方进入 `ESTABLISHED` 状态，可以开始可靠传输数据。"
+ },
+ {
+  "id": "E02",
+  "cat": "讲解演示",
+  "ms": 8709,
+  "chars": 632,
+  "usage": {
+   "prompt_tokens": 55,
+   "completion_tokens": 2133,
+   "total_tokens": 2188,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1643
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 55
+  },
+  "content": "假设按**升序**排序，采用标准冒泡排序：每轮比较相邻元素，若前一个大于后一个则交换；每轮结束后，未排序区最大值会“冒泡”到右端。若某轮没有交换，说明已排序，可提前结束。\n\n初始数组：`[5, 2, 9, 1, 6]`\n\n| 轮次 | 比较元素 | 是否交换 | 操作后数组 |\n|---|---|---:|---|\n| 初始 | - | - | `[5, 2, 9, 1, 6]` |\n| 第1轮 | 5 和 2 | 是 | `[2, 5, 9, 1, 6]` |\n|  | 5 和 9 | 否 | `[2, 5, 9, 1, 6]` |\n|  | 9 和 1 | 是 | `[2, 5, 1, 9, 6]` |\n|  | 9 和 6 | 是 | `[2, 5, 1, 6, 9]` |\n| 第2轮 | 2 和 5 | 否 | `[2, 5, 1, 6, 9]` |\n|  | 5 和 1 | 是 | `[2, 1, 5, 6, 9]` |\n|  | 5 和 6 | 否 | `[2, 1, 5, 6, 9]` |\n| 第3轮 | 2 和 1 | 是 | `[1, 2, 5, 6, 9]` |\n|  | 2 和 5 | 否 | `[1, 2, 5, 6, 9]` |\n| 第4轮 | 1 和 2 | 否 | `[1, 2, 5, 6, 9]` |\n\n第4轮没有发生交换，因此可以确认数组已经有序，排序结束。\n\n最终结果：  \n`[1, 2, 5, 6, 9]`"
+ },
+ {
+  "id": "E03",
+  "cat": "讲解演示",
+  "ms": 6928,
+  "chars": 942,
+  "usage": {
+   "prompt_tokens": 41,
+   "completion_tokens": 1007,
+   "total_tokens": 1048,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 464
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 41
+  },
+  "content": "可以把“损失函数”想象成一片山地：\n\n- 你在平面上的位置 = 当前的参数值；\n- 你脚下地面的高度 = 当前的误差/损失；\n- 目标是走到山谷最低点 = 找到让损失最小的参数。\n\n梯度下降就像一个人**蒙着眼睛下山**。他看不见全局，只能感受脚下的坡度，然后反复做三件事：\n\n1. **摸一摸脚下哪里最陡**\n   - 梯度告诉你的不是“最低点在哪”，而是“当前往哪个方向上升最快”。\n   - 所以反方向就是当前下降最快的方向。\n\n2. **朝下坡方向迈一步**\n   - 这一步的大小叫**学习率**。\n   - 学习率小：步子小，稳但慢；\n   - 学习率大：步子大，可能直接跨过谷底，甚至来回震荡。\n\n3. **停下来重新感受坡度，再迈一步**\n   - 因为每走一步，位置变了，坡度也变了。\n   - 所以要不断更新方向，路径通常不是直线，而是逐渐弯向谷底。\n\n用公式表达就是：\n\n\\[\n\\theta_{\\text{新}}=\\theta_{\\text{旧}}-\\eta \\nabla f(\\theta_{\\text{旧}})\n\\]\n\n直观理解：\n\n- \\(\\nabla f(\\theta)\\)：当前坡度，指向上升最快方向；\n- 前面的负号：反着走，也就是下坡；\n- \\(\\eta\\)：每步走多大。\n\n一维情况下更直观：  \n想象一条曲线像山谷。你站在某点，画一条切线：\n\n- 如果切线向右上斜，说明右边更高，于是往左走；\n- 如果切线向右下斜，说明右边更低，于是往右走；\n- 走到谷底附近，切线越来越平，步长带来的高度变化越来越小，就慢慢停住。\n\n二维情况下，可以把损失函数画成等高线图。梯度垂直于等高线，指向“上坡”；取负梯度就是垂直等高线往“下坡”走。每一步都朝当前最陡下坡方向走一小段，最后会走到一个坡度接近零的地方。\n\n不过要注意：梯度下降保证的是“不断往低处走”，不一定总能找到全局最低点。  \n如果地形像一个光滑的大碗，它会稳稳走到碗底；如果地形有很多坑，它可能掉进某个局部低点。学习率也很关键：太小走得很慢，太大可能一步跨过谷底。\n\n一句话总结：**梯度下降就是“看脚下最陡的下坡方向，迈一小步，再重新看，再迈一步”，反复迭代，直到走到坡度接近零的低谷。**"
+ },
+ {
+  "id": "E04",
+  "cat": "讲解演示",
+  "ms": 7500,
+  "chars": 2998,
+  "usage": {
+   "prompt_tokens": 42,
+   "completion_tokens": 1673,
+   "total_tokens": 1715,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 277
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 42
+  },
+  "content": "Transformer 的自注意力（Self-Attention）核心是：**序列中每个位置都生成一个 Query，并和所有位置的 Key 比较，得到注意力权重，再用这些权重对 Value 加权求和**。因为 Q/K/V 都来自同一个输入序列，所以叫“自”注意力。\n\n下面按标准 **缩放点积注意力（Scaled Dot-Product Attention）** 分步骤讲。\n\n---\n\n## 1. 输入表示\n\n假设输入序列长度为 \\(n\\)，每个 token 的向量维度为 \\(d_{\\text{model}}\\)：\n\n\\[\nX \\in \\mathbb{R}^{n \\times d_{\\text{model}}}\n\\]\n\n其中每一行是一个 token 的表示。\n\n例如：\n\n\\[\nX = [x_1, x_2, \\dots, x_n]^T\n\\]\n\n---\n\n## 2. 线性变换得到 Q、K、V\n\n用三个可学习的权重矩阵把输入 \\(X\\) 投影成：\n\n\\[\nQ = XW_Q\n\\]\n\n\\[\nK = XW_K\n\\]\n\n\\[\nV = XW_V\n\\]\n\n其中：\n\n\\[\nW_Q \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}\n\\]\n\n\\[\nW_K \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}\n\\]\n\n\\[\nW_V \\in \\mathbb{R}^{d_{\\text{model}} \\times d_v}\n\\]\n\n于是：\n\n\\[\nQ \\in \\mathbb{R}^{n \\times d_k}\n\\]\n\n\\[\nK \\in \\mathbb{R}^{n \\times d_k}\n\\]\n\n\\[\nV \\in \\mathbb{R}^{n \\times d_v}\n\\]\n\n直觉上：\n\n- **Query**：当前 token 想查询什么信息；\n- **Key**：每个 token 能提供什么“索引”；\n- **Value**：每个 token 实际携带的信息内容。\n\n---\n\n## 3. 计算 Query 和 Key 的相似度分数\n\n对每个 Query 和所有 Key 做点积：\n\n\\[\nS = QK^T\n\\]\n\n形状为：\n\n\\[\nS \\in \\mathbb{R}^{n \\times n}\n\\]\n\n其中 \\(S_{ij}\\) 表示第 \\(i\\) 个 token 的 Query 和第 \\(j\\) 个 token 的 Key 的匹配分数。\n\n也就是说，第 \\(i\\) 行表示：第 \\(i\\) 个 token 对所有 \\(n\\) 个 token 的注意力打分。\n\n---\n\n## 4. 缩放\n\n点积结果会除以 \\(\\sqrt{d_k}\\)：\n\n\\[\nS' = \\frac{QK^T}{\\sqrt{d_k}}\n\\]\n\n缩放的原因是：当 \\(d_k\\) 较大时，点积数值容易变大，导致 softmax 进入饱和区，梯度变小。除以 \\(\\sqrt{d_k}\\) 可以让数值更稳定。\n\n---\n\n## 5. 可选：加入 Mask\n\n在解码器自注意力或变长序列中，通常需要 mask。\n\n例如因果注意力 Causal Mask 会阻止第 \\(i\\) 个 token 看到未来 token \\(j>i\\)，通常把未来位置分数设为 \\(-\\infty\\)：\n\n\\[\nS'_{ij} = -\\infty, \\quad j > i\n\\]\n\n这样 softmax 后这些位置的权重就是 0。\n\n---\n\n## 6. Softmax 得到注意力权重\n\n对每一行做 softmax：\n\n\\[\nA = \\text{softmax}(S')\n\\]\n\n即：\n\n\\[\nA_{ij} = \\frac{\\exp(S'_{ij})}{\\sum_{k=1}^{n} \\exp(S'_{ik})}\n\\]\n\n得到注意力权重矩阵：\n\n\\[\nA \\in \\mathbb{R}^{n \\times n}\n\\]\n\n其中：\n\n\\[\n\\sum_{j=1}^{n} A_{ij} = 1\n\\]\n\n\\(A_{ij}\\) 表示第 \\(i\\) 个 token 在聚合信息时，对第 \\(j\\) 个 token 的关注程度。\n\n---\n\n## 7. 用注意力权重加权 Value\n\n最终输出为：\n\n\\[\nO = AV\n\\]\n\n形状为：\n\n\\[\nO \\in \\mathbb{R}^{n \\times d_v}\n\\]\n\n展开看第 \\(i\\) 个 token 的输出：\n\n\\[\no_i = \\sum_{j=1}^{n} A_{ij} v_j\n\\]\n\n也就是说，第 \\(i\\) 个 token 的新表示，是所有 token 的 Value 向量按照注意力权重加权求和得到的。\n\n---\n\n## 8. 完整公式\n\n缩放点积自注意力完整公式为：\n\n\\[\n\\text{Attention}(Q,K,V)\n=\n\\text{softmax}\n\\left(\n\\frac{QK^T}{\\sqrt{d_k}}\n\\right)\nV\n\\]\n\n在自注意力中：\n\n\\[\nQ = XW_Q,\\quad K = XW_K,\\quad V = XW_V\n\\]\n\n所以也可以写成：\n\n\\[\n\\text{SelfAttention}(X)\n=\n\\text{softmax}\n\\left(\n\\frac{XW_Q (XW_K)^T}{\\sqrt{d_k}}\n\\right)\nXW_V\n\\]\n\n---\n\n## 9. 多头自注意力简述\n\n实际 Transformer 通常使用**多头注意力**：\n\n1. 把 Q、K、V 投影到 \\(h\\) 个头；\n2. 每个头独立计算注意力：\n\n\\[\n\\text{head}_i =\n\\text{Attention}(QW_Q^i, KW_K^i, VW_V^i)\n\\]\n\n3. 把所有头的输出拼接：\n\n\\[\n\\text{Concat} = [\\text{head}_1, \\text{head}_2, \\dots, \\text{head}_h]\n\\]\n\n4. 再做一次线性变换：\n\n\\[\n\\text{MultiHead}(Q,K,V)\n=\n\\text{Concat}(\\text{head}_1,\\dots,\\text{head}_h)W_O\n\\]\n\n多头的作用是让模型在不同子空间里关注不同的关系模式。\n\n---\n\n## 10. 一个直观总结\n\n自注意力的计算可以概括为：\n\n1. 每个 token 生成 Query、Key、Value；\n2. 用 Query 和所有 Key 做点积，得到相关性分数；\n3. 除以 \\(\\sqrt{d_k}\\) 缩放；\n4. 可选加 mask；\n5. 对分数做 softmax，得到注意力权重；\n6. 用权重对所有 Value 加权求和；\n7. 多头情况下拼接多个头再做线性变换。\n\n用一句话说：\n\n> **自注意力就是让每个 token 根据自己与其他 token 的相关性，对其他 token 的信息进行加权聚合。**\n\n其计算复杂度主要来自 \\(QK^T\\)，为：\n\n\\[\nO(n^2 d_k)\n\\]\n\n其中 \\(n\\) 是序列长度，所以长序列时自注意力成本较高。"
+ },
+ {
+  "id": "E05",
+  "cat": "讲解演示",
+  "ms": 5380,
+  "chars": 708,
+  "usage": {
+   "prompt_tokens": 44,
+   "completion_tokens": 1146,
+   "total_tokens": 1190,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 730
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 44
+  },
+  "content": "三种遍历的核心区别是：**根节点在什么时候访问**。它们都遵循“先左子树、后右子树”的顺序，只是根节点位置不同。\n\n| 遍历方式 | 访问顺序 | 特点 |\n|---|---|---|\n| 前序遍历 Preorder | 根 → 左 → 右 | 先访问根节点，常用于复制树、序列化树 |\n| 中序遍历 Inorder | 左 → 根 → 右 | 根在中间；对二叉搜索树会得到升序序列 |\n| 后序遍历 Postorder | 左 → 右 → 根 | 最后访问根节点，常用于释放树、计算表达式 |\n\n例如下面这棵二叉搜索树：\n\n```text\n        4\n       / \\\n      2   6\n     / \\ / \\\n    1  3 5  7\n```\n\n### 1. 前序遍历：根 → 左 → 右\n\n访问过程：\n\n```text\n4 → 2 → 1 → 3 → 6 → 5 → 7\n```\n\n### 2. 中序遍历：左 → 根 → 右\n\n访问过程：\n\n```text\n1 → 2 → 3 → 4 → 5 → 6 → 7\n```\n\n因为这是二叉搜索树，所以中序遍历结果是升序的。\n\n### 3. 后序遍历：左 → 右 → 根\n\n访问过程：\n\n```text\n1 → 3 → 2 → 5 → 7 → 6 → 4\n```\n\n### 总结口诀\n\n- **前序**：根左右，根在最前  \n- **中序**：左根右，根在中间  \n- **后序**：左右根，根在最后  \n\n例如用根节点 `4` 来看：\n\n- 前序：`4` 最先出现  \n- 中序：`4` 在左子树和右子树之间出现  \n- 后序：`4` 最后出现"
+ },
+ {
+  "id": "E06",
+  "cat": "讲解演示",
+  "ms": 7838,
+  "chars": 2015,
+  "usage": {
+   "prompt_tokens": 42,
+   "completion_tokens": 1332,
+   "total_tokens": 1374,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 194
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 42
+  },
+  "content": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思想是：**在 LLM 生成答案之前，先从外部知识库检索相关信息，把检索结果作为上下文交给模型，让模型基于这些资料回答**。它常用于私有知识问答、企业文档助手、客服、代码库问答等场景。\n\n一个典型 RAG 系统分为两大部分：**离线索引阶段**和**在线检索生成阶段**。\n\n---\n\n## 一、离线索引阶段：把知识变成可检索的向量\n\n### 1. 文档采集\n从各种数据源收集内容，例如：\n- PDF、Word、网页、Markdown\n- 数据库、工单系统、Wiki\n- API 文档、代码仓库\n\n### 2. 数据清洗与预处理\n去掉无关内容，例如页眉页脚、广告、导航栏、重复文本、乱码；保留标题、章节、表格、代码块等结构信息。\n\n### 3. 文档切分 / Chunking\n把长文档切成适合检索和放入模型上下文的小块，例如每块 300～1000 token，并设置重叠区间，避免语义被切断。\n\n常见策略：\n- 按固定长度切分\n- 按段落、标题、章节切分\n- 按语义切分\n- 表格、代码等特殊内容单独处理\n\n### 4. 向量化 / Embedding\n用 Embedding 模型把每个文本块转换为向量。语义相近的文本，其向量距离更近。\n\n### 5. 建立索引并存入向量数据库\n把“文本块 + 向量 + 元数据”存入向量库，例如：\n- 文本块原文\n- 向量\n- 来源文档、页码、章节\n- 时间、权限、标签等元数据\n\n常见向量数据库：FAISS、Milvus、Pinecone、Weaviate、Qdrant、Elasticsearch/OpenSearch 的向量能力等。\n\n---\n\n## 二、在线检索生成阶段：用户提问后检索并生成答案\n\n### 1. 用户输入 Query\n用户提出问题，例如：“我们公司差旅报销标准是什么？”\n\n### 2. Query 处理与改写\n对问题做必要的预处理：\n- 查询改写：把口语化问题改成更适合检索的查询\n- 多查询生成：生成多个相关查询，提高召回率\n- 意图识别、实体抽取、权限过滤\n- 多轮对话中结合历史上下文补全问题\n\n例如把“这个怎么报？”结合上下文改写为“员工出差住宿费报销标准是什么？”\n\n### 3. 检索相关文档\n将 Query 向量化，在向量库中做相似度搜索，召回 Top-K 个相关文本块。\n\n实际系统常采用：\n- 向量检索：语义相似\n- 关键词检索：BM25、全文检索，保证精确匹配\n- 混合检索：向量 + 关键词\n- 元数据过滤：按部门、权限、时间、文档类型过滤\n\n### 4. 重排 / Rerank\n初步召回的结果可能不够精确，因此用 Rerank 模型对候选文本块重新排序，选出最相关的若干条。\n\n### 5. 上下文组装\n把选出的文本块组织成 Prompt 上下文，通常包括：\n- 系统指令：要求只基于给定资料回答，不知道就说不知道\n- 检索到的资料片段\n- 用户问题\n- 输出格式要求\n- 引用来源要求\n\n例如：\n\n> 请根据以下资料回答问题。如果资料中没有答案，请明确说明。  \n> 资料：[片段1] [片段2] ...  \n> 问题：公司差旅报销标准是什么？\n\n### 6. 调用 LLM 生成答案\n把组装好的上下文和问题一起交给大模型。模型基于检索内容生成回答，而不是完全依赖参数记忆。\n\n### 7. 后处理与引用\n对答案做：\n- 格式化\n- 引用来源标注\n- 敏感信息过滤\n- 置信度/无答案判断\n- 用户权限校验\n\n例如输出答案并附上：“来源：《员工差旅管理制度》第 3.2 节”。\n\n### 8. 反馈与评估\n记录用户反馈、检索命中情况、答案质量，持续优化：\n- 切分策略\n- Embedding 模型\n- Top-K 参数\n- Rerank 模型\n- Prompt 模板\n- 知识库更新频率\n\n---\n\n## 三、简化流程图\n\n```text\n离线：\n原始文档 → 清洗 → 切分 → Embedding → 向量库/索引\n\n在线：\n用户问题 → Query 改写 → 检索召回 → 重排 → 上下文组装\n        → LLM 生成 → 后处理/引用 → 返回答案\n```\n\n---\n\n## 四、RAG 的关键价值\n\n1. **补充模型不知道的私有知识**\n2. **缓解知识时效性问题**\n3. **降低幻觉风险**：让模型基于检索资料回答\n4. **可追溯**：可以标注答案来源\n5. **无需重新训练模型**即可更新知识库\n\n---\n\n总结来说，RAG 的工作流程可以概括为：**离线把知识切块、向量化并建索引；在线根据用户问题检索相关内容，重排后拼入 Prompt，再让 LLM 基于这些内容生成答案，并提供引用和反馈优化机制。**"
+ },
+ {
+  "id": "D01",
+  "cat": "数据图表",
+  "ms": 7902,
+  "chars": 829,
+  "usage": {
+   "prompt_tokens": 66,
+   "completion_tokens": 1611,
+   "total_tokens": 1677,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1105
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 66
+  },
+  "content": "从你给的数据看，整体是**波动上行、二季度明显加速**的趋势。\n\n### 1. 月度走势\n| 月份 | 销售额（万元） | 环比变化 |\n|---|---:|---:|\n| 1月 | 12 | — |\n| 2月 | 9 | -25.0% |\n| 3月 | 15 | +66.7% |\n| 4月 | 18 | +20.0% |\n| 5月 | 16 | -11.1% |\n| 6月 | 22 | +37.5% |\n\n### 2. 关键判断\n- **上半年总额**：92万元  \n- **月均销售额**：约15.33万元  \n- **最高月**：6月22万元  \n- **最低月**：2月9万元  \n- **1—6月累计增长**：从12万到22万，增长约**83.3%**\n- **一季度 vs 二季度**：  \n  - 一季度：36万元，月均12万元  \n  - 二季度：56万元，月均18.67万元  \n  - 二季度比一季度增长约**55.6%**\n\n### 3. 趋势概括\n可以概括为：**2月触底后整体回升，4月走强，5月小幅回调，6月创新高，处于上升通道。**\n\n其中：\n- **2月偏低**，可能与春节/淡季因素有关，需要结合去年同期判断是否正常；\n- **3—4月恢复明显**；\n- **5月出现小幅回落**，但幅度不大；\n- **6月增长最强**，是上半年高点。\n\n### 4. 简单外推\n如果按简单线性趋势估算，月均大约增加2万元左右，7月可能在**22—23万元**附近，但这只是粗略参考，实际还要看6月高增长是否能延续。\n\n### 5. 建议关注\n1. 5月为什么回落：是客流、客单价还是促销节奏问题；\n2. 6月为什么冲高：促销、季节、新品还是大客户订单；\n3. 对比去年同期，判断2月低和6月高是否属于正常季节性；\n4. 若6月增长因素可复制，下半年有望继续保持较高水平。\n\n总体看：**趋势偏积极，增长动能较强，但月度波动还存在。**"
+ },
+ {
+  "id": "D02",
+  "cat": "数据图表",
+  "ms": 24475,
+  "chars": 2364,
+  "usage": {
+   "prompt_tokens": 72,
+   "completion_tokens": 5316,
+   "total_tokens": 5388,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 4021
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 72
+  },
+  "content": "## 1. 成绩分布可视化\n\n总人数：\\(6+14+11+5+3=39\\) 人  \n说明：“不及格”按 `<60分` 统计。\n\n| 成绩段 | 人数 | 占比 | 人数分布 |\n|---|---:|---:|---|\n| 90分以上 | 6 | 15.4% | ██████ |\n| 80–89分 | 14 | 35.9% | ██████████████ |\n| 70–79分 | 11 | 28.2% | ███████████ |\n| 60–69分 | 5 | 12.8% | █████ |\n| 不及格 | 3 | 7.7% | ███ |\n\n```text\n人数分布条形图（每个█约代表1人）\n\n90分以上  ██████ 6\n80–89分   ██████████████ 14\n70–79分   ███████████ 11\n60–69分   █████ 5\n不及格    ███ 3\n```\n\n## 2. 关键统计\n\n- 及格人数：36人，及格率：**92.3%**\n- 不及格人数：3人，占比：**7.7%**\n- 80分及以上人数：20人，占比：**51.3%**\n- 70分及以上人数：31人，占比：**79.5%**\n- 90分及以上优秀人数：6人，优秀率：**15.4%**\n- 70–89分人数：25人，占比：**64.1%**\n- 按组中值粗略估计平均分约为：**78.5分**\n  - 估算方法：90+取95，80–89取84.5，70–79取74.5，60–69取64.5，不及格取55。\n- 中位数大致落在 **80–89分** 区间，说明多数学生处于中等偏上水平。\n\n## 3. 分布分析\n\n1. **整体水平较好，及格率高。**  \n   班级及格率达到92.3%，说明绝大多数学生已经掌握基础知识。70分及以上占79.5%，整体成绩重心偏高。\n\n2. **成绩集中在70–89分，主体较稳。**  \n   70–89分共有25人，占64.1%。其中80–89分人数最多，为14人，是班级最大群体，说明班级中等偏上学生较多。\n\n3. **优秀率一般，有提升空间。**  \n   90分以上只有6人，占15.4%。80–89分的14名学生是最有潜力冲击优秀的学生群体，如果加强易错题、综合题和限时训练，优秀率还有提升空间。\n\n4. **低分端人数不多，但需要重点关注。**  \n   不及格3人，另有60–69分5人，共8人，占20.5%。这部分学生处于基础薄弱或及格边缘状态，需要及时补缺，防止进一步下滑。\n\n5. **整体呈“中上集中、低分少量存在”的分布。**  \n   班级主体集中在70–89分，低分段人数较少，但拔尖人数不算特别多。可以概括为：**整体较好，中间层厚，优秀层需拔高，后进层需补基础。**\n\n## 4. 教学建议\n\n- **对90分以上学生：**  \n  增加拓展题、综合题和压轴题训练，鼓励参加数学竞赛或担任“小老师”，避免尖子生“吃不饱”。\n\n- **对80–89分学生：**  \n  这是最有潜力的群体。重点抓计算准确率、审题习惯、易错题整理和限时训练，目标是把其中一部分稳定推上90分。\n\n- **对70–79分学生：**  \n  强化基础题和中档题，进行章节过关和错题重做，目标是稳定到80分以上。\n\n- **对60–69分及不及格学生：**  \n  做知识漏洞诊断，重点补基础概念、基本运算和常见题型；可采用小老师帮扶、个别辅导、家长沟通、每周小测等方式跟踪进步。\n\n- **全班层面：**  \n  建议建立错题本和分层作业：基础层抓过关，提高层抓稳定，优秀层抓拓展。每次测试后按分数段分析进退，关注“60分边缘生”和“80分冲90分学生”。\n\n## 5. 可选：Python 可视化代码\n\n```python\nimport matplotlib.pyplot as plt\n\nlabels = ['90+', '80-89', '70-79', '60-69', '<60']\ncounts = [6, 14, 11, 5, 3]\ncolors = ['#2ecc71', '#3498db', '#f1c40f', '#e67e22', '#e74c3c']\n\nplt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS']\nplt.rcParams['axes.unicode_minus'] = False\n\nfig, axes = plt.subplots(1, 2, figsize=(12, 5))\n\naxes[0].bar(labels, counts, color=colors)\naxes[0].set_title('数学成绩人数分布')\naxes[0].set_xlabel('成绩段')\naxes[0].set_ylabel('人数')\nfor i, v in enumerate(counts):\n    axes[0].text(i, v + 0.2, str(v), ha='center')\n\naxes[1].pie(counts, labels=labels, autopct='%1.1f%%', startangle=90, colors=colors)\naxes[1].set_title('数学成绩占比')\n\nplt.tight_layout()\nplt.show()\n```\n\n**总结：** 该班数学成绩整体较好，及格率高，主体集中在70–89分；当前重点是推动80–89分学生冲击优秀，同时帮助60分以下及及格边缘学生补齐基础、减少低分。"
+ },
+ {
+  "id": "D03",
+  "cat": "数据图表",
+  "ms": 6567,
+  "chars": 796,
+  "usage": {
+   "prompt_tokens": 59,
+   "completion_tokens": 1098,
+   "total_tokens": 1157,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 627
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 59
+  },
+  "content": "你的月支出合计：1000 + 900 + 150 + 250 + 200 = **2500 元**，目前是**收支刚好打平，结余 0 元**。\n\n| 项目 | 金额 | 占比 | 结构判断 |\n|---|---:|---:|---|\n| 房租 | 1000 | 40% | 最大头，偏高但常见 |\n| 吃饭 | 900 | 36% | 基本刚需，占比合理偏高一点 |\n| 交通 | 150 | 6% | 很省 |\n| 娱乐 | 250 | 10% | 不算高，属于可调节支出 |\n| 其他 | 200 | 8% | 需要看明细，容易有隐形消费 |\n| **合计** | **2500** | **100%** | **无结余** |\n\n### 支出结构评价\n- **房租 + 吃饭 = 1900 元，占 76%**，说明支出主要集中在基本生活上。\n- **房租占 40%**，对 2500 元的生活费来说压力偏大。一般比较理想的状态是控制在 30% 左右，但现实中如果房租难降，就先从其他项目优化。\n- **娱乐 10%**，不算铺张；但如果完全没有储蓄，可以稍微压缩。\n- **交通 6%**，很省。\n- **其他 8%**，建议记账细化，看看是日用品、社交、购物还是临时开销。\n\n### 建议\n你目前最大的问题是：**每月结余为 0，没有应急储蓄空间**。  \n如果 2500 元是你的全部可支配金额，建议先尝试每月存 **100—200 元**，比如：\n\n- 娱乐：250 → 150/200，省 50—100\n- 其他：200 → 150，省 50\n- 吃饭：如果方便，控制在 850 左右，省 50\n\n可以先定一个小目标：**每月存 150 元，储蓄率 6%**。  \n整体结构不算乱，但房租占比偏高、结余为零，建议重点做两件事：**记录“其他”明细 + 每月强制留出一点储蓄。**"
+ },
+ {
+  "id": "D04",
+  "cat": "数据图表",
+  "ms": 5755,
+  "chars": 839,
+  "usage": {
+   "prompt_tokens": 90,
+   "completion_tokens": 950,
+   "total_tokens": 1040,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 429
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 90
+  },
+  "content": "从你给出的**训练损失**看：\n\n| 轮次 | 训练损失 | 相比上一轮下降 |\n|---|---:|---:|\n| 1 | 2.31 | - |\n| 2 | 1.85 | 0.46 |\n| 3 | 1.42 | 0.43 |\n| 4 | 1.18 | 0.24 |\n| 5 | 1.05 | 0.13 |\n| 6 | 0.99 | 0.06 |\n| 7 | 0.97 | 0.02 |\n\n**结论：已经明显进入收敛期，但不建议仅凭训练损失立刻停止。**\n\n原因是：\n1. 损失仍在小幅下降，第7轮从0.99降到0.97，说明还没完全停滞。\n2. 但下降幅度已经明显变小，从每轮降0.4左右降到0.02，接近平台期。\n3. **只观察训练损失不够**，必须看验证集损失或验证指标，否则可能过拟合。\n\n建议这样判断：\n\n- **如果有验证集**：  \n  - 验证损失继续下降或验证指标继续提升：可以再训练几轮。  \n  - 验证损失连续2~3轮不降甚至上升：应该停止，并回退到验证效果最好的模型。  \n  - 可设早停：`patience=3`，`min_delta=0.01` 左右。\n\n- **如果只有训练损失**：  \n  建议再训练**3~5轮**观察。如果训练损失继续只在0.01~0.02左右变化，比如变成0.95、0.94、0.94，就可以考虑停止或降低学习率。  \n  若第8~10轮基本在0.96~0.97附近波动，则可以停止。\n\n- **如果当前验证指标已经满足业务/任务要求**：  \n  可以直接停止，保存当前模型。\n\n**推荐操作：**\n1. 不要马上停，先保存当前模型；\n2. 再训练3~5轮；\n3. 同时监控验证损失/验证准确率/F1等指标；\n4. 若验证指标不再提升，使用早停并恢复最佳模型；\n5. 也可以适当降低学习率，看是否还能带来小幅提升。\n\n简单说：**现在属于“可以准备停止”的阶段，但最稳妥的是再看验证集表现，再跑3~5轮后决定。**"
+ },
+ {
+  "id": "G01",
+  "cat": "游戏模拟",
+  "ms": 2620,
+  "chars": 70,
+  "usage": {
+   "prompt_tokens": 35,
+   "completion_tokens": 358,
+   "total_tokens": 393,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 308
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 35
+  },
+  "content": "好呀！规则：用四个数各一次，通过 +、−、×、÷ 和括号算出 24。\n\n我先出题：**3、3、8、8**  \n请给出算式；需要提示也可以说。"
+ },
+ {
+  "id": "G02",
+  "cat": "游戏模拟",
+  "ms": 64620,
+  "chars": 16721,
+  "usage": {
+   "prompt_tokens": 42,
+   "completion_tokens": 18790,
+   "total_tokens": 18832,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 12524
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 42
+  },
+  "content": "这是一个可直接运行的HTML文档，模拟平抛运动，您可以拖动滑块实时调整初速度、高度和重力加速度，直观观察小球轨迹变化。\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>平抛运动模拟</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { margin: 0; height: 100%; }\n  body {\n    font-family: system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n    background: #070b12; color: #e6edf7;\n    display: flex; height: 100vh; overflow: hidden;\n  }\n  #stage { flex: 1 1 auto; position: relative; min-width: 0; }\n  canvas { display: block; width: 100%; height: 100%; }\n\n  .panel {\n    width: 312px; flex: 0 0 312px;\n    background: #0d1523;\n    border-left: 1px solid #1d2b40;\n    padding: 18px 16px 24px;\n    overflow-y: auto;\n    display: flex; flex-direction: column; gap: 16px;\n  }\n  .panel h1 { font-size: 17px; margin: 0; letter-spacing: .5px; }\n  .panel .sub { margin: 3px 0 0; font-size: 11px; color: #5d7characters; color: #5d7a9c; letter-spacing: .8px; }\n\n  .ctrl-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }\n  .ctrl-head label { font-size: 13px; color: #a8bdd6; }\n  .ctrl-head output {\n    font: 600 13px ui-monospace, SFMono-Regular, Menlo, monospace;\n    color: #4ef0c0;\n  }\n  input[type=range] {\n    width: 100%; height: 4px; -webkit-appearance: none; appearance: none;\n    background: #1c2b40; border-radius: 3px; outline: none; display: block;\n  }\n  input[type=range]::-webkit-slider-thumb {\n    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;\n    background: #4ef0c0; cursor: pointer; border: 3px solid #0d1523;\n    box-shadow: 0 0 0 1px #4ef0c0, 0 0 10px rgba(78,240,192,.5);\n  }\n  input[type=range]::-moz-range-thumb {\n    width: 12px; height: 12px; border-radius: 50%; background: #4ef0c0;\n    cursor: pointer; border: 3px solid #0d1523; box-shadow: 0 0 0 1px #4ef0c0;\n  }\n\n  .buttons { display: flex; gap: 8px; }\n  button {\n    flex: 1; padding: 10px 8px; border-radius: 8px; cursor: pointer;\n    font-size: 13px; font-weight: 600; letter-spacing: .5px;\n    border: 1px solid #24374f; background: #142033; color: #b9cde4;\n    transition: .15s;\n  }\n  button:hover { background: #1a2a42; border-color: #33507a; }\n  button.primary {\n    background: linear-gradient(180deg,#1fd8a8,#12a37c); color: #04120e;\n    border-color: transparent; box-shadow: 0 4px 14px rgba(31,216,168,.25);\n  }\n  button.primary:hover { filter: brightness(1.1); }\n\n  .readout {\n    background: #0a1220; border: 1px solid #172437; border-radius: 10px;\n    padding: 4px 12px; font-size: 12.5px;\n  }\n  .row {\n    display: flex; justify-content: space-between; align-items: center;\n    padding: 7px 0; border-bottom: 1px solid #131d2c;\n  }\n  .row:last-child { border-bottom: none; }\n  .row span { color: #7e96b3; }\n  .row b {\n    font: 600 12.5px ui-monospace, SFMono-Regular, Menlo, monospace;\n    color: #cfe4ff;\n  }\n  .row b.accent { color: #4ef0c0; }\n  .row b.warn { color: #ffd166; }\n  .row.sep { border-bottom: 1px solid #23364e; }\n\n  .hint { font-size: 11px; color: #55708f; line-height: 1.7; }\n  .hint code { color: #4aa8ff; font-size: 11px; }\n\n  @media (max-width: 760px) {\n    body { flex-direction: column; }\n    #stage { flex: 0 0 55vh; }\n    .panel { width: 100%; flex: 1 1 auto; border-left: none; border-top: 1px solid #1d2b40; }\n  }\n</style>\n</head>\n<body>\n\n<div id=\"stage\"><canvas id=\"cv\"></canvas></div>\n\n<div class=\"panel\">\n  <header>\n    <h1>平抛运动模拟</h1>\n    <p class=\"sub\">HORIZONTAL PROJECTILE MOTION</p>\n  </header>\n\n  <section>\n    <div class=\"ctrl\">\n      <div class=\"ctrl-head\"><label for=\"v0In\">初速度 v₀</label><output id=\"v0Out\">10.0 m/s</output></div>\n      <input type=\"range\" id=\"v0In\" min=\"1\" max=\"40\" step=\"0.5\" value=\"10\">\n    </div>\n    <div class=\"ctrl\" style=\"margin-top:14px\">\n      <div class=\"ctrl-head\"><label for=\"hIn\">抛出高度 h</label><output id=\"hOut\">20.0 m</output></div>\n      <input type=\"range\" id=\"hIn\" min=\"1\" max=\"80\" step=\"1\" value=\"20\">\n    </div>\n    <div class=\"ctrl\" style=\"margin-top:14px\">\n      <div class=\"ctrl-head\"><label for=\"gIn\">重力加速度 g</label><output id=\"gOut\">9.8 m/s²</output></div>\n      <input type=\"range\" id=\"gIn\" min=\"1.6\" max=\"25\" step=\"0.1\" value=\"9.8\">\n    </div>\n    <div class=\"ctrl\" style=\"margin-top:14px\">\n      <div class=\"ctrl-head\"><label for=\"spIn\">播放速度</label><output id=\"spOut\">0.5×</output></div>\n      <input type=\"range\" id=\"spIn\" min=\"0.1\" max=\"1.5\" step=\"0.1\" value=\"0.5\">\n    </div>\n  </section>\n\n  <section class=\"buttons\">\n    <button id=\"playBtn\" class=\"primary\">开始</button>\n    <button id=\"resetBtn\">重置</button>\n  </section>\n\n  <section class=\"readout\">\n    <div class=\"row sep\"><span>理论飞行时间</span><b id=\"rT\">2.02 s</b></div>\n    <div class=\"row sep\"><span>理论水平射程</span><b id=\"rR\">20.20 m</b></div>\n    <div class=\"row\"><span>时间 t</span><b id=\"rt\" class=\"accent\">0.00 s</b></div>\n    <div class=\"row\"><span>水平位移 x</span><b id=\"rx\">0.00 m</b></div>\n    <div class=\"row\"><span>下落高度 y</span><b id=\"ry\">0.00 m</b></div>\n    <div class=\"row\"><span>水平速度 vₓ</span><b id=\"rvx\">10.0 m/s</b></div>\n    <div class=\"row\"><span>竖直速度 v_y</span><b id=\"rvy\">0.0 m/s</b></div>\n    <div class=\"row\"><span>合速度 v</span><b id=\"rv\" class=\"warn\">10.0 m/s</b></div>\n    <div class=\"row\"><span>速度与水平夹角 θ</span><b id=\"rth\">0.0°</b></div>\n  </section>\n\n  <p class=\"hint\">\n    水平方向匀速：<code>x = v₀t</code><br>\n    竖直方向自由落体：<code>y = ½gt²</code><br>\n    轨迹方程：<code>y = gx² / (2v₀²)</code>（抛物线）\n  </p>\n</div>\n\n<script>\n/* ================= 状态 ================= */\nconst S = {\n  v0: 10, h: 20, g: 9.8,\n  t: 0, running: false, landed: false,\n  speed: 0.5\n};\n\nconst cv  = document.getElementById('cv');\nconst ctx = cv.getContext('2d');\n\nlet W = 800, H = 600, scale = 10, ox = 60, oy = 500;\n\nconst flightTime = () => Math.sqrt(2 * S.h / S.g);\nconst rangeX     = () => S.v0 * flightTime();\nconst pos        = tt => ({ x: S.v0 * tt, y: S.h - 0.5 * S.g * tt * tt });\nconst sx = x => ox + x * scale;\nconst sy = y => oy - y * scale;\n\n/* ================= 尺寸与布局 ================= */\nfunction resize(){\n  const rect = cv.getBoundingClientRect();\n  const dpr = Math.min(window.devicePixelRatio || 1, 2);\n  W = Math.max(1, rect.width);\n  H = Math.max(1, rect.height);\n  cv.width  = Math.round(W * dpr);\n  cv.height = Math.round(H * dpr);\n  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);\n  layout();\n}\n\nfunction layout(){\n  const padL = 70, padR = 70, padT = 60, padB = 70;\n  const availW = Math.max(60, W - padL - padR);\n  const availH = Math.max(60, H - padT - padB);\n\n  const R  = Math.max(rangeX(), 0.5);\n  const Hh = Math.max(S.h, 0.5);\n\n  scale = Math.min(availW / (R * 1.15), availH / (Hh * 1.3));\n  scale = Math.min(scale, 60);\n  scale = Math.max(scale, 0.3);\n\n  ox = Math.max(30, (W - R * scale) / 2);\n  oy = H - padB;\n}\n\n/* ================= 绘制工具 ================= */\nfunction niceStep(minPx){\n  const opts = [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000];\n  for (const s of opts) if (s * scale >= minPx) return s;\n  return 2000;\n}\n\nfunction arrow(x1, y1, x2, y2, color, w){\n  const dx = x2 - x1, dy = y2 - y1;\n  const len = Math.hypot(dx, dy);\n  if (len < 4) return;\n  const ang = Math.atan2(dy, dx);\n  const head = Math.min(11, len * 0.4);\n\n  ctx.strokeStyle = color;\n  ctx.fillStyle = color;\n  ctx.lineWidth = w;\n  ctx.lineCap = 'round';\n\n  ctx.beginPath();\n  ctx.moveTo(x1, y1);\n  ctx.lineTo(x2 - Math.cos(ang) * head * 0.6, y2 - Math.sin(ang) * head * 0.6);\n  ctx.stroke();\n\n  ctx.beginPath();\n  ctx.moveTo(x2, y2);\n  ctx.lineTo(x2 - head * Math.cos(ang - 0.42), y2 - head * Math.sin(ang - 0.42));\n  ctx.lineTo(x2 - head * Math.cos(ang + 0.42), y2 - head * Math.sin(ang + 0.42));\n  ctx.closePath();\n  ctx.fill();\n}\n\n/* ================= 各层绘制 ================= */\nfunction drawBackground(){\n  const g = ctx.createLinearGradient(0, 0, 0, H);\n  g.addColorStop(0, '#0a1322');\n  g.addColorStop(1, '#060a11');\n  ctx.fillStyle = g;\n  ctx.fillRect(0, 0, W, H);\n\n  const rg = ctx.createRadialGradient(W * 0.72, H * 0.12, 0, W * 0.72, H * 0.12, Math.max(W, H) * 0.75);\n  rg.addColorStop(0, 'rgba(40,95,170,0.20)');\n  rg.addColorStop(1, 'rgba(0,0,0,0)');\n  ctx.fillStyle = rg;\n  ctx.fillRect(0, 0, W, H);\n}\n\nfunction drawGrid(){\n  const step = niceStep(52);\n  const xL = (0 - ox) / scale,  xR = (W - ox) / scale;\n  const yB = (oy - H) / scale,  yT = (oy - 0) / scale;\n\n  ctx.lineWidth = 1;\n  ctx.strokeStyle = 'rgba(84,140,205,0.11)';\n  ctx.beginPath();\n  for (let x = Math.ceil(xL / step) * step; x <= xR; x += step){\n    const px = sx(x);\n    ctx.moveTo(px, 0); ctx.lineTo(px, H);\n  }\n  for (let y = Math.ceil(yB / step) * step; y <= yT; y += step){\n    const py = sy(y);\n    if (py < 0 || py > H) continue;\n    ctx.moveTo(0, py); ctx.lineTo(W, py);\n  }\n  ctx.stroke();\n\n  // 地面刻度数字\n  ctx.fillStyle = 'rgba(110,150,195,0.55)';\n  ctx.font = '11px ui-monospace, Menlo, monospace';\n  ctx.textAlign = 'center';\n  ctx.textBaseline = 'top';\n  const gy = sy(0);\n  for (let x = Math.ceil(Math.max(xL, 0) / step) * step; x <= xR; x += step){\n    if (x === 0) continue;\n    ctx.fillText(x.toFixed(step < 1 ? 1 : 0), sx(x), gy + 8);\n  }\n}\n\nfunction drawGround(){\n  const gy = sy(0);\n  const grd = ctx.createLinearGradient(0, gy, 0, H);\n  grd.addColorStop(0, 'rgba(42,110,180,0.30)');\n  grd.addColorStop(1, 'rgba(42,110,180,0.02)');\n  ctx.fillStyle = grd;\n  ctx.fillRect(0, gy, W, H - gy);\n\n  ctx.strokeStyle = 'rgba(110,180,255,0.65)';\n  ctx.lineWidth = 2;\n  ctx.beginPath();\n  ctx.moveTo(0, gy);\n  ctx.lineTo(W, gy);\n  ctx.stroke();\n}\n\nfunction drawTheoryPath(){\n  const T = flightTime();\n  ctx.save();\n  ctx.setLineDash([5, 7]);\n  ctx.strokeStyle = 'rgba(120,200,255,0.28)';\n  ctx.lineWidth = 1.4;\n  ctx.beginPath();\n  for (let i = 0; i <= 140; i++){\n    const p = pos(T * i / 140);\n    const X = sx(p.x), Y = sy(p.y);\n    i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);\n  }\n  ctx.stroke();\n  ctx.restore();\n}\n\nfunction drawTrail(){\n  if (S.t <= 0) return;\n\n  ctx.save();\n  ctx.lineJoin = 'round';\n  ctx.lineCap = 'round';\n\n  // 外层辉光\n  ctx.strokeStyle = 'rgba(78,240,192,0.18)';\n  ctx.lineWidth = 7;\n  ctx.beginPath();\n  for (let i = 0; i <= 200; i++){\n    const p = pos(S.t * i / 200);\n    const X = sx(p.x), Y = sy(p.y);\n    i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);\n  }\n  ctx.stroke();\n\n  // 主线\n  ctx.strokeStyle = '#4ef0c0';\n  ctx.lineWidth = 2.2;\n  ctx.beginPath();\n  for (let i = 0; i <= 200; i++){\n    const p = pos(S.t * i / 200);\n    const X = sx(p.x), Y = sy(p.y);\n    i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);\n  }\n  ctx.stroke();\n  ctx.restore();\n\n  // 等时间间隔标记点（体现水平匀速、竖直加速）\n  const T = flightTime();\n  const dt = T / 10;\n  ctx.fillStyle = 'rgba(120,255,220,0.55)';\n  for (let i = 1; i < 10; i++){\n    const tt = dt * i;\n    if (tt > S.t) break;\n    const p = pos(tt);\n    ctx.beginPath();\n    ctx.arc(sx(p.x), sy(p.y), 2.6, 0, Math.PI * 2);\n    ctx.fill();\n  }\n}\n\nfunction drawMarkers(){\n  const X0 = sx(0), Y0 = sy(0), Yh = sy(S.h);\n\n  // 高度虚线\n  ctx.save();\n  ctx.setLineDash([4, 5]);\n  ctx.strokeStyle = 'rgba(130,175,225,0.4)';\n  ctx.lineWidth = 1;\n  ctx.beginPath();\n  ctx.moveTo(X0, Yh);\n  ctx.lineTo(X0, Y0);\n  ctx.stroke();\n  ctx.restore();\n\n  // 高度标签\n  ctx.fillStyle = 'rgba(150,190,230,0.8)';\n  ctx.font = '12px ui-monospace, Menlo, monospace';\n  ctx.textAlign = 'right';\n  ctx.textBaseline = 'middle';\n  const midY = (Y0 + Yh) / 2;\n  if (X0 > 60) ctx.fillText(`h=${S.h.toFixed(0)}m`, X0 - 9, midY);\n\n  // 抛出点标记\n  ctx.fillStyle = 'rgba(120,200,255,0.85)';\n  ctx.beginPath();\n  ctx.arc(X0, Yh, 3, 0, Math.PI * 2);\n  ctx.fill();\n\n  // 落点标记（落地后显示）\n  if (S.landed){\n    const lx = sx(rangeX()), ly = sy(0);\n    ctx.strokeStyle = 'rgba(255,209,102,0.7)';\n    ctx.lineWidth = 1.5;\n    ctx.beginPath();\n    ctx.moveTo(lx - 7, ly); ctx.lineTo(lx + 7, ly);\n    ctx.stroke();\n    ctx.fillStyle = 'rgba(255,209,102,0.9)';\n    ctx.beginPath();\n    ctx.arc(lx, ly, 3.5, 0, Math.PI * 2);\n    ctx.fill();\n  }\n}\n\nfunction drawBall(){\n  const p = pos(S.t);\n  const X = sx(p.x), Y = sy(p.y);\n  const r = 8.5;\n\n  // 光晕\n  const g = ctx.createRadialGradient(X, Y, 0, X, Y, r * 3.4);\n  g.addColorStop(0, 'rgba(80,255,200,0.35)');\n  g.addColorStop(1, 'rgba(80,255,200,0)');\n  ctx.fillStyle = g;\n  ctx.beginPath();\n  ctx.arc(X, Y, r * 3.4, 0, Math.PI * 2);\n  ctx.fill();\n\n  // 球体\n  const b = ctx.createRadialGradient(X - r * 0.35, Y - r * 0.4, r * 0.1, X, Y, r);\n  b.addColorStop(0, '#eafffb');\n  b.addColorStop(0.45, '#4ef0c0');\n  b.addColorStop(1, '#12996f');\n  ctx.fillStyle = b;\n  ctx.beginPath();\n  ctx.arc(X, Y, r, 0, Math.PI * 2);\n  ctx.fill();\n}\n\nfunction drawVelocityArrow(){\n  const p = pos(S.t);\n  const X = sx(p.x), Y = sy(p.y);\n  const vx = S.v0, vy = S.g * S.t;\n\n  const vmax = Math.max(vx, vy, 1);\n  const k = Math.min(2.0, 110 / vmax);   // 像素 / (m/s)\n\n  // 合速度\n  if (vx * k > 5 || vy * k > 5){\n    arrow(X, Y, X + vx * k, Y + vy * k, '#ffd166', 2.2);\n  }\n\n  // 分量（细线）\n  ctx.save();\n  ctx.setLineDash([3, 4]);\n  ctx.strokeStyle = 'rgba(74,168,255,0.55)';\n  ctx.lineWidth = 1.2;\n  ctx.beginPath();\n  ctx.moveTo(X, Y);\n  ctx.lineTo(X + vx * k, Y);\n  ctx.stroke();\n\n  ctx.strokeStyle = 'rgba(255,159,67,0.6)';\n  ctx.beginPath();\n  ctx.moveTo(X, Y);\n  ctx.lineTo(X, Y + vy * k);\n  ctx.stroke();\n\n  // 平行四边形虚线\n  ctx.strokeStyle = 'rgba(255,209,102,0.22)';\n  ctx.beginPath();\n  ctx.moveTo(X + vx * k, Y);\n  ctx.lineTo(X + vx * k, Y + vy * k);\n  ctx.moveTo(X, Y + vy * k);\n  ctx.lineTo(X + vx * k, Y + vy * k);\n  ctx.stroke();\n  ctx.restore();\n}\n\n/* ================= 主绘制 ================= */\nfunction draw(){\n  ctx.clearRect(0, 0, W, H);\n  drawBackground();\n  drawGrid();\n  drawGround();\n  drawTheoryPath();\n  drawTrail();\n  drawMarkers();\n  drawBall();\n  drawVelocityArrow();\n}\n\n/* ================= 数据显示 ================= */\nconst cache = {};\nfunction txt(id, s){\n  if (cache[id] !== s){\n    cache[id] = s;\n    const el = document.getElementById(id);\n    if (el) el.textContent = s;\n  }\n}\n\nfunction updateReadout(){\n  const p  = pos(S.t);\n  const vx = S.v0;\n  const vy = S.g * S.t;\n  const v  = Math.hypot(vx, vy);\n  const ang = Math.atan2(vy, vx) * 180 / Math.PI;\n\n  txt('rt',  S.t.toFixed(2) + ' s');\n  txt('rx',  p.x.toFixed(2) + ' m');\n  txt('ry',  (S.h - p.y).toFixed(2) + ' m');\n  txt('rvx', vx.toFixed(1) + ' m/s');\n  txt('rvy', vy.toFixed(1) + ' m/s');\n  txt('rv',  v.toFixed(1) + ' m/s');\n  txt('rth', ang.toFixed(1) + '°');\n}\n\nfunction updateStatic(){\n  txt('rT', flightTime().toFixed(2) + ' s');\n  txt('rR', rangeX().toFixed(2) + ' m');\n}\n\n/* ================= 控制逻辑 ================= */\nconst playBtn  = document.getElementById('playBtn');\nconst resetBtn = document.getElementById('resetBtn');\n\nfunction updateButton(){\n  playBtn.textContent = S.running ? '暂停' : (S.landed ? '重播' : '开始');\n}\n\nfunction restart(){\n  S.t = 0;\n  S.landed = false;\n  S.running = false;\n  layout();\n  updateButton();\n  updateReadout();\n}\n\nplayBtn.addEventListener('click', () => {\n  if (S.landed || S.t >= flightTime()){\n    S.t = 0;\n    S.landed = false;\n    S.running = true;\n  } else {\n    S.running = !S.running;\n  }\n  updateButton();\n});\n\nresetBtn.addEventListener('click', restart);\n\n/* 参数滑块 */\nconst v0In = document.getElementById('v0In');\nconst hIn  = document.getElementById('hIn');\nconst gIn  = document.getElementById('gIn');\nconst spIn = document.getElementById('spIn');\n\nv0In.addEventListener('input', e => {\n  S.v0 = +e.target.value;\n  document.getElementById('v0Out').textContent = S.v0.toFixed(1) + ' m/s';\n  restart();\n  updateStatic();\n});\n\nhIn.addEventListener('input', e => {\n  S.h = +e.target.value;\n  document.getElementById('hOut').textContent = S.h.toFixed(1) + ' m';\n  restart();\n  updateStatic();\n});\n\ngIn.addEventListener('input', e => {\n  S.g = +e.target.value;\n  document.getElementById('gOut').textContent = S.g.toFixed(1) + ' m/s²';\n  restart();\n  updateStatic();\n});\n\nspIn.addEventListener('input', e => {\n  S.speed = +e.target.value;\n  document.getElementById('spOut').textContent = S.speed.toFixed(1) + '×';\n});\n\n/* ================= 动画循环 ================= */\nlet last = performance.now();\n\nfunction frame(now){\n  let dt = (now - last) / 1000;\n  last = now;\n  if (dt > 0.1) dt = 0.1;      // 防止切标签页后跳帧\n\n  if (S.running && !S.landed){\n    S.t += dt * S.speed;\n    const T = flightTime();\n    if (S.t >= T){\n      S.t = T;\n      S.landed = true;\n      S.running = false;\n      updateButton();\n    }\n  }\n\n  draw();\n  updateReadout();\n  requestAnimationFrame(frame);\n}\n\n/* ================= 初始化 ================= */\nfunction init(){\n  resize();\n  updateStatic();\n  updateReadout();\n  updateButton();\n  requestAnimationFrame(frame);\n}\n\nwindow.addEventListener('resize', resize);\nif (window.ResizeObserver){\n  new ResizeObserver(resize).observe(document.getElementById('stage'));\n}\n\ninit();\n</script>\n</body>\n</html>\n```"
+ },
+ {
+  "id": "G03",
+  "cat": "游戏模拟",
+  "ms": 7011,
+  "chars": 5938,
+  "usage": {
+   "prompt_tokens": 40,
+   "completion_tokens": 2040,
+   "total_tokens": 2080,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 284
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 40
+  },
+  "content": "下面是一个可直接运行的单文件网页小游戏，保存为 `猜数字.html`，用浏览器打开即可玩。\n\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>猜数字小游戏（1-100）</title>\n  <style>\n    * {\n      box-sizing: border-box;\n    }\n\n    body {\n      margin: 0;\n      min-height: 100vh;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      font-family: \"Microsoft YaHei\", Arial, sans-serif;\n      background: linear-gradient(135deg, #667eea, #764ba2);\n      padding: 20px;\n    }\n\n    .game {\n      width: 100%;\n      max-width: 420px;\n      background: #fff;\n      border-radius: 20px;\n      padding: 28px;\n      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);\n      text-align: center;\n    }\n\n    h1 {\n      margin: 0 0 8px;\n      font-size: 26px;\n      color: #333;\n    }\n\n    .subtitle {\n      margin: 0 0 22px;\n      color: #777;\n      font-size: 14px;\n    }\n\n    .input-row {\n      display: flex;\n      gap: 10px;\n    }\n\n    input {\n      flex: 1;\n      min-width: 0;\n      height: 50px;\n      border: 2px solid #ddd;\n      border-radius: 12px;\n      padding: 0 14px;\n      font-size: 20px;\n      text-align: center;\n      outline: none;\n      transition: border-color 0.2s;\n    }\n\n    input:focus {\n      border-color: #667eea;\n    }\n\n    button {\n      height: 50px;\n      border: none;\n      border-radius: 12px;\n      padding: 0 18px;\n      font-size: 16px;\n      font-weight: bold;\n      color: #fff;\n      background: #667eea;\n      cursor: pointer;\n      transition: transform 0.15s, background 0.2s;\n      white-space: nowrap;\n    }\n\n    button:hover {\n      background: #5568d8;\n      transform: translateY(-1px);\n    }\n\n    button:active {\n      transform: translateY(1px);\n    }\n\n    button:disabled,\n    input:disabled {\n      opacity: 0.6;\n      cursor: not-allowed;\n    }\n\n    .message {\n      min-height: 54px;\n      margin: 20px 0 10px;\n      padding: 14px;\n      border-radius: 12px;\n      font-size: 17px;\n      font-weight: bold;\n      background: #f4f6ff;\n      color: #444;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .message.win {\n      background: #e7f9ed;\n      color: #16853d;\n    }\n\n    .message.fail {\n      background: #fff1f0;\n      color: #d4380d;\n    }\n\n    .info {\n      display: flex;\n      justify-content: space-between;\n      color: #666;\n      font-size: 14px;\n      margin-bottom: 16px;\n    }\n\n    .history {\n      min-height: 32px;\n      padding: 10px;\n      border-radius: 10px;\n      background: #fafafa;\n      color: #666;\n      font-size: 13px;\n      text-align: left;\n      word-break: break-all;\n    }\n\n    .restart {\n      width: 100%;\n      margin-top: 16px;\n      background: #444;\n    }\n\n    .restart:hover {\n      background: #222;\n    }\n  </style>\n</head>\n<body>\n  <main class=\"game\">\n    <h1>猜数字小游戏</h1>\n    <p class=\"subtitle\">我想了一个 1 到 100 之间的整数，你能猜到吗？</p>\n\n    <div class=\"input-row\">\n      <input\n        id=\"guessInput\"\n        type=\"number\"\n        min=\"1\"\n        max=\"100\"\n        placeholder=\"输入 1-100\"\n        autocomplete=\"off\"\n      />\n      <button id=\"guessBtn\">猜一猜</button>\n    </div>\n\n    <div id=\"message\" class=\"message\">请开始你的第一次猜测！</div>\n\n    <div class=\"info\">\n      <span>已猜次数：<strong id=\"count\">0</strong></span>\n      <span>范围：1 - 100</span>\n    </div>\n\n    <div id=\"history\" class=\"history\">猜测记录：暂无</div>\n\n    <button id=\"restartBtn\" class=\"restart\">重新开始</button>\n  </main>\n\n  <script>\n    const input = document.getElementById(\"guessInput\");\n    const guessBtn = document.getElementById(\"guessBtn\");\n    const message = document.getElementById(\"message\");\n    const countEl = document.getElementById(\"count\");\n    const historyEl = document.getElementById(\"history\");\n    const restartBtn = document.getElementById(\"restartBtn\");\n\n    let answer = 0;\n    let count = 0;\n    let gameOver = false;\n    let history = [];\n\n    function initGame() {\n      answer = Math.floor(Math.random() * 100) + 1; // 1 到 100\n      count = 0;\n      gameOver = false;\n      history = [];\n\n      input.value = \"\";\n      input.disabled = false;\n      guessBtn.disabled = false;\n\n      countEl.textContent = \"0\";\n      message.textContent = \"请开始你的第一次猜测！\";\n      message.className = \"message\";\n      historyEl.textContent = \"猜测记录：暂无\";\n\n      input.focus();\n    }\n\n    function updateHistory() {\n      if (history.length === 0) {\n        historyEl.textContent = \"猜测记录：暂无\";\n      } else {\n        historyEl.textContent = \"猜测记录：\" + history.join(\"、\");\n      }\n    }\n\n    function guess() {\n      if (gameOver) return;\n\n      const value = Number(input.value);\n\n      if (!Number.isInteger(value) || value < 1 || value > 100) {\n        message.textContent = \"请输入 1 到 100 之间的整数！\";\n        message.className = \"message fail\";\n        input.value = \"\";\n        input.focus();\n        return;\n      }\n\n      count++;\n      countEl.textContent = count;\n      history.push(value);\n      updateHistory();\n\n      if (value === answer) {\n        gameOver = true;\n        message.textContent = `🎉 恭喜你！猜对了！答案就是 ${answer}，共用了 ${count} 次。`;\n        message.className = \"message win\";\n        input.disabled = true;\n        guessBtn.disabled = true;\n      } else if (value < answer) {\n        message.textContent = `太小了！再试试更大的数字。`;\n        message.className = \"message\";\n        input.value = \"\";\n        input.focus();\n      } else {\n        message.textContent = `太大了！再试试更小的数字。`;\n        message.className = \"message\";\n        input.value = \"\";\n        input.focus();\n      }\n    }\n\n    guessBtn.addEventListener(\"click\", guess);\n\n    input.addEventListener(\"keydown\", function (event) {\n      if (event.key === \"Enter\") {\n        guess();\n      }\n    });\n\n    restartBtn.addEventListener(\"click\", initGame);\n\n    initGame();\n  </script>\n</body>\n</html>\n```\n\n玩法说明：\n\n- 系统随机生成一个 **1 到 100** 的整数。\n- 你输入数字后点击“猜一猜”，或按回车。\n- 系统会提示“太大了”或“太小了”。\n- 猜中后会显示总次数。\n- 点击“重新开始”可以重新生成数字。"
+ },
+ {
+  "id": "G04",
+  "cat": "游戏模拟",
+  "ms": 4398,
+  "chars": 712,
+  "usage": {
+   "prompt_tokens": 41,
+   "completion_tokens": 728,
+   "total_tokens": 769,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 506
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 41
+  },
+  "content": "好的，来 5 道英语单词选择题。先作答，我之后再帮你批改、讲解析。\n\n1. The teacher asked us to ______ the main idea of the passage in one sentence.  \nA. summarize  \nB. memorize  \nC. criticize  \nD. decorate  \n\n2. She was so ______ in her book that she didn’t hear the doorbell.  \nA. absorbed  \nB. annoyed  \nC. exhausted  \nD. embarrassed  \n\n3. The hotel offers a ______ view of the sea from every room.  \nA. splendid  \nB. spare  \nC. strict  \nD. temporary  \n\n4. Despite the heavy rain, they decided to ______ with the trip.  \nA. carry on  \nB. put off  \nC. give up  \nD. turn down  \n\n5. The new policy will ______ all employees, regardless of their position.  \nA. apply to  \nB. rely on  \nC. look after  \nD. come across  \n\n请直接回复你的答案，例如：1A 2B 3C 4D 5A。"
+ },
+ {
+  "id": "P01",
+  "cat": "规划清单",
+  "ms": 14142,
+  "chars": 1769,
+  "usage": {
+   "prompt_tokens": 46,
+   "completion_tokens": 2463,
+   "total_tokens": 2509,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1265
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 46
+  },
+  "content": "下面给你一套**新手一周健身计划**，每次控制在**40分钟**（含热身和拉伸）。默认以**居家自重+弹力带/矿泉水瓶**为主；如果在健身房，可把对应动作换成同类器械。\n\n> 原则：前2周以“动作做对、不过度力竭”为主。强度用RPE 1-10表示：**新手力量训练RPE 5-6**，有氧RPE 5-6，也就是“能说短句但有点喘”。如有心血管、关节、孕期等问题，先咨询医生。\n\n## 一周安排\n\n| 星期 | 内容 | 时长 |\n|---|---|---|\n| 周一 | 全身力量A | 40分钟 |\n| 周二 | 低强度有氧：快走/骑车 | 40分钟 |\n| 周三 | 主动恢复：散步+拉伸 | 20-30分钟 |\n| 周四 | 全身力量B | 40分钟 |\n| 周五 | 有氧+核心 | 40分钟 |\n| 周六 | 全身力量A（轻量版）或力量C | 40分钟 |\n| 周日 | 完全休息 | — |\n\n---\n\n## 每次训练通用结构\n\n### 力量日：40分钟\n- 热身5分钟：原地走、肩绕环、髋绕环、徒手深蹲10次\n- 力量训练30分钟：每个动作2-3组，组间休息60-90秒\n- 拉伸5分钟：大腿前后侧、臀部、胸肩、背部\n\n### 有氧日：40分钟\n- 热身5分钟：慢走\n- 有氧30分钟：快走/骑车/椭圆机，RPE 5-6\n- 冷身拉伸5分钟\n\n---\n\n## 周一：全身力量A\n\n每个动作做**2-3组**，先做2组，状态好再加第3组。\n\n1. **箱式深蹲/椅子坐站**：8-12次  \n   - 身后放椅子，臀部向后坐，轻碰椅子后站起。\n2. **墙推或跪姿俯卧撑**：6-10次  \n   - 新手优先墙推，逐渐过渡到跪姿。\n3. **臀桥**：12-15次  \n   - 顶峰夹臀1秒，不要过度挺腰。\n4. **弹力带划船/俯身划船**：10-12次  \n   - 肩膀放松，肘部向后拉。\n5. **死虫**：每侧8次  \n   - 腰贴地，缓慢伸对侧手脚。\n6. **平板支撑**：20-30秒×2组  \n   - 膝盖可着地，保持身体一条线。\n\n---\n\n## 周二：低强度有氧\n\n- 热身5分钟慢走\n- 快走/骑车/椭圆机30分钟，保持能说短句的强度\n- 拉伸5分钟\n\n如果室外快走，目标是**微微出汗、不痛苦**。\n\n---\n\n## 周三：主动恢复\n\n- 轻松散步20分钟\n- 全身拉伸10分钟：小腿、大腿、髋、胸、背\n- 不做高强度力量和大跑跳\n\n---\n\n## 周四：全身力量B\n\n每个动作2-3组，组间60-90秒。\n\n1. **椅子坐站**：10-12次\n2. **扶椅箭步蹲/分腿蹲**：每腿6-8次  \n   - 手扶椅子保持平衡，步子不要太大。\n3. **哑铃/矿泉水瓶肩上推举**：8-10次  \n   - 重量轻，动作慢。\n4. **鸟狗**：每侧8次  \n   - 对侧手脚伸直，腰不要塌。\n5. **跪姿侧平板**：每侧15-20秒×2组\n6. **原地踏步/低冲击开合**：30-60秒×2组\n\n---\n\n## 周五：有氧+核心\n\n- 热身5分钟\n- 快走/骑车20分钟，RPE 5-6\n- 核心训练10分钟：\n  - 死虫：每侧8次×2组\n  - 鸟狗：每侧8次×2组\n  - 臀桥：12次×2组\n  - 平板支撑：20-30秒×2组\n- 拉伸5分钟\n\n---\n\n## 周六：全身力量A轻量版 或 力量C\n\n建议做**周一A的轻量版**：每个动作只做2组，次数取下限，RPE 5左右。  \n或做简单力量C：\n\n1. 椅子坐站：10次×2组\n2. 墙推俯卧撑：8次×2组\n3. 臀桥：12次×2组\n4. 弹力带划船：10次×2组\n5. 死虫：每侧6次×2组\n\n---\n\n## 周日：休息\n\n完全休息，睡够、喝水。如果很想动，只散步15-20分钟。\n\n---\n\n## 新手进阶建议\n\n- **第1-2周**：每个动作2组，重量轻，重点学动作。\n- **第3-4周**：如果动作稳定、没有疼痛，每个动作加到3组，或每组增加1-2次。\n- 不要每天练到力竭；力量训练后轻微酸胀正常，关节刺痛要停止。\n- 训练前不要空腹太久，训练中喝水，保证睡眠。\n- 记录每次做了几组、几次，方便下周进步。"
+ },
+ {
+  "id": "P02",
+  "cat": "规划清单",
+  "ms": 9509,
+  "chars": 1840,
+  "usage": {
+   "prompt_tokens": 40,
+   "completion_tokens": 1479,
+   "total_tokens": 1519,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 228
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 40
+  },
+  "content": "下面是一份按时间倒排的搬家清单，适合下周搬家，可直接照着勾选。\n\n## 一、搬家前 7 天：定计划、断舍离\n- [ ] 确认搬家日期、时间段、新旧地址和进门路线\n- [ ] 确定搬家方式：搬家公司 / 朋友帮忙 / 自己租车\n- [ ] 询价并确认搬家公司：费用、楼层费、拆装费、超距费、保险\n- [ ] 向新旧小区物业确认：货车能否进入、停车位置、电梯使用、放行条\n- [ ] 测量大件家具、确认门/电梯/楼道能否通过\n- [ ] 开始断舍离：丢弃、捐赠、二手出售不需要的物品\n- [ ] 购买打包材料：纸箱、胶带、气泡膜、记号笔、标签、收纳袋、绳子\n- [ ] 列出“贵重/证件/随身物品”清单\n- [ ] 预约空调、热水器、宽带、家具拆装等服务\n- [ ] 检查冰箱、洗衣机等大件是否需要提前清空/除霜\n\n## 二、搬家前 3—5 天：分类打包\n- [ ] 按房间打包并贴标签：房间 + 物品类别 + 是否易碎\n- [ ] 箱子统一编号，做一份箱子清单\n- [ ] 易碎品用气泡膜/衣物包裹，箱外标注“易碎”\n- [ ] 液体、调味品、化妆品拧紧并单独装袋\n- [ ] 电子产品、线材分别装袋并贴标签\n- [ ] 家具五金件、螺丝装袋后固定在对应家具上\n- [ ] 留出“搬家当天应急箱”\n- [ ] 洗净并晾干洗衣机、冰箱内部\n- [ ] 冰箱提前清空、断电除霜\n- [ ] 处理不方便搬运的物品：绿植、鱼缸、大件垃圾\n\n## 三、搬家前 1—2 天：手续与收尾\n- [ ] 确认搬家车辆和师傅时间，再次核对费用\n- [ ] 预约新居保洁、旧居清洁/退租验收\n- [ ] 办理或预约水、电、燃气、宽带迁移/结算\n- [ ] 记录旧居水电气表读数并拍照\n- [ ] 清空快递柜、取回寄存物品\n- [ ] 更新/记录重要地址：快递、外卖、银行、社保、公司、学校等\n- [ ] 手机、充电器、充电宝充满电\n- [ ] 准备现金/零钱、门禁卡、钥匙、合同、身份证件\n- [ ] 给搬家师傅准备水、纸巾、手套（可选）\n- [ ] 旧居垃圾清运、可回收物处理\n\n## 四、搬家前一天：打包随身物品\n准备一个“当天随身包”：\n- [ ] 身份证、护照、银行卡、合同、钥匙\n- [ ] 手机、充电器、充电宝\n- [ ] 纸巾、湿巾、口罩、创可贴、常用药\n- [ ] 水、简单食物、垃圾袋\n- [ ] 剪刀、美工刀、胶带、记号笔\n- [ ] 洗漱用品、换洗衣物、床单被套\n- [ ] 宠物粮/尿垫、儿童用品\n- [ ] 新居门禁卡、停车证、搬家单据\n\n同时：\n- [ ] 冰箱清空并擦干\n- [ ] 贵重物品、证件、现金单独收好，不交给搬家师傅\n- [ ] 所有箱子封箱并贴好标签\n- [ ] 确认旧居和新居钥匙交接\n- [ ] 早睡，给搬家当天留体力\n\n## 五、搬家当天\n- [ ] 再次拍照记录旧居水电气表、房屋状态\n- [ ] 搬家师傅到场后确认物品数量和特殊要求\n- [ ] 大件家具先搬，箱子按房间标签卸货\n- [ ] 易碎、贵重物品最后装车或随身携带\n- [ ] 装车前清点箱子数量；卸货后再次清点\n- [ ] 检查车辆/旧居是否有遗漏\n- [ ] 新居拍照记录水电气表、房屋现状\n- [ ] 支付费用并索要收据/发票\n- [ ] 旧居钥匙、门禁卡按约定归还\n- [ ] 当天先布置床、卫生间、厨房必需品\n\n## 六、搬完后 1—3 天\n- [ ] 按房间逐步拆箱归位\n- [ ] 检查家具、电器是否损坏，有问题及时联系搬家公司\n- [ ] 开通水电气、网络，测试热水器、空调、马桶、插座\n- [ ] 更换门锁或修改智能锁密码\n- [ ] 熟悉新居：电闸、水阀、燃气阀、垃圾投放点、快递点\n- [ ] 更新快递和外卖默认地址\n- [ ] 处理纸箱和垃圾\n- [ ] 通知亲友新地址\n- [ ] 完成旧居退租、清洁和押金结算\n\n## 最优先的 8 件事（时间紧先做这些）\n1. 确认搬家公司/车辆  \n2. 确认新旧小区货车和电梯  \n3. 买打包材料  \n4. 断舍离并开始打包  \n5. 处理冰箱、洗衣机、家具拆装  \n6. 准备证件贵重物品随身包  \n7. 记录旧居/新居水电表并拍照  \n8. 预约保洁和网络迁移  \n\n如果你告诉我：**几个人住、有没有大件家具/家电、是否跨城、有没有电梯、是否养宠物/有小孩**，我可以帮你压缩成一份更适合你的“下周搬家执行版清单”。"
+ },
+ {
+  "id": "P03",
+  "cat": "规划清单",
+  "ms": 14089,
+  "chars": 1768,
+  "usage": {
+   "prompt_tokens": 52,
+   "completion_tokens": 2578,
+   "total_tokens": 2630,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1423
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 52
+  },
+  "content": "下面按**每天可投入 2.5–3 小时、周末 4–5 小时**来设计；如果你每天时间不同，可按比例缩放。原则：**高数/线代重动笔计算，大英重每天不断线；最后一周以真题和错题为主，不啃新难题。**\n\n## 一、总体三阶段\n\n| 阶段 | 时间 | 目标 |\n|---|---|---|\n| 第1周 | D1–D7 | 过一遍知识框架，整理公式，做基础题，找出薄弱章节 |\n| 第2周 | D8–D14 | 专题刷题，重点攻薄弱点，开始接触真题/综合题 |\n| 第3周 | D15–D21 | 限时真题/模拟，错题二刷，背公式、作文模板、高频词 |\n\n资料准备：教材目录、课堂笔记、老师划的重点、历年真题/期末样卷、一个错题本。错题本建议写三栏：**题目—错因—正确思路/易错点**。\n\n## 二、每日时间模板\n\n**工作日：**\n- 30 分钟：大英单词/短语/作文句型\n- 80–90 分钟：高数或线代主攻\n- 50–60 分钟：另一门数学或英语阅读\n- 15–20 分钟：整理错题、背公式\n\n**周末：**\n- 上午：限时做一套题或半套题\n- 下午：对答案 + 错题重做 + 薄弱专题\n- 晚上：英语阅读/作文 + 本周复盘\n\n## 三、21天具体安排\n\n### 第1周：打基础、建框架\n\n| 天数 | 高数 | 线代 | 大英 |\n|---|---|---|---|\n| D1 | 极限与连续：概念+例题 | 行列式 | 单词30分钟+阅读1篇 |\n| D2 | 导数与微分 | 矩阵运算 | 单词+长难句 |\n| D3 | 中值定理、导数应用 | 向量组与线性相关 | 阅读+听力/翻译 |\n| D4 | 不定积分 | 线性方程组 | 单词+阅读1篇 |\n| D5 | 定积分及应用 | 特征值特征向量入门 | 作文句型积累 |\n| D6 | 高数前四章小测+错题 | 行列式/矩阵综合题 | 阅读+翻译练习 |\n| D7 | 周复盘：公式卡+错题重做 | 线代章节小测 | 半套阅读/完形，背高频词 |\n\n### 第2周：专题突破、开始综合\n\n| 天数 | 高数 | 线代 | 大英 |\n|---|---|---|---|\n| D8 | 多元函数微分 | 特征值、特征向量 | 单词+阅读 |\n| D9 | 重积分/曲线积分按大纲 | 二次型 | 听力/翻译 |\n| D10 | 微分方程按大纲 | 线性空间/基按大纲 | 作文1篇 |\n| D11 | 级数按大纲 | 线代综合计算题 | 阅读2篇 |\n| D12 | 高数计算易错专题 | 线代证明/计算混合题 | 单词+长难句 |\n| D13 | 高数半套真题/综合卷 | 线代半套真题 | 阅读+翻译 |\n| D14 | 两门数学错题整理 | 线代薄弱点二刷 | 英语作文修改+复盘 |\n\n### 第3周：真题模拟、查漏补缺\n\n| 天数 | 安排 |\n|---|---|\n| D15 | 高数真题1套限时 + 对答案；线代公式回顾；英语单词 |\n| D16 | 线代真题1套限时 + 对答案；高数错题重做；英语阅读 |\n| D17 | 大英模拟/真题1套限时；高数、线代错题各做20–30分钟 |\n| D18 | 高数+线代各做一套章节综合或半套真题；英语作文模板整理 |\n| D19 | 全科错题二刷；高数线代公式默写；英语高频词/句型 |\n| D20 | 按考试时间做一次模拟：薄弱科优先；晚上全面复盘 |\n| D21 | 轻量复习：公式卡、错题本、作文模板、易错点；不熬夜，早睡 |\n\n## 四、执行要点\n\n1. **高数线代必须动笔算**：看懂不等于会做，每道错题至少独立重做1遍。\n2. **英语每天30–40分钟不断线**：单词、阅读、作文句型轮换。\n3. **优先真题和老师重点**：最后一周不要大量开新题，重点看错题和常考题型。\n4. **每3天一次小复盘**：哪章错得多，下一天就多给20分钟。\n5. **如果三科考试时间不同**：最先考的那门在最后一周多分配30%时间。\n6. **保证睡眠**：最后一周不熬夜，数学题需要清醒头脑。\n\n如果你告诉我**每门考试时间、每天可用小时数、教材/考试题型**，我可以把这份计划再细化成具体到每天每小时的版本。"
+ },
+ {
+  "id": "S01",
+  "cat": "简单闲聊",
+  "ms": 1318,
+  "chars": 71,
+  "usage": {
+   "prompt_tokens": 32,
+   "completion_tokens": 96,
+   "total_tokens": 128,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 53
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 32
+  },
+  "content": "你好呀！😊 很高兴见到你～\n\n我是 DeepSeek，随时可以帮你解答问题、聊天、写东西、分析资料等等。今天有什么想聊的，或者需要我帮忙的吗？"
+ },
+ {
+  "id": "S02",
+  "cat": "简单闲聊",
+  "ms": 1092,
+  "chars": 9,
+  "usage": {
+   "prompt_tokens": 35,
+   "completion_tokens": 34,
+   "total_tokens": 69,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 28
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 35
+  },
+  "content": "中国的首都是北京。"
+ }
+]

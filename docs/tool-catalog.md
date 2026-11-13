@@ -42,6 +42,7 @@ This table connects model-visible tool names to the plugin package and service s
 | `@deepseek-ai/dsh-tool-subagent-control` | `interrupt_agent`, `list_agents`, `send_message` | `ctx.tools`, `ctx.subagents`, `ctx.agents and ctx.sessionProjections (list_agents only)` | `tool/call`, `tool/result`, `child session events through ctx.subagents` | - | The globally named discovery, interruption, and local-message tools over managed subagents: provider-bound `tool-subagent` instances register distinct delegation tools, while this package registers `send_message` and `interrupt_agent` once, plus `list_agents` from its separately loaded `/list-agents` plugin (whose catalog rows use the sessionProjections and live Agent registries). |
 | `@deepseek-ai/dsh-tool-jobs` | `job_kill`, `job_list`, `job_output` | `ctx.tools`, `ctx.jobs`, `ctx.systemPrompt` | `tool/call`, `tool/result`, `user/message via agent.inject() for background completion notices` | - | The kind-agnostic background-job controller: background bash commands and PTY sends are read, listed, and killed through the same three tools. Loading the plugin attaches the controller that arms producers' `ctx.jobs.start()`. |
 | `@deepseek-ai/dsh-experimental-tool-agent-team` | `interrupt_agent`, `list_agents`, `send_message`, `spawn_teammate`, `team_task_create`, `team_task_get`, `team_task_list`, `team_task_update`, `wait_agent` | `ctx.tools`, `ctx.systemPrompt`, `ctx.agentTeams`, `an exact live Team member Agent` | `tool/call`, `team/member`, `team/task`, `agent/inbox/spliced`, `user/message on inbox claim`, `tool/result` | - | All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names. |
+| `@deepseek-ai/dsh-tool-canvas` | `canvas_board`, `show_ui` | `ctx.tools`, `ctx.sessionProjections`, `ctx.systemPrompt` | `tool/call`, `tool/result`, `canvas/board` | - | show_ui renders validated components in the reply; canvas_board publishes an immutable board version recorded as canvas/board. The "Presenting results" prompt section carries the component reference both schemas point to. |
 | `@deepseek-ai/dsh-tool-todo` | `todo_write` | `ctx.tools`, `owning Agent session` | `tool/call`, `todo/write`, `tool/result` | - | todo_write is session-owned state; UIs render the latest todo/write event as a checklist. `allowParallelInProgress` is required with no default, so the catalog states its choice: `true`, whose description invites several `in_progress` items. A deployment choosing `false` receives the same tool with a description asking for exactly one active task. |
 | `@deepseek-ai/dsh-tool-working-directory` | `working_directory` | `ctx.tools`, `ctx.workingDirectory` | `tool/call`, `working-directory/change`, `user context for directory changes`, `tool/result` | - | Reads or changes the calling Session directory. Existing shells and processes retain their own directories; origin metadata and permission roots stay fixed. |
 | `@deepseek-ai/dsh-experimental-tool-worktree` | `create_worktree` | `ctx.tools`, `ctx.worktrees`, `a calling Agent` | `tool/call`, `Git branch and checkout`, `working-directory/change`, `tool/result` | - | Explicit experimental composition only. Creates a new branch and checkout from a pinned local commit under existing write permissions, then changes the Session directory. Leaving retains the branch and checkout. |
@@ -2557,6 +2558,235 @@ Wait for the next teammate status, message, or shared-task change after this cal
 Source: [`packages/experimental/tool-agent-team/src/index.ts`](../packages/experimental/tool-agent-team/src/index.ts)
 
 All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.
+
+<a id="deepseek-aidsh-tool-canvas"></a>
+
+## `@deepseek-ai/dsh-tool-canvas`
+
+### `canvas_board`
+
+Publish a board to the user's workspace: a complete, navigable deliverable built from components. Omit board_id to create a board; pass the board_id from an earlier result to publish a new version of that board, which keeps earlier versions. Each call carries the complete board, not a diff. Invalid arguments return the problems to fix and publish nothing.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "board_id": {
+      "type": "string",
+      "description": "Existing board to revise; omit to create a new board."
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "string",
+      "description": "report scrolls; slides pages one section at a time.",
+      "enum": [
+        "report",
+        "slides"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Key takeaway shown first."
+    },
+    "sections": {
+      "type": "array",
+      "description": "Report sections or slides, in order.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "eyebrow": {
+            "type": "string"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "markdown",
+                    "heading",
+                    "callout",
+                    "stats",
+                    "cards",
+                    "table",
+                    "chart",
+                    "timeline",
+                    "steps",
+                    "tabs",
+                    "accordion",
+                    "columns",
+                    "proscons",
+                    "meters",
+                    "calculator",
+                    "quote",
+                    "sources",
+                    "actions",
+                    "html"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          }
+        },
+        "required": [
+          "title",
+          "blocks"
+        ]
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Sources cited by id from blocks: {id, title, url, publisher?, published?, accessed?, excerpt?}.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "published": {
+            "type": "string"
+          },
+          "accessed": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "layout",
+    "sections"
+  ]
+}
+```
+
+Source: [`packages/canvas/tool-canvas/src/index.ts`](../packages/canvas/tool-canvas/src/index.ts)
+
+### `show_ui`
+
+Show validated visual components inside the conversation, such as a comparison table, chart, cards, timeline, or calculator. See "Presenting results" for when to use it and the component reference for block fields. Invalid arguments return the problems to fix; nothing is shown until the call succeeds.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "blocks": {
+      "type": "array",
+      "description": "Components in display order.",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "heading",
+              "callout",
+              "stats",
+              "cards",
+              "table",
+              "chart",
+              "timeline",
+              "steps",
+              "tabs",
+              "accordion",
+              "columns",
+              "proscons",
+              "meters",
+              "calculator",
+              "quote",
+              "sources",
+              "actions",
+              "html"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ]
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Sources cited by id from blocks: {id, title, url, publisher?, published?, accessed?, excerpt?}.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "published": {
+            "type": "string"
+          },
+          "accessed": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ]
+      }
+    }
+  },
+  "required": [
+    "blocks"
+  ]
+}
+```
+
+Source: [`packages/canvas/tool-canvas/src/index.ts`](../packages/canvas/tool-canvas/src/index.ts)
+
+show_ui renders validated components in the reply; canvas_board publishes an immutable board version recorded as canvas/board. The "Presenting results" prompt section carries the component reference both schemas point to.
 
 <a id="deepseek-aidsh-tool-todo"></a>
 

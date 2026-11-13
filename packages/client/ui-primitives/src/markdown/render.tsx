@@ -178,6 +178,31 @@ export interface MarkdownFileMentions {
   resolve(value: string): { open: () => void; label: string; title: string } | undefined
 }
 
+/** One fenced block offered to a {@link MarkdownFences} renderer. */
+export interface MarkdownFence {
+  /** First word of the info string, e.g. `openui` for a ```openui fence; undefined for a fence without one. */
+  readonly language: string | undefined
+  /** Fence content without the trailing newline. */
+  readonly code: string
+  /** Whether the message is still streaming; the fence may still be growing. */
+  readonly streaming: boolean
+}
+
+/**
+ * Owner-supplied renderer for fenced blocks. It applies to streaming and
+ * settled renders alike, so it must be reference-stable: a new identity
+ * discards the streaming render cache.
+ */
+export interface MarkdownFences {
+  /**
+   * Render one fence.
+   * @param fence - The fence language, content, and streaming state.
+   * @param fallback - The default code block for this fence.
+   * @returns The element to show in place of the fence; return `fallback` to keep the code block.
+   */
+  render(fence: MarkdownFence, fallback: ReactNode): ReactNode
+}
+
 /**
  * One render pass's state: immutable options and targets plus the footnote
  * numbering accumulated in document order while references render.
@@ -193,6 +218,8 @@ export interface MarkdownRenderContext {
   readonly fileMentions: MarkdownFileMentions | undefined
   /** Local-path image vocabulary; absent wherever no rewriting owner exists. */
   readonly pathImages: MarkdownPathImages | undefined
+  /** Fenced-block renderer; absent wherever no owner claims fences. */
+  readonly fences?: MarkdownFences | undefined
   /** Inside an anchor's children: interactive mentions must not nest there. */
   readonly inLink?: boolean
   /** Reference targets visible to this pass. */
@@ -390,7 +417,7 @@ function renderCode(node: Md.Code, key: Key, context: MarkdownRenderContext): Re
     // its text extraction saw the code block's trailing newline.
     return <Fragment key={key}>{renderTexToReact(`${node.value}\n`, true)}</Fragment>
   }
-  return (
+  const block = (
     <CodeBlock
       key={key}
       // The replaced hast pipeline appended one synthetic newline that
@@ -409,6 +436,8 @@ function renderCode(node: Md.Code, key: Key, context: MarkdownRenderContext): Re
       toolbarLabels={context.labels.code.toolbarLabels}
     />
   )
+  if (context.fences === undefined) return block
+  return <Fragment key={key}>{context.fences.render({ language: lang, code: node.value, streaming: context.streaming }, block)}</Fragment>
 }
 
 /** A list is loose when it or any of its items is spread; every item then keeps its paragraphs. */

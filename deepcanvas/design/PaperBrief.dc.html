@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>论文速读</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+body{margin:0;font-family:Inter,"Noto Sans SC",system-ui,sans-serif;color:#1d1d1f;background:#fff}
+a{color:#2456e6;text-decoration:none}a:hover{color:#1a3fb0}
+button{font:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 1040px; font-size: 14px; line-height: 1.5">
+<nav aria-label="我的空间" style="flex: 1 1 220px; background: #f5f5f7; padding: 22px 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 14px">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><rect width="26" height="26" rx="7" fill="#2456e6"/><rect x="6" y="14" width="3.4" height="7" rx="1.5" fill="#fff"/><rect x="11.3" y="10" width="3.4" height="11" rx="1.5" fill="#fff"/><rect x="16.6" y="6" width="3.4" height="15" rx="1.5" fill="#fff"/></svg>
+<span style="font-weight: 700; font-size: 15px">DeepCanvas</span>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #5f5f66; padding: 6px 8px 4px">我的空间</div>
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+<a href="{{n.href}}" style="display: flex; gap: 10px; align-items: center; min-height: 48px; padding: 4px 10px; border-radius: 10px; color: #1d1d1f; background: {{n.bg}}; box-shadow: {{n.shadow}}"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{n.dot}}"></span><span><span style="display: block; font-weight: {{n.weight}}">{{n.name}}</span><span style="display: block; font-size: 12px; color: #5f5f66">{{n.meta}}</span></span></a>
+</sc-for>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 30px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="align-self: flex-end; max-width: 560px; background: #f5f5f7; border-radius: 16px; padding: 12px 16px"><span style="display: inline-block; padding: 2px 10px; margin-bottom: 4px; border-radius: 8px; background: #fff; border: 1px solid #e3e3e8; font-size: 12.5px">Denoising Diffusion Probabilistic Models.pdf</span><br>帮我看看这篇值不值得精读</div>
+<p style="margin: 0">值得精读，它是这个方向的起点。十分钟版本在下面，想深入就点追问。</p>
+<section aria-label="论文速读" style="border: 1px solid #e3e3e8; border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.06); padding: 22px; display: flex; flex-wrap: wrap; gap: 24px">
+<aside style="flex: 1 1 210px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<div role="img" aria-label="论文第 3 页缩略图，高亮处是结论的出处" style="border: 1px solid #e3e3e8; border-radius: 8px; background: #fafafb; padding: 18px 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-weight: 700; font-size: 12.5px; line-height: 1.35">Denoising Diffusion Probabilistic Models</div>
+<div style="font-size: 10.5px; color: #5f5f66">Ho, Jain, Abbeel · NeurIPS 2020</div>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="10"><span style="height: 5px; border-radius: 2px; width: {{l.w}}; background: {{l.bg}}; outline: {{l.outline}}"></span></sc-for>
+</div>
+<div style="font-size: 12.5px; color: #5f5f66; text-align: center">第 3 页 · 高亮处是结论的出处</div>
+<div style="background: #f5f5f7; border-radius: 12px; padding: 14px 16px">
+<div style="font-size: 12.5px; font-weight: 600; color: #5f5f66">值得精读吗</div>
+<div style="font-size: 24px; font-weight: 700; color: #15803d">值得</div>
+<div style="font-size: 12.5px; color: #5f5f66">和你的方向高度相关。精读约 2.5 小时，重点第 3、4 节。</div>
+</div>
+<a href="WeekPlan.dc.html" style="display: inline-flex; justify-content: center; align-items: center; min-height: 44px; border-radius: 22px; background: #eef2ff; font-weight: 600">把精读排进本周</a>
+</aside>
+<div style="flex: 4 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div>
+<div style="font-size: 12.5px; font-weight: 600; color: #5f5f66">一句话</div>
+<h1 style="margin: 4px 0 0; font-size: 18px; font-weight: 700; line-height: 1.4">只用“加噪—去噪”这一个简单的训练目标，就让扩散模型的生成质量追上了 GAN。</h1>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px">
+<div style="border: 1px solid #e3e3e8; border-radius: 12px; padding: 14px 16px"><div style="font-weight: 700; color: #1a3fb0">解决什么问题</div><div style="color: #5f5f66">扩散模型理论漂亮，但此前生成质量差，没人用。</div></div>
+<div style="border: 1px solid #e3e3e8; border-radius: 12px; padding: 14px 16px"><div style="font-weight: 700; color: #5a2fc2">怎么做的</div><div style="color: #5f5f66">把训练目标简化成“预测每一步加的噪声”。</div></div>
+<div style="border: 1px solid #e3e3e8; border-radius: 12px; padding: 14px 16px"><div style="font-weight: 700; color: #15803d">效果如何</div><div style="color: #5f5f66">CIFAR-10 上 FID 3.17，当时无条件生成最好。</div></div>
+<div style="border: 1px solid #e3e3e8; border-radius: 12px; padding: 14px 16px"><div style="font-weight: 700; color: #b23b0a">局限在哪</div><div style="color: #5f5f66">采样要 1000 步，生成一张图非常慢。</div></div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">方法 · 分步看</h2>
+<button style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #eef2ff; color: #2456e6; font-weight: 600">下一步</button>
+</div>
+<ol style="list-style: none; margin: 8px 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="6"><li style="flex: 1 1 110px; text-align: center; padding: 12px 8px; border-radius: 10px; background: {{s.bg}}; border: 2px solid {{s.border}}; color: {{s.color}}; font-weight: {{s.weight}}"><span style="display: block; font-size: 11.5px; color: #5f5f66; font-weight: 400">{{s.n}}</span>{{s.name}}</li></sc-for>
+</ol>
+<p style="margin: 0">第 4 步：网络只做一件事，猜这一步加了多少噪声。猜得准，就能一点点减回去。</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">追问</h2>
+<details open style="border: 1px solid #e3e3e8; border-radius: 10px; padding: 0 14px">
+<summary style="min-height: 44px; display: flex; align-items: center; font-weight: 600; cursor: pointer">它和 GAN 比，到底好在哪？</summary>
+<p style="margin: 0 0 12px; color: #5f5f66">训练稳定、不会模式崩塌，生成的样本更多样；代价是采样慢。</p>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 0 0 12px 14px; border-left: 2px solid #e3e3e8">
+<button style="min-height: 44px; text-align: left; padding: 0 14px; border: 1px solid #2456e6; border-radius: 10px; background: #f5f7ff; color: #1d1d1f">那后来是怎么把采样变快的？</button>
+<button style="min-height: 44px; text-align: left; padding: 0 14px; border: 1px solid #e3e3e8; border-radius: 10px; background: #fff; color: #1d1d1f">“模式崩塌”是什么意思？</button>
+</div>
+</details>
+<details style="border: 1px solid #e3e3e8; border-radius: 10px; padding: 0 14px"><summary style="min-height: 44px; display: flex; align-items: center; font-weight: 600; cursor: pointer">复现它需要多少算力？</summary></details>
+<label for="q" style="position: absolute; left: -9999px">输入你自己的问题</label>
+<input id="q" type="text" placeholder="输入你自己的问题…" style="min-height: 44px; padding: 0 14px; border: 1px dashed #b9b9c0; border-radius: 10px; font: inherit">
+</div>
+<div style="flex: 1 1 250px; min-width: 0; background: #f5f5f7; border-radius: 12px; padding: 16px">
+<h2 style="margin: 0 0 8px; font-size: 15px; font-weight: 700">和你读过的对比</h2>
+<table style="width: 100%; border-collapse: collapse; font-size: 13px">
+<thead><tr><th scope="col" style="text-align: left; padding: 6px 0; font-weight: 600; color: #5f5f66"></th><th scope="col" style="text-align: left; padding: 6px 0; font-weight: 600; color: #5f5f66">DDPM</th><th scope="col" style="text-align: left; padding: 6px 0; font-weight: 600; color: #5f5f66">DDIM</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #dcdce2"><th scope="row" style="text-align: left; padding: 8px 0; font-weight: 400; color: #5f5f66">采样步数</th><td style="font-weight: 600">1000</td><td style="font-weight: 600">50</td></tr>
+<tr style="border-top: 1px solid #dcdce2"><th scope="row" style="text-align: left; padding: 8px 0; font-weight: 400; color: #5f5f66">质量 FID</th><td style="font-weight: 600">3.17</td><td style="font-weight: 600">4.67</td></tr>
+<tr style="border-top: 1px solid #dcdce2"><th scope="row" style="text-align: left; padding: 8px 0; font-weight: 400; color: #5f5f66">要重新训练</th><td style="font-weight: 600">—</td><td style="font-weight: 600">不用</td></tr>
+</tbody>
+</table>
+<button style="margin-top: 10px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #fff; color: #2456e6; font-weight: 600">+ 再拖一篇进来</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1040}}'>
+class Component extends DCLogic {
+renderVals() {
+const B = '#2456e6', O = '#c2410c', P = '#6d3fd6', G = '#15803d';
+const nav = (name, meta, dot, href, on) => ({ name, meta, dot, href, bg: on ? '#fff' : 'transparent', shadow: on ? '0 1px 4px rgba(0,0,0,.08)' : 'none', weight: on ? 600 : 500 });
+const names = ['清晰图片', '逐步加噪', '纯噪声', '网络预测噪声', '逐步去噪', '生成图片'];
+return {
+nav: [nav('今天', '周四 · 3 件事', B, 'Main.dc.html'), nav('本周计划', '7 件事 · 2 个截止', O, 'WeekPlan.dc.html'), nav('扩散模型入门', '已掌握 3 / 10 个概念', P, 'DomainMap.dc.html'), nav('论文库', '5 篇 · 2 篇已读', G, 'PaperBrief.dc.html', true)],
+lines: Array.from({ length: 12 }, (_, i) => ({ w: i % 4 === 3 ? '64%' : '100%', bg: i === 4 || i === 5 ? '#f5c66b' : '#e3e3e8', outline: i === 4 || i === 5 ? '4px solid #fdf0cf' : 'none' })),
+steps: names.map((name, i) => ({ name, n: '第 ' + (i + 1) + ' 步', bg: i === 3 ? '#eef2ff' : '#f5f5f7', border: i === 3 ? B : '#f5f5f7', color: i === 3 ? '#1a3fb0' : '#1d1d1f', weight: i === 3 ? 700 : 500 }))
+};
+}
+}
+</script>
+</body>
+</html>

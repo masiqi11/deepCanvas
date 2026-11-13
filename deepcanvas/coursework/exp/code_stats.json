@@ -1,0 +1,33 @@
+{
+ "ui-openui": [
+  1043,
+  1882
+ ],
+ "openui-prompt": [
+  318,
+  17
+ ],
+ "ui-canvas": [
+  2413,
+  1056
+ ],
+ "canvas-spec": [
+  1060,
+  240
+ ],
+ "tool-canvas": [
+  318,
+  188
+ ],
+ "ui-brand-deepcanvas": [
+  74,
+  71
+ ],
+ "deepcanvas-bundle": [
+  174,
+  0
+ ],
+ "_tests": 434,
+ "_files": 269,
+ "_fix_row": "为 SegmentedControl 增加与其他控件一致的 label 参数；Text 字号与 Title 对齐；新增 Callout 组件；提示词强调代码块标记与不调用工具"
+}
